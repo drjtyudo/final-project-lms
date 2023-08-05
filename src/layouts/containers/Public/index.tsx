@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from 'layouts/containers/Public/Header'
+import Navbar from 'layouts/containers/Public/Navbar'
 import Footer from 'layouts/containers/Public/Footer'
 
 interface IProps {
@@ -12,7 +12,7 @@ function PublicContainer(props: IProps) {
 
   return (
     <div>
-      <Header />
+      <Navbar />
       <div style={{ height: `100vh` }}>
         <Component {...pageProps} />
       </div>
