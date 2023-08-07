@@ -1,10 +1,10 @@
 {
-  "name": "krs-pupr",
+  "name": "final-project-lms",
   "version": "1.0.0",
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS='--inspect' next -p 1501",
-    "build": "cross-env NODE_ENV=staging next build",
-    "build:production": "cross-env NODE_ENV=production next build",
+    "dev": "next -p 1501",
+    "build": "next build",
+    "build:production": "next build",
     "deploy": "yarn && yarn build && pm2 reload ecosystem.config.js",
     "start": "next start -p 3000"
   },
