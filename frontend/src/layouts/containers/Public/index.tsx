@@ -13,7 +13,7 @@ function PublicContainer(props: IProps) {
   return (
     <div>
       <Navbar />
-      <div style={{ height: `100vh` }}>
+      <div>
         <Component {...pageProps} />
       </div>
       <Footer />
