@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Menu, Button, Select, Typography, Image, Dropdown } from 'antd'
-import { Search } from 'components/Search'
 import { DownOutlined } from '@ant-design/icons'
+import { Search } from 'components/Search'
 
 const { Header } = Layout
 
