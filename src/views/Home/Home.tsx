@@ -1,29 +1,17 @@
-import { Button } from 'antd'
-import classNames from 'classnames'
-import Link from 'next/link'
-import styles from './Home.module.scss'
+import BannerIklan from 'components/BannerIklan/BannerIklan'
+import Slider from 'components/Slider/Slider'
+import React from 'react'
 
 function Home() {
   return (
-    <div
-      className={classNames(
-        'bg-gray-100 min-h-screen flex-col justify-center items-center',
-        styles['home-page'],
-      )}
-    >
-      <h1 className="text-4xl font-bold mb-4">Welcome to Our Website!</h1>
-      <p className="text-lg mb-8">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      </p>
-      <p className="text-lg mb-8">
-        {process.env.NEXT_PUBLIC_FRONTEND_URL || ''}
-      </p>
-      <p className="text-lg mb-8">
-        {process.env.NEXT_PUBLIC_BACKEND_URL || ''}
-      </p>
-      <Link href="/admin">
-        <Button>Go to Admin</Button>
-      </Link>
+    <div>
+      <BannerIklan />
+      <div className='px-[50px]'>
+        <Slider
+          title="Kategori Pelatihan"
+          deskripsi="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium perferendis numquam soluta dolor sapiente eveniet, autem ipsam modi culpa deserunt porro illo voluptates iste debitis repudiandae impedit, itaque asperiores perspiciatis?"
+        />
+      </div>
     </div>
   )
 }
