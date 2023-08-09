@@ -1,11 +1,13 @@
 const path = require("path");
 const fs = require("fs");
 const crypto = require("crypto");
-const { Kategori } = require("../helper/relation.js");
+const { Kategori, Module } = require("../helper/relation.js");
 
 exports.getKategori = async (req, res) => {
   try {
-    const response = await Kategori.findAll();
+    const response = await Kategori.findAll({
+      include: { model: Module, as: "Modules" },
+    });
     res.status(200).json({ msg: "success", response });
   } catch (error) {
     res.status(500).json({ msg: error.message });
@@ -13,7 +15,7 @@ exports.getKategori = async (req, res) => {
 };
 
 exports.createKategori = async (req, res) => {
-  const { kategori, deskripsi } = req.body;
+  const { kategori, deskripsi, id_pelatihan } = req.body;
 
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).json({ msg: "Tidak ada file yang diunggah" });
@@ -50,6 +52,7 @@ exports.createKategori = async (req, res) => {
       deskripsi,
       image_logo: filename,
       url_image: url,
+      id_pelatihan,
     });
 
     file.mv(`./public/kategori/logo/${filename}`, async (err) => {
@@ -86,7 +89,7 @@ exports.deleteKategori = async (req, res) => {
 };
 
 exports.updateKategori = async (req, res) => {
-  const { kategori, deskripsi } = req.body;
+  const { kategori, deskripsi, id_pelatihan } = req.body;
 
   try {
     const existingKategori = await Kategori.findOne({
@@ -162,6 +165,7 @@ exports.updateKategori = async (req, res) => {
       // Jika tidak ada file gambar baru, lakukan pembaruan kategori dan deskripsi saja
       existingKategori.kategori = kategori;
       existingKategori.deskripsi = deskripsi;
+      existingKategori.id_pelatihan = id_pelatihan;
       await existingKategori.save();
 
       res.status(200).json({

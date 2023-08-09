@@ -1,4 +1,4 @@
-const { Materi, Module } = require("../helper/relation.js");
+const { Materi } = require("../helper/relation.js");
 
 exports.getAllMateri = async (req, res) => {
   try {
@@ -58,6 +58,15 @@ exports.updateMateri = async (req, res) => {
     res
       .status(200)
       .json({ msg: "materi updated", updatedMateri: materiToUpdate });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+exports.deleteMateri = async (req, res) => {
+  try {
+    const deleteMateri = await Materi.destroy({ where: { id: req.params.id } });
+    res.status(200).json({ msg: "deleted" });
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }

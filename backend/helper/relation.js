@@ -6,6 +6,16 @@ const Module = require("../models/module.js")(sequelize, DataTypes);
 const Materi = require("../models/materi.js")(sequelize, DataTypes);
 
 // Relation
+
+Module.belongsTo(Kategori, {
+  foreignKey: "id_kategori",
+  as: "Kategoris",
+});
+Kategori.hasMany(Module, {
+  foreignKey: "id_kategori",
+  as: "Modules",
+});
+
 Materi.belongsTo(Module, {
   foreignKey: "id_module",
   as: "Modules",

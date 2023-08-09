@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   Materi.init(
     {
-      id_pelatihan: DataTypes.INTEGER,
       id_module: DataTypes.INTEGER,
       judul: DataTypes.STRING,
       materi: DataTypes.TEXT,

@@ -21,6 +21,9 @@ module.exports = {
       url_image: {
         type: Sequelize.TEXT
       },
+      id_pelatihan: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

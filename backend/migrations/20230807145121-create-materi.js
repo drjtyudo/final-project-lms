@@ -9,9 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id_pelatihan: {
-        type: Sequelize.INTEGER
-      },
       id_module: {
         type: Sequelize.INTEGER
       },

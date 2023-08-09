@@ -5,6 +5,7 @@ const {
   createMateri,
   updateMateri,
   getMateriById,
+  deleteMateri,
 } = require("../controllers/materiController.js");
 
 const router = express.Router();
@@ -12,6 +13,7 @@ const router = express.Router();
 router.get("/materi", getAllMateri);
 router.get("/materi/:id", getMateriById);
 router.post("/materi", createMateri);
-router.patch("/materi/:id", updateMateri);
+router.delete("/materi/delete/:id", deleteMateri);
+router.patch("/materi/update/:id", updateMateri);
 
 module.exports = router;
