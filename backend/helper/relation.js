@@ -1,9 +1,20 @@
-const sequelize = require("../models/index").sequelize;
+const sequelize = require("../models/index.js").sequelize;
 const { DataTypes } = require("sequelize");
 
-// models
+const Kategori = require("../models/kategori.js")(sequelize, DataTypes);
+const Module = require("../models/module.js")(sequelize, DataTypes);
+const Materi = require("../models/materi.js")(sequelize, DataTypes);
 const Pelatihan = require("../models/pelatihan")(sequelize, DataTypes);
 
-//  realtion
+// Relation
+Materi.belongsTo(Module, {
+  foreignKey: "id_module",
+  as: "Modules",
+});
 
-module.exports = { Pelatihan };
+Module.hasMany(Materi, {
+  foreignKey: "id_module",
+  as: "Materis",
+});
+
+module.exports = { Kategori, Module, Materi , Pelatihan };
