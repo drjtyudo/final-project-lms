@@ -4,6 +4,7 @@ const { DataTypes } = require("sequelize");
 const Kategori = require("../models/kategori.js")(sequelize, DataTypes);
 const Module = require("../models/module.js")(sequelize, DataTypes);
 const Materi = require("../models/materi.js")(sequelize, DataTypes);
+const Pelatihan = require("../models/pelatihan")(sequelize, DataTypes);
 
 // Relation
 Materi.belongsTo(Module, {
@@ -16,4 +17,4 @@ Module.hasMany(Materi, {
   as: "Materis",
 });
 
-module.exports = { Kategori, Module, Materi };
+module.exports = { Kategori, Module, Materi , Pelatihan };
