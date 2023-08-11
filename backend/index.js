@@ -8,6 +8,7 @@ const kategoriRoute = require("./routes/kategoriRoute.js");
 const moduleRoute = require("./routes/moduleRoute.js");
 const materiRoute = require("./routes/materiRoute.js");
 const Pelatihan = require('./routes/pelatihanRoute')
+const PelatihanKategori = require('./routes/kategoriPelatihan.js')
 
 const app = express();
 dotenv.config();
@@ -24,6 +25,7 @@ app.use(kategoriRoute);
 app.use(moduleRoute);
 app.use(materiRoute);
 app.use(Pelatihan)
+app.use(PelatihanKategori)
 
 app.get("/", (req, res) => {
   res.send("Hello Bang");

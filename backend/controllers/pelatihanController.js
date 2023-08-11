@@ -1,12 +1,14 @@
-const { Pelatihan } = require("../helper/relation");
+const { Pelatihan, Kategori } = require("../helper/relation");
 const path = require("path");
 const crypto = require("crypto");
 const fs = require("fs");
 
 exports.getPelatihan = async (req, res) => {
   try {
-    const response = await Pelatihan.findAll({});
-    res.status(200).json(response);
+    const response = await Pelatihan.findAll({
+      include: { model: Kategori, as: "Kategoris" },
+    });
+    res.status(200).json({ msg: "success", response });
   } catch (error) {
     console.log(error.message);
   }
@@ -14,15 +16,7 @@ exports.getPelatihan = async (req, res) => {
 
 exports.createPelatihan = async (req, res) => {
   try {
-    const {
-      judul,
-      harga,
-      deskripsi,
-      watching,
-      dibuat_oleh,
-      untuk,
-      id_kategori,
-    } = req.body;
+    const { judul, harga, deskripsi, watching, dibuat_oleh, untuk } = req.body;
 
     if (req.files === null || req.files.length < 1) {
       return res
@@ -30,7 +24,7 @@ exports.createPelatihan = async (req, res) => {
         .json({ msg: "Masukkan image dan background image" });
     }
 
-    const imageFile = req.files.img;
+    const imageFile = req.files.image;
 
     const imageTimestamp = Date.now();
     const imageExt = path.extname(imageFile.name);
@@ -46,7 +40,7 @@ exports.createPelatihan = async (req, res) => {
     if (!allowedType.includes(imageExt.toLowerCase()))
       return res.status(422).json({ msg: "invalid image image" });
 
-    const maxSize = 10000000; 
+    const maxSize = 10000000;
 
     if (imageFile.size > maxSize) {
       return res
@@ -60,15 +54,14 @@ exports.createPelatihan = async (req, res) => {
       }
 
       const pelatihan = await Pelatihan.create({
+        judul,
         image: imageFileName,
         url: imageUrl,
-        judul,
         harga,
         deskripsi,
         watching,
         dibuat_oleh,
         untuk,
-        id_kategori,
       });
       res.status(200).json(pelatihan);
     });
@@ -77,9 +70,7 @@ exports.createPelatihan = async (req, res) => {
   }
 };
 
-exports.updatePelatihan = async (req, res) => {
- 
-};
+exports.updatePelatihan = async (req, res) => {};
 
 exports.deletePelatihan = async (req, res) => {
   try {

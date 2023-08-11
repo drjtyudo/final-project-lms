@@ -10,10 +10,9 @@ exports.getAllMateri = async (req, res) => {
 };
 
 exports.createMateri = async (req, res) => {
-  const { id_pelatihan, id_module, judul, materi, vidio_link } = req.body;
+  const { id_module, judul, materi, vidio_link } = req.body;
   try {
     const newMateri = await Materi.create({
-      id_pelatihan,
       id_module,
       judul,
       materi,

@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
       deskripsi: DataTypes.TEXT,
       image_logo: DataTypes.TEXT,
       url_image: DataTypes.TEXT,
-      id_pelatihan: DataTypes.INTEGER,
     },
     {
       sequelize,

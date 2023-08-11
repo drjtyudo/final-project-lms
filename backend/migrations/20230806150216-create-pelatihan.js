@@ -35,9 +35,6 @@ module.exports = {
         untuk: {
           type: Sequelize.STRING,
         },
-        id_kategori: {
-          type: Sequelize.INTEGER,
-        },
         createdAt: {
           allowNull: false,
           type: Sequelize.DATE,
@@ -48,7 +45,7 @@ module.exports = {
         },
       },
       {
-        freezeTableName: true, 
+        freezeTableName: true,
       }
     );
   },
