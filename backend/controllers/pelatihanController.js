@@ -19,9 +19,7 @@ exports.createPelatihan = async (req, res) => {
     const { judul, harga, deskripsi, watching, dibuat_oleh, untuk } = req.body;
 
     if (req.files === null || req.files.length < 1) {
-      return res
-        .status(400)
-        .json({ msg: "Masukkan image dan background image" });
+      return res.status(400).json({ msg: "Masukkan gambar" });
     }
 
     const imageFile = req.files.image;
@@ -43,9 +41,7 @@ exports.createPelatihan = async (req, res) => {
     const maxSize = 10000000;
 
     if (imageFile.size > maxSize) {
-      return res
-        .status(422)
-        .json({ msg: "image image must be less than 10MB" });
+      return res.status(422).json({ msg: "tidak boleh melebihi 10mb" });
     }
 
     imageFile.mv(imagePath, async (err) => {
@@ -72,6 +68,7 @@ exports.createPelatihan = async (req, res) => {
 
 exports.updatePelatihan = async (req, res) => {};
 
+
 exports.deletePelatihan = async (req, res) => {
   try {
     const pelatihan = await Pelatihan.findOne({
@@ -84,10 +81,19 @@ exports.deletePelatihan = async (req, res) => {
       return res.status(404).json({ msg: "pelatihan tidak ditemukan" });
     }
 
-    if (pelatihan.image) {
-      const filePath = `./public/assets/pelatihan-image/${pelatihan.image}`;
-      fs.unlinkSync(filePath);
-    }
+      // Hapus file lama jika ada
+      if (pelatihan.image) {
+        const filePath = path.join(
+          __dirname,
+          "../public/assets/pelatihan-image",
+          pelatihan.image
+        );
+
+        if (fs.existsSync(filePath)) {
+          fs.unlinkSync(filePath);
+        }
+      }
+
 
     await pelatihan.destroy({
       where: {
