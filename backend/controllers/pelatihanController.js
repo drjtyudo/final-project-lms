@@ -1,4 +1,4 @@
-const { Pelatihan } = require("../helper/relation");
+const { Pelatihan } = require("../helper/relation.js");
 const path = require("path");
 const crypto = require("crypto");
 const fs = require("fs");
