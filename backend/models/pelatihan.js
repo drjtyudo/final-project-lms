@@ -37,9 +37,6 @@ module.exports = (sequelize, DataTypes) => {
       untuk: {
         type: DataTypes.STRING,
       },
-      id_kategori: {
-        type: DataTypes.INTEGER,
-      },
     },
     {
       sequelize,

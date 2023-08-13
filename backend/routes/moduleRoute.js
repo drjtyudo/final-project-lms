@@ -9,7 +9,7 @@ const {
 const router = express.Router();
 
 router.get("/module", getAllModule);
-router.get("/module/:idMateri", getModuleById);
+router.get("/module/:id", getModuleById);
 router.post("/module", createModule);
 
 module.exports = router;

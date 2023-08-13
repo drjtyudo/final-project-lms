@@ -1,12 +1,14 @@
-const { Pelatihan } = require("../helper/relation");
+const { Pelatihan, Kategori } = require("../helper/relation");
 const path = require("path");
 const crypto = require("crypto");
 const fs = require("fs");
 
 exports.getPelatihan = async (req, res) => {
   try {
-    const response = await Pelatihan.findAll({});
-    res.status(200).json(response);
+    const response = await Pelatihan.findAll({
+      include: { model: Kategori, as: "Kategoris" },
+    });
+    res.status(200).json({ msg: "success", response });
   } catch (error) {
     console.log(error.message);
   }
@@ -14,23 +16,13 @@ exports.getPelatihan = async (req, res) => {
 
 exports.createPelatihan = async (req, res) => {
   try {
-    const {
-      judul,
-      harga,
-      deskripsi,
-      watching,
-      dibuat_oleh,
-      untuk,
-      id_kategori,
-    } = req.body;
+    const { judul, harga, deskripsi, watching, dibuat_oleh, untuk } = req.body;
 
     if (req.files === null || req.files.length < 1) {
-      return res
-        .status(400)
-        .json({ msg: "Masukkan image dan background image" });
+      return res.status(400).json({ msg: "Masukkan gambar" });
     }
 
-    const imageFile = req.files.img;
+    const imageFile = req.files.image;
 
     const imageTimestamp = Date.now();
     const imageExt = path.extname(imageFile.name);
@@ -46,12 +38,10 @@ exports.createPelatihan = async (req, res) => {
     if (!allowedType.includes(imageExt.toLowerCase()))
       return res.status(422).json({ msg: "invalid image image" });
 
-    const maxSize = 10000000; 
+    const maxSize = 10000000;
 
     if (imageFile.size > maxSize) {
-      return res
-        .status(422)
-        .json({ msg: "image image must be less than 10MB" });
+      return res.status(422).json({ msg: "tidak boleh melebihi 10mb" });
     }
 
     imageFile.mv(imagePath, async (err) => {
@@ -60,15 +50,14 @@ exports.createPelatihan = async (req, res) => {
       }
 
       const pelatihan = await Pelatihan.create({
+        judul,
         image: imageFileName,
         url: imageUrl,
-        judul,
         harga,
         deskripsi,
         watching,
         dibuat_oleh,
         untuk,
-        id_kategori,
       });
       res.status(200).json(pelatihan);
     });
@@ -77,9 +66,8 @@ exports.createPelatihan = async (req, res) => {
   }
 };
 
-exports.updatePelatihan = async (req, res) => {
- 
-};
+exports.updatePelatihan = async (req, res) => {};
+
 
 exports.deletePelatihan = async (req, res) => {
   try {
@@ -93,10 +81,19 @@ exports.deletePelatihan = async (req, res) => {
       return res.status(404).json({ msg: "pelatihan tidak ditemukan" });
     }
 
-    if (pelatihan.image) {
-      const filePath = `./public/assets/pelatihan-image/${pelatihan.image}`;
-      fs.unlinkSync(filePath);
-    }
+      // Hapus file lama jika ada
+      if (pelatihan.image) {
+        const filePath = path.join(
+          __dirname,
+          "../public/assets/pelatihan-image",
+          pelatihan.image
+        );
+
+        if (fs.existsSync(filePath)) {
+          fs.unlinkSync(filePath);
+        }
+      }
+
 
     await pelatihan.destroy({
       where: {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Menu, Button, Select, Typography, Image, Dropdown } from 'antd'
+import { Layout, Menu, Select, Typography, Image, Dropdown } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 import { Search } from 'components/Search'
 
