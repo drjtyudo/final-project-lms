@@ -1,14 +1,15 @@
-  const express = require("express");
-  const cors = require("cors");
-  const dotenv = require("dotenv");
-  const cookieParser = require("cookie-parser");
-  const fileUpload = require("express-fileupload");
-  // Router
-  const kategoriRoute = require("./routes/kategoriRoute.js");
-  const moduleRoute = require("./routes/moduleRoute.js");
-  const materiRoute = require("./routes/materiRoute.js");
-  const Pelatihan = require("./routes/pelatihanRoute");
-  const Footer = require("./routes/footerRoute.js");
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
+const fileUpload = require("express-fileupload");
+// Route 
+const kategoriRoute = require("./routes/kategoriRoute.js");
+const moduleRoute = require("./routes/moduleRoute.js");
+const materiRoute = require("./routes/materiRoute.js");
+const Pelatihan = require('./routes/pelatihanRoute')
+const PelatihanKategori = require('./routes/kategoriPelatihan.js')
+const Footer = require("./routes/footerRoute.js");
 
   const app = express();
   dotenv.config();
@@ -31,6 +32,7 @@ app.use(
   app.use(moduleRoute);
   app.use(materiRoute);
   app.use(Pelatihan);
+  app.use(PelatihanKategori)
   app.use(Footer);
 
   app.get("/", (req, res) => {

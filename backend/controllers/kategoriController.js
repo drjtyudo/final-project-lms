@@ -1,11 +1,13 @@
 const path = require("path");
 const fs = require("fs");
 const crypto = require("crypto");
-const { Kategori } = require("../helper/relation.js");
+const { Kategori, Pelatihan } = require("../helper/relation.js");
 
 exports.getKategori = async (req, res) => {
   try {
-    const response = await Kategori.findAll();
+    const response = await Kategori.findAll({
+      include: { model: Pelatihan, as: "Pelatihans" },
+    });
     res.status(200).json({ msg: "success", response });
   } catch (error) {
     res.status(500).json({ msg: error.message });
@@ -42,7 +44,7 @@ exports.createKategori = async (req, res) => {
   }
 
   const filename = `${timeStamp}-${randomString}${ext}`;
-  const url = `${req.protocol}://${req.get("host")}/kategori/logo/${filename}`;
+  const url = `${req.protocol}://${req.get("host")}/assets/kategori-image/${filename}`;
 
   try {
     const newKategori = await Kategori.create({
@@ -52,7 +54,7 @@ exports.createKategori = async (req, res) => {
       url_image: url,
     });
 
-    file.mv(`./public/kategori/logo/${filename}`, async (err) => {
+    file.mv(`./public/assets/kategori-image/${filename}`, async (err) => {
       if (err) {
         await Kategori.destroy({ where: { id: createdProduct.id } }); // Menghapus produk yang sudah dibuat
         return res
@@ -71,15 +73,6 @@ exports.getKategoriById = async (req, res) => {
   try {
     const response = await Kategori.findOne({ where: { id: req.params.id } });
     res.status(200).json({ msg: "success", response });
-  } catch (error) {
-    res.status(500).json({ msg: error.message });
-  }
-};
-
-exports.deleteKategori = async (req, res) => {
-  try {
-    await Kategori.destroy({ where: { id: req.params.id } });
-    res.status(200).json({ msg: "success delete kategori" });
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
@@ -125,11 +118,11 @@ exports.updateKategori = async (req, res) => {
       const filename = `${timeStamp}-${randomString}${ext}`;
       const url = `${req.protocol}://${req.get(
         "host"
-      )}/kategori/logo/${filename}`;
+      )}/assets/kategori-image/${filename}`;
 
       // Hapus file lama sebelum menyimpan file baru
       if (existingImageLogo) {
-        const filePath = `./public/kategori/logo/${existingImageLogo}`;
+        const filePath = `./public/assets/kategori-image/${existingImageLogo}`;
         fs.unlinkSync(filePath);
       }
 

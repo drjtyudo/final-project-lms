@@ -1,12 +1,14 @@
-const { Pelatihan } = require("../helper/relation.js");
+const { Pelatihan, Kategori } = require("../helper/relation");
 const path = require("path");
 const crypto = require("crypto");
 const fs = require("fs");
 
 exports.getPelatihan = async (req, res) => {
   try {
-    const response = await Pelatihan.findAll({});
-    res.status(200).json(response);
+    const response = await Pelatihan.findAll({
+      include: { model: Kategori, as: "Kategoris" },
+    });
+    res.status(200).json({ msg: "success", response });
   } catch (error) {
     console.log(error.message);
   }
@@ -14,15 +16,7 @@ exports.getPelatihan = async (req, res) => {
 
 exports.createPelatihan = async (req, res) => {
   try {
-    const {
-      judul,
-      harga,
-      deskripsi,
-      watching,
-      dibuat_oleh,
-      untuk,
-      id_kategori,
-    } = req.body;
+    const { judul, harga, deskripsi, watching, dibuat_oleh, untuk } = req.body;
 
     if (req.files === null || req.files.length < 1) {
       return res.status(400).json({ msg: "Masukkan gambar" });
@@ -56,15 +50,14 @@ exports.createPelatihan = async (req, res) => {
       }
 
       const pelatihan = await Pelatihan.create({
+        judul,
         image: imageFileName,
         url: imageUrl,
-        judul,
         harga,
         deskripsi,
         watching,
         dibuat_oleh,
         untuk,
-        id_kategori,
       });
       res.status(200).json(pelatihan);
     });
@@ -73,103 +66,7 @@ exports.createPelatihan = async (req, res) => {
   }
 };
 
-exports.updatePelatihan = async (req, res) => {
-  const pelatihan = await Pelatihan.findOne({
-    where: {
-      id: req.params.id,
-    },
-  });
-
-  if (!pelatihan) {
-    return res.status(404).json({ msg: "pelatihan tidak ditemukan" });
-  }
-
-  try {
-    const {
-      judul,
-      harga,
-      deskripsi,
-      watching,
-      dibuat_oleh,
-      untuk,
-      id_kategori,
-    } = req.body;
-
-    let imageFileName = pelatihan.image;
-    let url = pelatihan.url;
-
-    if (req.files && req.files.image) {
-      const file = req.files.image;
-
-      // Periksa jenis file dan ukuran file
-      const ext = path.extname(file.name);
-
-      const allowedTypes = [".png", ".jpg", ".jpeg"];
-
-      if (!allowedTypes.includes(ext.toLowerCase())) {
-        return res.status(422).json({ msg: "Invalid image file" });
-      }
-
-      const maxSize = 10 * 1024 * 1024; // 10MB
-
-      if (file.size > maxSize) {
-        return res.status(422).json({ msg: "Maximum file size is 10MB" });
-      }
-
-      // Hapus file lama jika ada
-      if (pelatihan.image) {
-        const filePath = path.join(
-          __dirname,
-          "../public/assets/pelatihan-image",
-          pelatihan.image
-        );
-
-        if (fs.existsSync(filePath)) {
-          fs.unlinkSync(filePath);
-        }
-      }
-
-      const randomString = crypto.randomBytes(8).toString("hex");
-      const timestamp = Date.now();
-      imageFileName = `${timestamp}-${randomString}${ext}`;
-      url = `${req.protocol}://${req.get(
-        "host"
-      )}/assets/pelatihan-image/${imageFileName}`;
-
-      file.mv(
-        path.join(__dirname, "../public/assets/pelatihan-image", imageFileName),
-        (err) => {
-          if (err) {
-            return res.status(500).json({ msg: err.message });
-          }
-        }
-      );
-    }
-
-    await Pelatihan.update(
-      {
-        image: imageFileName,
-        url,
-        judul,
-        harga,
-        deskripsi,
-        watching,
-        dibuat_oleh,
-        untuk,
-        id_kategori,
-      },
-      {
-        where: {
-          id: req.params.id,
-        },
-      }
-    );
-
-    res.status(200).json({ msg: "Pelatihan Updated" });
-  } catch (error) {
-    res.status(400).json({ msg: error.message });
-  }
-};
+exports.updatePelatihan = async (req, res) => {};
 
 
 exports.deletePelatihan = async (req, res) => {
