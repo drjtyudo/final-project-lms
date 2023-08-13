@@ -3,12 +3,13 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
-// 
+//
+const usersRoute = require("./routes/usersRoute.js");
 const kategoriRoute = require("./routes/kategoriRoute.js");
 const moduleRoute = require("./routes/moduleRoute.js");
 const materiRoute = require("./routes/materiRoute.js");
-const Pelatihan = require('./routes/pelatihanRoute')
-const PelatihanKategori = require('./routes/kategoriPelatihan.js')
+const Pelatihan = require("./routes/pelatihanRoute");
+const PelatihanKategori = require("./routes/kategoriPelatihan.js");
 
 const app = express();
 dotenv.config();
@@ -21,14 +22,15 @@ app.use(express.json());
 app.use(fileUpload());
 app.use(express.static("public"));
 // Use router
+app.use(usersRoute);
 app.use(kategoriRoute);
 app.use(moduleRoute);
 app.use(materiRoute);
-app.use(Pelatihan)
-app.use(PelatihanKategori)
+app.use(Pelatihan);
+app.use(PelatihanKategori);
 
 app.get("/", (req, res) => {
-  res.send("Hello Bang");
+  res.send("REST API Nusa Learning");
 });
 
 app.listen(PORT, () => {
