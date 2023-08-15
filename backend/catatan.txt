@@ -1,0 +1,17 @@
+Query 
+Insert tabel judul_footer
+INSERT INTO `judul_footers` (`id`, `judul_footer`, `createdAt`, `updatedAt`) VALUES (NULL, 'NusaLearning', '2023-08-12 18:01:24.000000', '2023-08-12 18:01:24.000000'), (NULL, 'About', '2023-08-12 18:01:24.000000', '2023-08-12 18:01:24.000000'), (NULL, 'Services', '2023-08-12 18:01:24.000000', '2023-08-12 18:01:24.000000'), (NULL, 'Follow Us on', '2023-08-12 18:01:24.000000', '2023-08-12 18:01:24.000000'), (NULL, 'Download NusaLMS Mobile', '2023-08-12 18:01:24.000000', '2023-08-12 18:01:24.000000');
+
+
+insert tabel footer
+
+INSERT INTO `footers` (`id`, `id_judul_footer`, `nama_footer`, `deskripsi`, `link`, `image`, `url`, `createdAt`, `updatedAt`) VALUES (NULL, '1', '2020 NusaLearning', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '1', 'All rights reserved', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '1', 'PT. Solusi Teknologi Nusantara', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '2', 'Privacy Policy', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '2', 'Help Center', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '2', 'Terms & Condition', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '3', 'Check Certificate', 'deskripsi', 'url/id', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '4', 'FB', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '4', 'IG', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '4', 'Twitter', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '4', 'YT', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '5', 'Play Store', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '5', 'App Store', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000');
+
+
+############# API #############
+* this api require bearer token / accessToken
+  GET http://localhost/users
+  GET http://localhost/users/me
+
+
+

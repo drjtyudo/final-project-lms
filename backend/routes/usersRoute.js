@@ -9,15 +9,17 @@ const {
   userLogout,
   checkLogin,
 } = require("../controllers/usersController.js");
-const { authenticateToken } = require("../middleware/middleware.js");
+const { verifyToken } = require("../middleware/middleware.js");
+const { refreshToken } = require("../helper/refreshToken.js");
 
 const router = express.Router();
 
-router.get("/users", getUsers);
+router.get("/token", refreshToken);
+router.get("/users", verifyToken, getUsers);
 router.post("/users/regist", userRegister);
 router.post("/users/login", userLogin);
-router.get("/users/me", authenticateToken, checkLogin);
-router.delete("/users/logout", authenticateToken, userLogout);
+router.get("/users/me", verifyToken, checkLogin);
+router.delete("/users/logout", userLogout);
 router.get("/users/:userId", getUserById);
 router.patch("/users/update/:userId", updateUser);
 
