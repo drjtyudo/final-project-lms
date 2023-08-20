@@ -2,24 +2,15 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Materis', {
+    await queryInterface.createTable('judul_footers', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id_module: {
-        type: Sequelize.INTEGER
-      },
-      judul: {
+      judul_footer: {
         type: Sequelize.STRING
-      },
-      materi: {
-        type: Sequelize.TEXT
-      },
-      vidio_link: {
-        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
@@ -32,6 +23,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Materis');
+    await queryInterface.dropTable('judul_footers');
   }
 };

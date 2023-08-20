@@ -14,27 +14,29 @@ function Footer() {
   }
 
   return (
-    <footer className="text-left pt-[17px] bg-[#10455B] text-white">
-      <ul className="flex justify-evenly">
+    <footer className="text-left pt-[25px] pb-[1px] bg-[#10455B]">
+      <ul className="flex mx-[63px] justify-between text-white">
         <li>
-          <h1 className="font-bold text-xl mb-4">NusaKMS</h1>
-          <p className="mb-2 text-[14px]">2022 NusaKMS</p>
-          <p className="mb-2 text-[14px]">All rights reserved</p>
-          <p>PT. Solusi Teknologi Nusantara</p>
+          <h1 className="font-bold text-xl mb-4 text-white">NusaKMS</h1>
+          <p className="mb-2 text-[14px]g text-white">2022 NusaKMS</p>
+          <p className="mb-2 text-[14px] text-white">All rights reserved</p>
+          <p className="mb-2 text-[14px] text-white">
+            PT. Solusi Teknologi Nusantara
+          </p>
         </li>
         <li>
-          <h1 className="font-bold text-xl mb-4">About</h1>
-          <p className="mb-2 text-[14px]">Privacy Policy</p>
-          <p className="mb-2 text-[14px]">Help Center</p>
-          <p>Terms & Condition</p>
+          <h1 className="font-bold text-xl mb-4 text-white">About</h1>
+          <p className="mb-2 text-[14px] text-white">Privacy Policy</p>
+          <p className="mb-2 text-[14px] text-white">Help Center</p>
+          <p className="mb-2 text-[14px] text-white">Terms & Condition</p>
         </li>
         <li>
-          <h1 className="font-bold text-xl mb-4">Services</h1>
-          <p className='text-[14px]'>Check Certificate</p>
+          <h1 className="font-bold text-xl mb-4 text-white">Services</h1>
+          <p className="text-[14px] text-white">Check Certificate</p>
         </li>
         <li>
-          <h1 className="font-bold text-xl mb-4">Follow Us on</h1>
-          <ul className="flex gap-2">
+          <h1 className="font-bold text-xl mb-4 text-white">Follow Us on</h1>
+          <ul className="flex gap-2 text-white">
             <li>
               <FacebookOutlined style={iconStyle} />
             </li>
@@ -50,7 +52,9 @@ function Footer() {
           </ul>
         </li>
         <li>
-          <h1 className="font-bold text-xl mb-4">Download NusaLMS Mobile</h1>
+          <h1 className="font-bold text-xl mb-4 text-white">
+            Download NusaLMS Mobile
+          </h1>
           <ul className="flex justify-between">
             <li>
               <Button className="text-white text-[14px] text-center w-[120px] h-[30px] flex items-center justify-center">

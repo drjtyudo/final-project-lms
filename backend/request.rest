@@ -1,0 +1,9 @@
+POST http://localhost:8000/test
+Content-Type: application/json
+
+{
+    "id_pelatihan" : 1,
+    "id_kategori" : 1
+}
+###
+GET http://localhost:8000/test

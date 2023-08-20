@@ -12,11 +12,11 @@ exports.getAllModule = async (req, res) => {
 };
 
 exports.createModule = async (req, res) => {
-  const { module, id_materi } = req.body;
+  const { module, id_pelatihan} = req.body;
   try {
     const newModule = await Module.create({
+      id_pelatihan,
       module,
-      id_materi,
     });
     res.status(201).json({ msg: "module created", newModule });
   } catch (error) {
@@ -26,8 +26,8 @@ exports.createModule = async (req, res) => {
 
 exports.getModuleById = async (req, res) => {
   try {
-    const modules = await Module.findAll({
-      where: { id_materi: req.params.idMateri },
+    const modules = await Module.findOne({
+      where: { id: req.params.id },
     });
 
     if (!modules || modules.length === 0) {
