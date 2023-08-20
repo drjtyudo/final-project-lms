@@ -2,11 +2,9 @@ const { Pelatihan, Kategori, Rating } = require("../helper/relation");
 const path = require("path");
 const crypto = require("crypto");
 const fs = require("fs");
-const { getRating } = require("./ratingController");
 
 exports.getPelatihan = async (req, res) => {
   try {
-    const averageRating = await getRating()
     const response = await Pelatihan.findAll({
       include: [
         {
@@ -23,7 +21,7 @@ exports.getPelatihan = async (req, res) => {
         {
           model: Rating,
           as: "Ratings",
-          attributes: ["id", "rating", "id_user", averageRating],
+          attributes: ["id", "rating", "id_user"],
         },
       ],
     });

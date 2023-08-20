@@ -2,18 +2,34 @@ const { Rating } = require("../helper/relation.js");
 
 exports.getRating = async (req, res) => {
   try {
-    const totalRating = await Rating.sum("rating");
-    const ratingsCount = await Rating.count();
+    const response = await Rating.findAll({
+      attributes: ["id", "rating", "id_user", "id_pelatihan"],
+    });
+    res.status(200).json({ msg: "success get all rating", ratings: response });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+exports.getRatingByIdPelatihan = async (req, res) => {
+  try {
+    const id_pelatihan = req.params.id_pelatihan;
+
+    const totalRating = await Rating.sum("rating", { where: { id_pelatihan } });
+    const ratingsCount = await Rating.count({ where: { id_pelatihan } });
 
     if (ratingsCount === 0) {
-      return res.status(200).json({ msg: "No ratings available" });
+      return res
+        .status(200)
+        .json({ msg: "No ratings available for this training" });
     }
 
     const averageRating = totalRating / ratingsCount;
-    const roundedAverage = parseFloat(averageRating.toFixed(1)); // untuk membulatkan
+    const roundedAverage = parseFloat(averageRating.toFixed(1));
 
     res.status(200).json({
       msg: "Success",
+      id_pelatihan,
       ratingsCount,
       totalRating,
       averageRating: roundedAverage,
@@ -24,14 +40,15 @@ exports.getRating = async (req, res) => {
 };
 
 exports.createRating = async (req, res) => {
-  const { rating, id_pelatihan } = req.body;
+  const { rating, id_pelatihan} = req.body;
 
   try {
     const id_user = req.userId;
 
-    const existinngUser = await Rating.findOne({ where: { id_user: id_user } });
+    const user = await Rating.findOne({ where: { id_user: id_user } });
+    const pelatihanId = await Rating.findOne({ where: { id_pelatihan } });
 
-    if (existinngUser) {
+    if (user && pelatihanId) {
       return res.status(400).json({ msg: "You have already reted before" });
     }
 
