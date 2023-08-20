@@ -4,13 +4,18 @@ const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
 
+// Route
 const usersRoute = require("./routes/usersRoute.js");
 const kategoriRoute = require("./routes/kategoriRoute.js");
 const moduleRoute = require("./routes/moduleRoute.js");
-const materiRoute = require("./routes/materiRoute.js");
+const subMateriRoute = require("./routes/subModuleRoute.js");
 const Pelatihan = require("./routes/pelatihanRoute");
 const PelatihanKategori = require("./routes/kategoriPelatihan.js");
 const Footer = require("./routes/footerRoute.js");
+const KontenPdf = require('./routes/kontenPdfRoute.js');
+const KontenVideo = require('./routes/kontenVideoRoute.js');
+const KontenPPT = require('./routes/kontenPPTRoute.js');
+const KontenPembahasan = require('./routes/kontenTambahPembahasan.js');
 
 const app = express();
 dotenv.config();
@@ -33,10 +38,14 @@ app.use(express.static("public"));
 app.use(usersRoute);
 app.use(kategoriRoute);
 app.use(moduleRoute);
-app.use(materiRoute);
+app.use(subMateriRoute);
 app.use(Pelatihan);
 app.use(PelatihanKategori);
 app.use(Footer);
+app.use(KontenPdf)
+app.use(KontenVideo)
+app.use(KontenPPT)
+app.use(KontenPembahasan)
 
 app.get("/", (req, res) => {
   res.send("Hello Bang");
