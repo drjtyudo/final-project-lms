@@ -6,6 +6,7 @@ const Kategori = require("../models/kategori.js")(sequelize, DataTypes);
 const Module = require("../models/module.js")(sequelize, DataTypes);
 const Materi = require("../models/materi.js")(sequelize, DataTypes);
 const Pelatihan = require("../models/pelatihan")(sequelize, DataTypes);
+const Rating = require("../models/rating.js")(sequelize, DataTypes);
 const Footer = require("../models/footer.js")(sequelize, DataTypes);
 const JudulFooter = require("../models/judul_footer.js")(sequelize, DataTypes);
 const PelatihanKategori = require("../models/pelatihankategori.js")(
@@ -14,6 +15,26 @@ const PelatihanKategori = require("../models/pelatihankategori.js")(
 );
 
 // Relation
+
+Rating.belongsTo(Users, {
+  foreignKey: "id_user",
+  as: "User",
+});
+
+Rating.belongsTo(Pelatihan, {
+  foreignKey: "id_pelatihan",
+  as: "Pelatihan",
+});
+
+Users.hasMany(Rating, {
+  foreignKey: "id_user",
+  as: "Ratings",
+});
+
+Pelatihan.hasMany(Rating, {
+  foreignKey: "id_pelatihan",
+  as: "Ratings",
+});
 
 Kategori.belongsToMany(Pelatihan, {
   through: PelatihanKategori,
@@ -37,11 +58,19 @@ Module.hasMany(Materi, {
   as: "Materis",
 });
 
-
 JudulFooter.hasMany(Footer, {
   foreignKey: "id_judul_footer",
   as: "Footers",
   onDelete: "CASCADE",
 });
 
-module.exports = { Users, Kategori, Module, Materi , Pelatihan , JudulFooter, Footer };
+module.exports = {
+  Users,
+  Kategori,
+  Module,
+  Materi,
+  Pelatihan,
+  Rating,
+  JudulFooter,
+  Footer,
+};
