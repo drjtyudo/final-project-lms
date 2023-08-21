@@ -1,4 +1,4 @@
-const { Pelatihan, Kategori } = require("../helper/relation");
+const { Pelatihan, Kategori, Rating } = require("../helper/relation");
 const path = require("path");
 const crypto = require("crypto");
 const fs = require("fs");
@@ -6,7 +6,24 @@ const fs = require("fs");
 exports.getPelatihan = async (req, res) => {
   try {
     const response = await Pelatihan.findAll({
-      include: { model: Kategori, as: "Kategoris" },
+      include: [
+        {
+          model: Kategori,
+          as: "Kategoris",
+          attributes: [
+            "id",
+            "kategori",
+            "deskripsi",
+            "image_logo",
+            "url_image",
+          ],
+        },
+        {
+          model: Rating,
+          as: "Ratings",
+          attributes: ["id", "rating", "id_user"],
+        },
+      ],
     });
     res.status(200).json({ msg: "ok", response });
   } catch (error) {
@@ -187,7 +204,6 @@ exports.updatePelatihan = async (req, res) => {
   }
 };
 
-
 exports.deletePelatihan = async (req, res) => {
   try {
     const pelatihan = await Pelatihan.findOne({
@@ -200,19 +216,18 @@ exports.deletePelatihan = async (req, res) => {
       return res.status(404).json({ msg: "pelatihan tidak ditemukan" });
     }
 
-      // Hapus file lama jika ada
-      if (pelatihan.image) {
-        const filePath = path.join(
-          __dirname,
-          "../public/assets/pelatihan-image",
-          pelatihan.image
-        );
+    // Hapus file lama jika ada
+    if (pelatihan.image) {
+      const filePath = path.join(
+        __dirname,
+        "../public/assets/pelatihan-image",
+        pelatihan.image
+      );
 
-        if (fs.existsSync(filePath)) {
-          fs.unlinkSync(filePath);
-        }
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
       }
-
+    }
 
     await pelatihan.destroy({
       where: {

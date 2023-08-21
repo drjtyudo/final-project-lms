@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="../styles/global.css">
+</head>
+
+<body>
+    <div class="docs">
+        <h>List Api</h>
+        <div class="list-api">
+            <div>
+                <ul>
+                    <h3>User API</h3>
+                    <li><span id="get">GET</span> localhost:8000/users</li>
+                    <span id="require">*</span> require bearer token / access token
+                    <li><span id="get">GET</span> localhost:8000/users/:userId</li>
+                    <li><span id="post">POST</span> localhost:8000/users/login</li>
+                    - username <br>
+                    - email
+                    <li><span id="post">POST</span> localhost:8000/users/regist</li>
+                    - fullname <br>
+                    - email <br>
+                    - nomor_telp <br>
+                    - tggl_lahir <br>
+                    - password <br>
+                    - confirmPassword <br>
+                    - negara <br>
+                    - domisili
+                    <li><span id="patch">PATCH</span> localhost:8000/users/update/:userId</li>
+                    - fullname <br>
+                    - email <br>
+                    - nomor_telp <br>
+                    - tggl_lahir <br>
+                    - negara <br>
+                    - domisili <br>
+                    - profile_image
+                    <li><span id="get">GET</span> localhost:8000/users/me</li>
+                    <span id="require">*</span> require bearer token / access token
+                    <li><span id="delete">DELETE</span> localhost:8000/users/logout</li>
+                    <li><span id="get">GET</span> localhost:8000/token</li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <h3>Kategori API</h3>
+                    <li><span id="get">GET</span> localhost:8000/kategori</li>
+                    <li><span id="get">GET</span> localhost:8000/kategori/:id</li>
+                    <li><span id="post">POST</span> localhost:8000/kategori</li>
+                    - kategori <br>
+                    - deskripsi <br>
+                    - image_logo
+                    <li><span id="patch">PATCH</span> localhost:8000/kategori/update/:id</li>
+                    - kategori <br>
+                    - deskripsi <br>
+                    - image_logo
+                    <li><span id="post">POST</span> localhost:8000/kategoriPelatihan</li>
+                    - id_kategori <br>
+                    - id_pelatihan
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <h3>Pelatihan API</h3>
+                    <li><span id="get">GET</span> localhost:8000/pelatihan</li>
+                    <li><span id="post">POST</span> localhost:8000/pelatihan</li>
+                    - image <br>
+                    - judul <br>
+                    - harga <br>
+                    - deskripsi <br>
+                    - watching <br>
+                    - dibuat_oleh <br>
+                    - untuk
+                    <li><span id="patch">PATCH</span> localhost:8000/pelatihan/:id</li>
+                    - image <br>
+                    - judul <br>
+                    - harga <br>
+                    - deskripsi <br>
+                    - watching <br>
+                    - dibuat_oleh <br>
+                    - untuk
+                    <li><span id="delete">DELETE</span> localhost:8000/pelatihan/:id</li>
+                    <li><span id="post">POST</span> localhost:8000/kategoriPelatihan</li>
+                    - id_kategori <br>
+                    - id_pelatihan
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <h3>Modul API</h3>
+                    <li><span id="get">GET</span> localhost:8000/module</li>
+                    <li><span id="get">GET</span> localhost:8000/module/:id</li>
+                    <li><span id="post">POST</span> localhost:8000/module</li>
+                    - id_pelatihan <br>
+                    - module
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <h3>Materi API</h3>
+                    <li><span id="get">GET</span> localhost:8000/materi</li>
+                    <li><span id="get">GET</span> localhost:8000/materi/:id</li>
+                    <li><span id="post">POST</span> localhost:8000/materi</li>
+                    - id_module <br>
+                    - judul <br>
+                    - materi <br>
+                    - vidio_link
+                    <li><span id="patch">PATCH</span> localhost:8000/materi/update/:id</li>
+                    - id_module <br>
+                    - judul <br>
+                    - materi <br>
+                    - vidio_link
+                    <li><span id="delete">DELETE</span> localhost:8000/materi/delete/:id</li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <h3>Footer API</h3>
+                    <li><span id="post">POST</span> localhost:8000/judulFooter</li>
+                    - judul_footer
+                    <li><span id="delete">DELETE</span> localhost:8000/judulFooter/:id</li>
+                    <li><span id="patch">PATCH</span> localhost:8000/judulFooter/:id</li>
+                    - judul_footer
+                    <li><span id="get">GET</span> localhost:8000/footer</li>
+                    <li><span id="post">POST</span> localhost:8000/footer</li>
+                    - id_judul_footer <br>
+                    - nama_footer <br>
+                    - deskripsi <br>
+                    - link <br>
+                    - image
+                    <li><span id="patch">PATCH</span> localhost:8000/footer/:id</li>
+                    - id_judul_footer <br>
+                    - nama_footer <br>
+                    - deskripsi <br>
+                    - link <br>
+                    - image
+                    <li><span id="delete">DELETE</span> localhost:8000/footer/:id</li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <h3>Rating API</h3>
+                    <li><span id="get">GET</span> localhost:8000/rating</li>
+                    <li><span id="post">POST</span> localhost:8000/rating/post</li>
+                    - id_user (require bearer accessToken) <br>
+                    - id_pelatihan <br>
+                    - rating
+                    <li><span id="delete">DELETE</span> localhost:8000/rating/delete/:id</li>
+                    - id_user (require bearer accessToken)
+                    <li><span id="patch">PATCH</span> localhost:8000/rating/update/:id</li>
+                    - id_user (require bearer accessToken) <br>
+                    - id_pelatihan <br>
+                    - rating
+                </ul>
+            </div>
+        </div>
+</body>
+
+</html>

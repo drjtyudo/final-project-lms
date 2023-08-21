@@ -42,7 +42,7 @@ function NavigationBar() {
             <Menu
               className="bg-transparent mr-4"
               mode="horizontal"
-              defaultSelectedKeys={['1']}
+              defaultSelectedKeys={['2']}
             >
               <Menu.Item key="1">Beranda</Menu.Item>
               <Menu.Item key="2">Pelatihan</Menu.Item>

@@ -6,6 +6,7 @@ const Kategori = require("../models/kategori.js")(sequelize, DataTypes);
 const Module = require("../models/module.js")(sequelize, DataTypes);
 const subModule = require("../models/sub_module.js")(sequelize, DataTypes);
 const Pelatihan = require("../models/pelatihan")(sequelize, DataTypes);
+const Rating = require("../models/rating.js")(sequelize, DataTypes);
 const Footer = require("../models/footer.js")(sequelize, DataTypes);
 const JudulFooter = require("../models/judul_footer.js")(sequelize, DataTypes);
 const PelatihanKategori = require("../models/pelatihankategori.js")(
@@ -18,6 +19,26 @@ const KontenPPT = require('../models/konten_ppt.js')(sequelize, DataTypes)
 const KontenPembahasan = require('../models/konten_tambah_pembahasan.js')(sequelize, DataTypes)
 
 // Relation
+
+Rating.belongsTo(Users, {
+  foreignKey: "id_user",
+  as: "User",
+});
+
+Rating.belongsTo(Pelatihan, {
+  foreignKey: "id_pelatihan",
+  as: "Pelatihan",
+});
+
+Users.hasMany(Rating, {
+  foreignKey: "id_user",
+  as: "Ratings",
+});
+
+Pelatihan.hasMany(Rating, {
+  foreignKey: "id_pelatihan",
+  as: "Ratings",
+});
 
 Kategori.belongsToMany(Pelatihan, {
   through: PelatihanKategori,
@@ -47,6 +68,7 @@ JudulFooter.hasMany(Footer, {
   onDelete: "CASCADE",
 });
 
+<<<<<<< HEAD
 KontenPdf.belongsTo(subModule, {
   foreignKey: "id_sub_module",
   as: "Konten_pdf",
@@ -67,10 +89,13 @@ KontenPembahasan.belongsTo(subModule, {
   as: "Konten_ppt",
 });
 
+=======
+>>>>>>> api/rating
 module.exports = {
   Users,
   Kategori,
   Module,
+<<<<<<< HEAD
   subModule,
   Pelatihan,
   JudulFooter,
@@ -79,4 +104,11 @@ module.exports = {
   KontenVideo,
   KontenPPT,
   KontenPembahasan
+=======
+  Materi,
+  Pelatihan,
+  Rating,
+  JudulFooter,
+  Footer,
+>>>>>>> api/rating
 };
