@@ -5,11 +5,7 @@ const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
 const path = require("path");
 
-<<<<<<< HEAD
-// Route
-=======
 const indexRoute = require("./routes/indexRoute.js");
->>>>>>> api/rating
 const usersRoute = require("./routes/usersRoute.js");
 const kategoriRoute = require("./routes/kategoriRoute.js");
 const moduleRoute = require("./routes/moduleRoute.js");

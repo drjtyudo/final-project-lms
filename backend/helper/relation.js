@@ -68,7 +68,6 @@ JudulFooter.hasMany(Footer, {
   onDelete: "CASCADE",
 });
 
-<<<<<<< HEAD
 KontenPdf.belongsTo(subModule, {
   foreignKey: "id_sub_module",
   as: "Konten_pdf",
@@ -89,13 +88,10 @@ KontenPembahasan.belongsTo(subModule, {
   as: "Konten_ppt",
 });
 
-=======
->>>>>>> api/rating
 module.exports = {
   Users,
   Kategori,
   Module,
-<<<<<<< HEAD
   subModule,
   Pelatihan,
   JudulFooter,
@@ -103,12 +99,8 @@ module.exports = {
   KontenPdf,
   KontenVideo,
   KontenPPT,
-  KontenPembahasan
-=======
-  Materi,
-  Pelatihan,
+  KontenPembahasan,
   Rating,
   JudulFooter,
   Footer,
->>>>>>> api/rating
 };
