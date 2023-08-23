@@ -16,13 +16,12 @@ const Quiz = () => {
 
   const quizData = [
     {
-      no: '3',
-      question:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin condimentum aliquet arcu, sit amet eleifend tortor. Donec elementum enim quis ligula laoreet convallis. Fusce sodales ligula ',
+      no: '1',
+      question: 'siapa kah dia',
       options: ['react', 'Flutter', 'Opsi C'],
     },
     {
-      no: '3',
+      no: '2',
       question:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin condimentum aliquet arcu, sit amet eleifend tortor. Donec elementum enim quis ligula laoreet convallis. Fusce sodales ligula ',
       options: ['Opsi A', 'Opsi B', 'Opsi C'],
@@ -74,45 +73,53 @@ const Quiz = () => {
   }
 
   return (
-    <div className="flex w-[1254px] px-[110px] m-auto h-[350px]">
+    <div className="flex w-[1254px] px-[110px] m-auto h-[350px] border">
       <div className="flex-grow p-4">
         {currentQuestionIndex < quizData.length && (
           <div className="mb-14">
-            <p className="w-[483px]">{quizData[currentQuestionIndex].question}</p>
+            <div className="flex mt-6">
+              <p className="mr-2">{quizData[currentQuestionIndex].no}.</p>
+              <p className="w-[483px]">
+                {quizData[currentQuestionIndex].question}
+              </p>
+            </div>
+            {/* <div className=' w-full bg-black h-[1px]'></div> */}
             <div className="flex gap-6 flex-row justify-center mt-36 absolute ml-[15px]">
-              {quizData[currentQuestionIndex].options.map((option, optionIndex) => (
-                <label
-                  key={optionIndex}
-                  className="flex w-[300px] items-center py-2 px-4  mr-4 rounded bg-gray-200 cursor-pointer"
-                >
-                  <input
-                    type="radio"
-                    name={`question-${currentQuestionIndex}`}
-                    value={option}
-                    checked={selectedOption === optionIndex}
-                    onChange={() => handleOptionSelect(optionIndex)}
-                    className="mr-2"
-                  />
-                  {option}
-                </label>
-              ))}
+              {quizData[currentQuestionIndex].options.map(
+                (option, optionIndex) => (
+                  <label
+                    key={optionIndex}
+                    className="flex w-[300px] items-center py-2 px-4  mr-4 rounded bg-gray-200 cursor-pointer"
+                  >
+                    <input
+                      type="radio"
+                      name={`question-${currentQuestionIndex}`}
+                      value={option}
+                      checked={selectedOption === optionIndex}
+                      onChange={() => handleOptionSelect(optionIndex)}
+                      className="mr-2"
+                    />
+                    {option}
+                  </label>
+                ),
+              )}
             </div>
           </div>
         )}
       </div>
       <div className="kotak-grid w-1/4 p-4">
-      <div className="mb-4">
+        <div className="mb-4">
           <p>
             Sisa Waktu: {Math.floor(timeLeft / 60)}:
             {timeLeft % 60 < 10 ? '0' : ''}
             {timeLeft % 60}
           </p>
-        </div>  
+        </div>
         <div className="grid grid-cols-4 gap-2">
           {quizData.map((item, index) => (
             <div
               key={index}
-              className={`bg-gray-300 h-10 ${
+              className={`bg-gray-300 h-10 text-center ${
                 index === currentQuestionIndex ? 'bg-blue-200' : 'bg-gray-300'
               }`}
               onClick={() => setCurrentQuestionIndex(index)}

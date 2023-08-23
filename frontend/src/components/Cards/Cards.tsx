@@ -40,7 +40,7 @@ const Cards = {
             <p>Dibuat Oleh:</p>
             <p>Untuk:</p>
           </div>
-          <div className='flex'>
+          <div className="flex">
             <div className="flex gap-4">
               <div className="flex gap-2">
                 <EyeOutlined style={{ fontSize: '16px' }} /> <span>3</span>
@@ -52,10 +52,35 @@ const Cards = {
                 <CommentOutlined style={{ fontSize: '16px' }} /> <span>3</span>
               </div>
             </div>
-            <div className='flex-grow text-right '>
+            <div className="flex-grow text-right ">
               <p>Rp.1000000</p>
             </div>
           </div>
+        </div>
+      </div>
+    )
+  },
+  CardBenefit: () => {
+    const listItems = [
+      '5 bahan bacaan',
+      'Kuis yang dapat dikerjakan',
+      '4 menit total video pembelajaran',
+      '5 konten dapat diunduh',
+      'Sertifikat dapat diunduh',
+    ]
+    return (
+      <div>
+        <div className="w-full my-2 p-3 border">
+          <h1 className="font-bold text-[18px]">
+            Yang anda dapatkan di pelatihan ini:
+          </h1>
+          <ul className="list-disc flex flex-wrap gap-x-[350px] ml-8">
+            {listItems.map((item, index) => (
+              <li key={index}>
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     )

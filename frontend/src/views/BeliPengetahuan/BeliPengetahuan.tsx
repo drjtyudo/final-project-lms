@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, Space, Button } from 'antd'
 import NavigationBar from 'layouts/containers/Public/Navbar'
 import Footer from 'layouts/containers/Public/Footer'
+import { ModulComp } from 'components/Modul/ModulComp'
 
 function BeliPengetahuan() {
   const list = ['Item 1', 'Item 2', 'Item 3']
@@ -26,8 +27,14 @@ function BeliPengetahuan() {
             </p>
             <div className="mt-[44px] mb-[13px]">
               <h5>Konten Preview</h5>
-              {/* Mba sabilah Modul */}
-              <div className="w-[full] h-[515px] bg-gray-200"></div>
+              <div className="w-[full] flex">
+                <div>
+                  <ModulComp />
+                </div>
+                <div className='w-full bg-gray-100 mr-4'>
+
+                </div>
+              </div>
             </div>
             <h5 className="mt-[51px]">Target Audiens</h5>
             <p>Internal NusaLMS</p>
@@ -44,7 +51,7 @@ function BeliPengetahuan() {
           </div>
         </div>
         <div>
-          <div className='mt-[81px]'>
+          <div className="mt-[81px]">
             <Space direction="vertical" size={16}>
               <Card
                 title={
@@ -60,7 +67,7 @@ function BeliPengetahuan() {
               </Card>
             </Space>
           </div>
-          <div className='mt-[21px]'>
+          <div className="mt-[21px]">
             <h5>Yang Kamu dapatkan</h5>
             <Card
               style={{
@@ -76,7 +83,7 @@ function BeliPengetahuan() {
               </ul>
             </Card>
           </div>
-          <div className='mt-[26px]'>
+          <div className="mt-[26px]">
             <Space direction="vertical" size={16}>
               <Card
                 title={
@@ -98,7 +105,7 @@ function BeliPengetahuan() {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   )
 }
