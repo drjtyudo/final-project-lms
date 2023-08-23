@@ -7,7 +7,7 @@ const {
 const router = express.Router();
 
 router.get("/test", getAll);
-router.post("/test", create);
+router.post("/addKategoriPelatihan", create);
 // router.get("/module/:id", getModuleById);
 // router.post("/module", createModule);
 

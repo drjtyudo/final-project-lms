@@ -1,6 +1,7 @@
 const sequelize = require("../models/index.js").sequelize;
 const { DataTypes } = require("sequelize");
 
+const Users = require("../models/users.js")(sequelize, DataTypes);
 const Kategori = require("../models/kategori.js")(sequelize, DataTypes);
 const Module = require("../models/module.js")(sequelize, DataTypes);
 const Materi = require("../models/materi.js")(sequelize, DataTypes);
@@ -16,7 +17,7 @@ const PelatihanKategori = require("../models/pelatihankategori.js")(
 
 Kategori.belongsToMany(Pelatihan, {
   through: PelatihanKategori,
-  foreignKey: "id_kategori",
+  foreignKey: "id_pelatihan",
   as: "Pelatihans",
 });
 
@@ -43,4 +44,4 @@ JudulFooter.hasMany(Footer, {
   onDelete: "CASCADE",
 });
 
-module.exports = { Kategori, Module, Materi , Pelatihan , JudulFooter, Footer };
+module.exports = { Users, Kategori, Module, Materi , Pelatihan , JudulFooter, Footer };
