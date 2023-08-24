@@ -8,7 +8,6 @@ const {
 } = require("../controllers/pelatihanController");
 
 const router = express.Router();
-
 router.get('/pelatihan' , getPelatihan)
 router.get('/pelatihan/:id' , getPelatihanById)
 router.post('/pelatihan' , createPelatihan)
