@@ -17,6 +17,7 @@ const KontenPdf = require("../models/konten_pdf.js")(sequelize, DataTypes);
 const KontenVideo = require('../models/konten_video.js')(sequelize, DataTypes)
 const KontenPPT = require('../models/konten_ppt.js')(sequelize, DataTypes)
 const KontenPembahasan = require('../models/konten_tambah_pembahasan.js')(sequelize, DataTypes)
+const Views = require('../models/views.js')(sequelize, DataTypes)
 
 // Relation
 
@@ -70,23 +71,31 @@ JudulFooter.hasMany(Footer, {
 
 KontenPdf.belongsTo(subModule, {
   foreignKey: "id_sub_module",
-  as: "Konten_pdf",
+  as: "Konten_pdfs",
 });
 
 KontenVideo.belongsTo(subModule, {
   foreignKey: "id_sub_module",
-  as: "Konten_pdf",
+  as: "Konten_videos",
 });
 
 KontenPPT.belongsTo(subModule, {
   foreignKey: "id_sub_module",
-  as: "Konten_ppt",
+  as: "Konten_ppts",
 });
 
 KontenPembahasan.belongsTo(subModule, {
   foreignKey: "id_sub_module",
-  as: "Konten_ppt",
+  as: "Konten_pembahasans",
 });
+
+Pelatihan.hasMany(Views, {
+  foreignKey: "id_pelatihan",
+  as: "Views",
+});
+
+
+
 
 module.exports = {
   Users,
@@ -103,4 +112,5 @@ module.exports = {
   Rating,
   JudulFooter,
   Footer,
+  Views
 };

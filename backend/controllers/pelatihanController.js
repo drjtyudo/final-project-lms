@@ -1,4 +1,4 @@
-const { Pelatihan, Kategori, Rating } = require("../helper/relation");
+const { Pelatihan, Kategori, Rating, Views } = require("../helper/relation");
 const path = require("path");
 const crypto = require("crypto");
 const fs = require("fs");
@@ -23,9 +23,50 @@ exports.getPelatihan = async (req, res) => {
           as: "Ratings",
           attributes: ["id", "rating", "id_user"],
         },
+        {
+          model: Views,
+          as: "Views",
+          attributes: ["view"],
+        },
       ],
     });
-    res.status(200).json({ msg: "ok", response });
+
+
+    const ratings = response.Ratings; // Ambil rating
+    const ratingsCount = ratings.length; // pangjang rating atau jumlah rating
+
+    // Cek apakah ada?  jika tidak munculkan 0
+
+    // if (ratingsCount === 0) {
+    //   res.status(200).json({
+    //     msg: "ok",
+    //     pelatihan: response,
+    //     averageRating: 0,
+    //   }); // Tidak ada rating ✨ haduh
+    //   return;
+    // }
+
+    let roundedAverage = 0 
+    if (ratingsCount !== 0) {
+      const totalRatings = ratings.reduce((sum, rating) => sum + parseFloat(rating.rating), 0); // hitung jumlah rata-rata rating
+      const averageRating = totalRatings / ratingsCount;
+      roundedAverage = parseFloat(averageRating.toFixed(1));
+    }
+
+
+    const view = response.Views.length
+    let resultV
+    if (view === 0) {
+       resultV = 0
+    }
+ 
+    res.status(200).json({
+      msg: "ok",
+      pelatihan: response,
+      averageRating: roundedAverage,
+      view : resultV
+    });
+    
   } catch (error) {
     console.log(error.message);
   }
@@ -34,16 +75,63 @@ exports.getPelatihan = async (req, res) => {
 exports.getPelatihanById = async (req, res) => {
   try {
     const response = await Pelatihan.findOne({
+      include: [
+        {
+          model: Kategori,
+          as: "Kategoris",
+          attributes: [
+            "id",
+            "kategori",
+            "deskripsi",
+            "image_logo",
+            "url_image",
+          ],
+        },
+        {
+          model: Rating,
+          as: "Ratings",
+          attributes: ["id", "rating", "id_user"],
+        },
+        {
+          model: Views,
+          as: "Views",
+          attributes: ["view"],
+        },
+      ],
       where: {
         id: req.params.id,
       },
     });
 
-    res.status(200).json({ msg: "ok", response });
+    const ratings = response.Ratings; // Ambil rating
+    const ratingsCount = ratings.length; // pangjang rating atau jumlah rating
+
+    let roundedAverage = 0 
+    if (ratingsCount !== 0) {
+      const totalRatings = ratings.reduce((sum, rating) => sum + parseFloat(rating.rating), 0); // hitung jumlah rata-rata rating
+      const averageRating = totalRatings / ratingsCount;
+      roundedAverage = parseFloat(averageRating.toFixed(1));
+    }
+
+
+    const view = response.Views.length
+    let resultV
+    if (view === 0) {
+       resultV = 0
+    }
+ 
+    res.status(200).json({
+      msg: "ok",
+      pelatihan: response,
+      averageRating: roundedAverage,
+      view : resultV
+    });
+    
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
 };
+
 
 exports.createPelatihan = async (req, res) => {
   try {
@@ -58,9 +146,7 @@ exports.createPelatihan = async (req, res) => {
       masaLisensi,
     } = req.body;
 
-    // if (req.files === null || req.files.length < 1) {
-    //   return res.status(400).json({ msg: "Masukkan gambar" });
-    // }
+
     const imageFile = req.files.image;
 
     const imageTimestamp = Date.now();

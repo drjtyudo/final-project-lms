@@ -18,6 +18,7 @@ const KontenPdf = require('./routes/kontenPdfRoute.js');
 const KontenVideo = require('./routes/kontenVideoRoute.js');
 const KontenPPT = require('./routes/kontenPPTRoute.js');
 const KontenPembahasan = require('./routes/kontenTambahPembahasan.js');
+const viewsRoute = require('./routes/viewsRoute.js');
 
 const app = express();
 dotenv.config();
@@ -53,6 +54,7 @@ app.use(KontenPdf)
 app.use(KontenVideo)
 app.use(KontenPPT)
 app.use(KontenPembahasan)
+app.use(viewsRoute)
 
 app.get("*", (req, res) => {
   res.status(404).json({ msg: "Url not found" });
