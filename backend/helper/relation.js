@@ -7,6 +7,11 @@ const Module = require("../models/module.js")(sequelize, DataTypes);
 const subModule = require("../models/sub_module.js")(sequelize, DataTypes);
 const Pelatihan = require("../models/pelatihan")(sequelize, DataTypes);
 const Rating = require("../models/rating.js")(sequelize, DataTypes);
+const Commentar = require("../models/commentar.js")(sequelize, DataTypes);
+const Commentar_reply = require("../models/commentar_reply.js")(
+  sequelize,
+  DataTypes
+);
 const Footer = require("../models/footer.js")(sequelize, DataTypes);
 const JudulFooter = require("../models/judul_footer.js")(sequelize, DataTypes);
 const PelatihanKategori = require("../models/pelatihankategori.js")(
@@ -63,6 +68,16 @@ Module.hasMany(subModule, {
   as: "subModules",
 });
 
+Commentar.hasMany(Commentar_reply, {
+  foreignKey: "id_commentar",
+  as: "Replies",
+});
+
+Commentar_reply.belongsTo(Commentar, {
+  foreignKey: "id_commentar",
+  as: "Commentar",
+});
+
 JudulFooter.hasMany(Footer, {
   foreignKey: "id_judul_footer",
   as: "Footers",
@@ -110,6 +125,8 @@ module.exports = {
   KontenPPT,
   KontenPembahasan,
   Rating,
+  Commentar,
+  Commentar_reply,
   JudulFooter,
   Footer,
   Views

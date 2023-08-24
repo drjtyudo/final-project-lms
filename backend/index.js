@@ -13,6 +13,7 @@ const subMateriRoute = require("./routes/subModuleRoute.js");
 const Pelatihan = require("./routes/pelatihanRoute");
 const PelatihanKategori = require("./routes/kategoriPelatihan.js");
 const ratingRoute = require("./routes/ratingRoute.js");
+const commentarRoute = require("./routes/commentarRoute.js");
 const Footer = require("./routes/footerRoute.js");
 const KontenPdf = require('./routes/kontenPdfRoute.js');
 const KontenVideo = require('./routes/kontenVideoRoute.js');
@@ -49,6 +50,7 @@ app.use(subMateriRoute);
 app.use(Pelatihan);
 app.use(PelatihanKategori);
 app.use(ratingRoute);
+app.use(commentarRoute);
 app.use(Footer);
 app.use(KontenPdf)
 app.use(KontenVideo)

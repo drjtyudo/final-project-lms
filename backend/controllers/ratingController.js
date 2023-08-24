@@ -20,7 +20,7 @@ exports.getRatingByIdPelatihan = async (req, res) => {
 
     if (ratingsCount === 0) {
       return res
-        .status(200)
+        .status(400)
         .json({ msg: "No ratings available for this training" });
     }
 
@@ -40,7 +40,7 @@ exports.getRatingByIdPelatihan = async (req, res) => {
 };
 
 exports.createRating = async (req, res) => {
-  const { rating, id_pelatihan} = req.body;
+  const { rating, id_pelatihan } = req.body;
 
   try {
     const id_user = req.userId;
