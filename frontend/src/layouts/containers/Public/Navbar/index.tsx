@@ -2,6 +2,7 @@ import React from 'react'
 import { Layout, Menu, Select, Typography, Image, Dropdown } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 import { Search } from 'components/Search'
+import Login from 'pages/login'
 
 const { Header } = Layout
 
@@ -65,13 +66,8 @@ function NavigationBar() {
                 src="./static/icon/bell.png"
                 className="ml-2"
               />
-              <div>
-                {/* <Button
-                  type="text"
-                  className="bg-[#FFAF20] text-white ml-5 font-semibold"
-                >
-                  Login
-                </Button> */}
+              <div className='flex gap-2'>
+               <Login/>
                 <Dropdown
                   overlay={profileMenu}
                   trigger={['click']}
