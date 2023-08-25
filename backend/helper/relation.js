@@ -24,6 +24,7 @@ const KontenVideo = require('../models/konten_video.js')(sequelize, DataTypes)
 const KontenPPT = require('../models/konten_ppt.js')(sequelize, DataTypes)
 const KontenPembahasan = require('../models/konten_tambah_pembahasan.js')(sequelize, DataTypes)
 const Views = require('../models/views.js')(sequelize, DataTypes)
+const Transaction = require("../models/transaction.js")(sequelize, DataTypes)
 
 // Relation
 
@@ -131,5 +132,6 @@ module.exports = {
   Commentar_reply,
   JudulFooter,
   Footer,
-  Views
+  Views,
+  Transaction
 };
