@@ -6,22 +6,25 @@ const fs = require("fs");
 exports.getPelatihan = async (req, res) => {
   try {
     const response = await Pelatihan.findAll({
+      attributes: [
+        "id",
+        "judul",
+        "deskripsi",
+        "harga",
+        "dibuat_oleh",
+        "status",
+        "level",
+        "image",
+        "image_url",
+        "masa_lisensi",
+        "createdAt",
+        "updatedAt",
+      ],
       include: [
-        {
-          model: Kategori,
-          as: "Kategoris",
-          attributes: [
-            "id",
-            "kategori",
-            "deskripsi",
-            "image_logo",
-            "url_image",
-          ],
-        },
         {
           model: Rating,
           as: "Ratings",
-          attributes: ["id", "rating", "id_user"],
+          attributes: ["rating"],
         },
         {
           model: Views,
@@ -31,66 +34,62 @@ exports.getPelatihan = async (req, res) => {
       ],
     });
 
+    const updatedResponse = response.map(pelatihan => {
+      const ratings = pelatihan.Ratings;
+      const views = pelatihan.Views;
 
-    const ratings = response.Ratings; // Ambil rating
-    const ratingsCount = ratings.length; // pangjang rating atau jumlah rating
+      const ratingsCount = ratings.length;
+      let roundedAverage = 0;
 
-    // Cek apakah ada?  jika tidak munculkan 0
+      if (ratingsCount !== 0) {
+        const totalRatings = ratings.reduce((sum, rating) => sum + parseFloat(rating.rating), 0);
+        const averageRating = totalRatings / ratingsCount;
+        roundedAverage = parseFloat(averageRating.toFixed(1));
+      }
 
-    // if (ratingsCount === 0) {
-    //   res.status(200).json({
-    //     msg: "ok",
-    //     pelatihan: response,
-    //     averageRating: 0,
-    //   }); // Tidak ada rating ✨ haduh
-    //   return;
-    // }
+      const totalViews = views.reduce((sum, view) => sum + view.view, 0);
 
-    let roundedAverage = 0 
-    if (ratingsCount !== 0) {
-      const totalRatings = ratings.reduce((sum, rating) => sum + parseFloat(rating.rating), 0); // hitung jumlah rata-rata rating
-      const averageRating = totalRatings / ratingsCount;
-      roundedAverage = parseFloat(averageRating.toFixed(1));
-    }
+      return {
+        id: pelatihan.id,
+        judul: pelatihan.judul,
+        deskripsi: pelatihan.deskripsi,
+        harga: pelatihan.harga,
+        dibuat_oleh: pelatihan.dibuat_oleh,
+        status: pelatihan.status,
+        level: pelatihan.level,
+        image: pelatihan.image,
+        image_url: pelatihan.image_url,
+        masa_lisensi: pelatihan.masa_lisensi,
+        createdAt: pelatihan.createdAt,
+        updatedAt: pelatihan.updatedAt,
+        averageRating: roundedAverage,
+        totalViews: totalViews
+      };
+    });
 
-
-    const view = response.Views.length
-    let resultV
-    if (view === 0) {
-       resultV = 0
-    }
- 
     res.status(200).json({
       msg: "ok",
-      pelatihan: response,
-      averageRating: roundedAverage,
-      view : resultV
+      pelatihan: updatedResponse,
     });
-    
   } catch (error) {
-    console.log(error.message);
+    res.status(500).json({ msg: error.message });
   }
 };
 
+
 exports.getPelatihanById = async (req, res) => {
   try {
-    const response = await Pelatihan.findOne({
+    const pelatihan = await Pelatihan.findOne({
       include: [
         {
           model: Kategori,
           as: "Kategoris",
-          attributes: [
-            "id",
-            "kategori",
-            "deskripsi",
-            "image_logo",
-            "url_image",
-          ],
+          attributes: ["id", "kategori", "deskripsi", "image_logo", "url_image"],
         },
         {
           model: Rating,
           as: "Ratings",
-          attributes: ["id", "rating", "id_user"],
+          attributes: ["rating"],
         },
         {
           model: Views,
@@ -103,30 +102,40 @@ exports.getPelatihanById = async (req, res) => {
       },
     });
 
-    const ratings = response.Ratings; // Ambil rating
-    const ratingsCount = ratings.length; // pangjang rating atau jumlah rating
-
-    let roundedAverage = 0 
-    if (ratingsCount !== 0) {
-      const totalRatings = ratings.reduce((sum, rating) => sum + parseFloat(rating.rating), 0); // hitung jumlah rata-rata rating
-      const averageRating = totalRatings / ratingsCount;
-      roundedAverage = parseFloat(averageRating.toFixed(1));
+    if (!pelatihan) {
+      return res.status(404).json({ msg: "Pelatihan not found" });
     }
 
+    const ratings = pelatihan.Ratings;
+    const views = pelatihan.Views;
 
-    const view = response.Views.length
-    let resultV
-    if (view === 0) {
-       resultV = 0
-    }
- 
+    const ratingsCount = ratings.length;
+    const totalRatings = ratings.reduce((sum, rating) => sum + parseFloat(rating.rating), 0);
+    const roundedAverage = ratingsCount !== 0 ? parseFloat((totalRatings / ratingsCount).toFixed(1)) : 0;
+    const totalViews = views.reduce((sum, view) => sum + view.view, 0);
+
+    const updatedResponse = {
+      id: pelatihan.id,
+      judul: pelatihan.judul,
+      deskripsi: pelatihan.deskripsi,
+      harga: pelatihan.harga,
+      dibuat_oleh: pelatihan.dibuat_oleh,
+      status: pelatihan.status,
+      level: pelatihan.level,
+      image: pelatihan.image,
+      image_url: pelatihan.image_url,
+      masa_lisensi: pelatihan.masa_lisensi,
+      createdAt: pelatihan.createdAt,
+      updatedAt: pelatihan.updatedAt,
+      averageRating: roundedAverage,
+      totalViews: totalViews,
+    };
+
     res.status(200).json({
       msg: "ok",
-      pelatihan: response,
-      averageRating: roundedAverage,
-      view : resultV
+      pelatihan: updatedResponse,
     });
-    
+
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
@@ -145,7 +154,6 @@ exports.createPelatihan = async (req, res) => {
       level,
       masaLisensi,
     } = req.body;
-
 
     const imageFile = req.files.image;
 
