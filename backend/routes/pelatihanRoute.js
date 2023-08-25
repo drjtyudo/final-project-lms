@@ -4,11 +4,13 @@ const {
     createPelatihan,
     deletePelatihan,
     updatePelatihan
+    ,getPelatihanById
 } = require("../controllers/pelatihanController");
 
 const router = express.Router();
 
 router.get('/pelatihan' , getPelatihan)
+router.get('/pelatihan/:id' , getPelatihanById)
 router.post('/pelatihan' , createPelatihan)
 router.patch('/pelatihan/:id' , updatePelatihan)
 router.delete('/pelatihan/:id' , deletePelatihan)
