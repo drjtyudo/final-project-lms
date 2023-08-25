@@ -14,6 +14,7 @@ const Pelatihan = require("./routes/pelatihanRoute");
 const PelatihanKategori = require("./routes/kategoriPelatihan.js");
 const ratingRoute = require("./routes/ratingRoute.js");
 const commentarRoute = require("./routes/commentarRoute.js");
+const iklanRoute = require("./routes/iklanRoute.js");
 const Footer = require("./routes/footerRoute.js");
 
 const app = express();
@@ -46,6 +47,7 @@ app.use(Pelatihan);
 app.use(PelatihanKategori);
 app.use(ratingRoute);
 app.use(commentarRoute);
+app.use(iklanRoute);
 app.use(Footer);
 
 app.get("*", (req, res) => {

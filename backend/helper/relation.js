@@ -18,6 +18,7 @@ const PelatihanKategori = require("../models/pelatihankategori.js")(
   sequelize,
   DataTypes
 );
+const Iklan = require("../models/iklan.js")(sequelize, DataTypes);
 
 // Relation
 
@@ -80,6 +81,7 @@ JudulFooter.hasMany(Footer, {
 });
 
 module.exports = {
+  Iklan,
   Users,
   Kategori,
   Module,

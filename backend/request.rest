@@ -6,4 +6,4 @@ Content-Type: application/json
     "id_kategori" : 1
 }
 ###
-GET http://localhost:8000/test
+GET http://localhost:8000/iklan
