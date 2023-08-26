@@ -1,7 +1,99 @@
-const { Pelatihan, Kategori, Rating, Views } = require("../helper/relation");
+const {
+  Pelatihan,
+  Kategori,
+  Rating,
+  Views,
+  PelatihanKategori,
+} = require("../helper/relation");
 const path = require("path");
 const crypto = require("crypto");
 const fs = require("fs");
+
+exports.getPelatihanBykategori = async (req, res) => {
+  try {
+    const response = await PelatihanKategori.findAll({
+      include: [
+        {
+          model: Pelatihan,
+          as: "Pelatihan_ids",
+          attributes: [
+            "id",
+            "judul",
+            "deskripsi",
+            "harga",
+            "dibuat_oleh",
+            "status",
+            "level",
+            "image",
+            "image_url",
+            "masa_lisensi",
+            "createdAt",
+            "updatedAt",
+          ],
+          include: [
+            {
+              model: Rating,
+              as: "Ratings",
+              attributes: ["rating"],
+            },
+            {
+              model: Views,
+              as: "Views",
+              attributes: ["view"],
+            },
+          ],
+        },
+      ],
+      where: {
+        id_kategori: req.params.id,
+      },
+    });
+
+    const updatedResponse = response.map((pelatihan) => {
+      const ratings = pelatihan.Pelatihan_ids.Ratings || [];
+      const views = pelatihan.Pelatihan_ids.Views || [];
+
+      const ratingsCount = ratings.length;
+      let roundedAverage = 0;
+
+      if (ratingsCount !== 0) {
+        const totalRatings = ratings.reduce(
+          (sum, rating) => sum + parseFloat(rating.rating),
+          0
+        );
+        const averageRating = totalRatings / ratingsCount;
+        roundedAverage = parseFloat(averageRating.toFixed(1));
+      }
+
+      const totalViews = views.reduce((sum, view) => sum + view.view, 0);
+
+      return {
+        id: pelatihan.Pelatihan_ids.id,
+        judul: pelatihan.Pelatihan_ids.judul,
+        deskripsi: pelatihan.Pelatihan_ids.deskripsi,
+        harga: pelatihan.Pelatihan_ids.harga,
+        dibuat_oleh: pelatihan.Pelatihan_ids.dibuat_oleh,
+        status: pelatihan.Pelatihan_ids.status,
+        level: pelatihan.Pelatihan_ids.level,
+        image: pelatihan.Pelatihan_ids.image,
+        image_url: pelatihan.Pelatihan_ids.image_url,
+        masa_lisensi: pelatihan.Pelatihan_ids.masa_lisensi,
+        createdAt: pelatihan.Pelatihan_ids.createdAt,
+        updatedAt: pelatihan.Pelatihan_ids.updatedAt,
+        averageRating: roundedAverage,
+        totalViews: totalViews,
+      };
+    });
+
+    res.status(200).json({
+      msg: "ok",
+      pelatihan: updatedResponse,
+    });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
 
 exports.getPelatihan = async (req, res) => {
   try {
@@ -34,7 +126,7 @@ exports.getPelatihan = async (req, res) => {
       ],
     });
 
-    const updatedResponse = response.map(pelatihan => {
+    const updatedResponse = response.map((pelatihan) => {
       const ratings = pelatihan.Ratings;
       const views = pelatihan.Views;
 
@@ -42,7 +134,10 @@ exports.getPelatihan = async (req, res) => {
       let roundedAverage = 0;
 
       if (ratingsCount !== 0) {
-        const totalRatings = ratings.reduce((sum, rating) => sum + parseFloat(rating.rating), 0);
+        const totalRatings = ratings.reduce(
+          (sum, rating) => sum + parseFloat(rating.rating),
+          0
+        );
         const averageRating = totalRatings / ratingsCount;
         roundedAverage = parseFloat(averageRating.toFixed(1));
       }
@@ -63,7 +158,7 @@ exports.getPelatihan = async (req, res) => {
         createdAt: pelatihan.createdAt,
         updatedAt: pelatihan.updatedAt,
         averageRating: roundedAverage,
-        totalViews: totalViews
+        totalViews: totalViews,
       };
     });
 
@@ -76,7 +171,6 @@ exports.getPelatihan = async (req, res) => {
   }
 };
 
-
 exports.getPelatihanById = async (req, res) => {
   try {
     const pelatihan = await Pelatihan.findOne({
@@ -84,7 +178,13 @@ exports.getPelatihanById = async (req, res) => {
         {
           model: Kategori,
           as: "Kategoris",
-          attributes: ["id", "kategori", "deskripsi", "image_logo", "url_image"],
+          attributes: [
+            "id",
+            "kategori",
+            "deskripsi",
+            "image_logo",
+            "url_image",
+          ],
         },
         {
           model: Rating,
@@ -110,8 +210,14 @@ exports.getPelatihanById = async (req, res) => {
     const views = pelatihan.Views;
 
     const ratingsCount = ratings.length;
-    const totalRatings = ratings.reduce((sum, rating) => sum + parseFloat(rating.rating), 0);
-    const roundedAverage = ratingsCount !== 0 ? parseFloat((totalRatings / ratingsCount).toFixed(1)) : 0;
+    const totalRatings = ratings.reduce(
+      (sum, rating) => sum + parseFloat(rating.rating),
+      0
+    );
+    const roundedAverage =
+      ratingsCount !== 0
+        ? parseFloat((totalRatings / ratingsCount).toFixed(1))
+        : 0;
     const totalViews = views.reduce((sum, view) => sum + view.view, 0);
 
     const updatedResponse = {
@@ -135,12 +241,10 @@ exports.getPelatihanById = async (req, res) => {
       msg: "ok",
       pelatihan: updatedResponse,
     });
-
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
 };
-
 
 exports.createPelatihan = async (req, res) => {
   try {

@@ -19,10 +19,13 @@ const PelatihanKategori = require("../models/pelatihankategori.js")(
   DataTypes
 );
 const KontenPdf = require("../models/konten_pdf.js")(sequelize, DataTypes);
-const KontenVideo = require('../models/konten_video.js')(sequelize, DataTypes)
-const KontenPPT = require('../models/konten_ppt.js')(sequelize, DataTypes)
-const KontenPembahasan = require('../models/konten_tambah_pembahasan.js')(sequelize, DataTypes)
-const Views = require('../models/views.js')(sequelize, DataTypes)
+const KontenVideo = require("../models/konten_video.js")(sequelize, DataTypes);
+const KontenPPT = require("../models/konten_ppt.js")(sequelize, DataTypes);
+const KontenPembahasan = require("../models/konten_tambah_pembahasan.js")(
+  sequelize,
+  DataTypes
+);
+const Views = require("../models/views.js")(sequelize, DataTypes);
 
 // Relation
 
@@ -48,7 +51,7 @@ Pelatihan.hasMany(Rating, {
 
 Kategori.belongsToMany(Pelatihan, {
   through: PelatihanKategori,
-  foreignKey: "id_pelatihan",
+  foreignKey: "id_kategori",
   as: "Pelatihans",
 });
 
@@ -57,6 +60,18 @@ Pelatihan.belongsToMany(Kategori, {
   foreignKey: "id_pelatihan",
   as: "Kategoris",
 });
+
+PelatihanKategori.belongsTo(Kategori , {
+  foreignKey : "id_kategori",
+  as : "Kategori_ids"
+})
+
+
+PelatihanKategori.belongsTo(Pelatihan , {
+  foreignKey : "id_Pelatihan",
+  as : "Pelatihan_ids"
+})
+
 
 subModule.belongsTo(Module, {
   foreignKey: "id_module",
@@ -109,9 +124,6 @@ Pelatihan.hasMany(Views, {
   as: "Views",
 });
 
-
-
-
 module.exports = {
   Users,
   Kategori,
@@ -129,5 +141,6 @@ module.exports = {
   Commentar_reply,
   JudulFooter,
   Footer,
-  Views
+  Views,
+  PelatihanKategori,
 };
