@@ -5,6 +5,8 @@ interface ICards {
   title: string
   titlePelatihan: String
   description: string
+  bank: string
+  iconBank: string[]
 }
 
 const Cards = {
@@ -76,15 +78,32 @@ const Cards = {
           </h1>
           <ul className="list-disc flex flex-wrap gap-x-[350px] ml-8">
             {listItems.map((item, index) => (
-              <li key={index}>
-                {item}
-              </li>
+              <li key={index}>{item}</li>
             ))}
           </ul>
         </div>
       </div>
     )
   },
+  CardPembayaran: (props: ICards) => {
+    const { bank, iconBank } = props;
+    return (
+      <div className="h-[116px]">
+        <div className="my-[16px]">{bank}</div>
+        <div className="gap-[25px] w-[55px] flex">
+          {iconBank.map((iconPath, index) => (
+            <img
+              key={index}
+              src={iconPath}
+              alt={bank}
+              className="mr-1 bg-contain mt-2 cursor-pointer"
+            />
+          ))}
+        </div>
+      </div>
+    );
+  },
+  
 }
 
 export default Cards

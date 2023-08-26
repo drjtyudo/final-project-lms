@@ -38,7 +38,7 @@ export function ModulComp() {
   ]
 
   return (
-    <div className="mx-[62px]">
+    <div className="mr-[52px]">
       {moduleData.map((module, index) => (
         <table key={index} className="border-collapse text-left">
           <tbody>
