@@ -20,11 +20,15 @@ const PelatihanKategori = require("../models/pelatihankategori.js")(
 );
 const Iklan = require("../models/iklan.js")(sequelize, DataTypes);
 const KontenPdf = require("../models/konten_pdf.js")(sequelize, DataTypes);
-const KontenVideo = require('../models/konten_video.js')(sequelize, DataTypes)
-const KontenPPT = require('../models/konten_ppt.js')(sequelize, DataTypes)
-const KontenPembahasan = require('../models/konten_tambah_pembahasan.js')(sequelize, DataTypes)
-const Views = require('../models/views.js')(sequelize, DataTypes)
-const Transaction = require("../models/transaction.js")(sequelize, DataTypes)
+const KontenVideo = require("../models/konten_video.js")(sequelize, DataTypes);
+const KontenPPT = require("../models/konten_ppt.js")(sequelize, DataTypes);
+const KontenPembahasan = require("../models/konten_tambah_pembahasan.js")(
+  sequelize,
+  DataTypes
+);
+const Views = require("../models/views.js")(sequelize, DataTypes);
+const Transaction = require("../models/transaction.js")(sequelize, DataTypes);
+const PelatihanSaya = require("../models/pelatihan_saya.js")(sequelize, DataTypes)
 
 // Relation
 
@@ -111,8 +115,34 @@ Pelatihan.hasMany(Views, {
   as: "Views",
 });
 
+Transaction.belongsTo(Pelatihan, {
+  foreignKey: "id_pelatihan",
+  as: "Pelatihan",
+});
+Pelatihan.hasMany(Transaction, {
+  foreignKey: "id_pelatihan",
+  as: "Transactions",
+});
 
+PelatihanSaya.belongsTo(Pelatihan, {
+  foreignKey: "id_pelatihan",
+  as: "Pelatihan",
+});
 
+Pelatihan.hasMany(PelatihanSaya, {
+  foreignKey: "id_pelatihan",
+  as: "PelatihanSayas",
+});
+
+Users.hasMany(PelatihanSaya, {
+  foreignKey: "id_user",
+  as: "PelatihanSaya",
+});
+
+PelatihanSaya.belongsTo(Users, {
+  foreignKey: "id_user",
+  as: "User",
+});
 
 module.exports = {
   Iklan,
@@ -133,5 +163,6 @@ module.exports = {
   JudulFooter,
   Footer,
   Views,
-  Transaction
+  Transaction,
+  PelatihanSaya
 };

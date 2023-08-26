@@ -16,12 +16,13 @@ const ratingRoute = require("./routes/ratingRoute.js");
 const commentarRoute = require("./routes/commentarRoute.js");
 const iklanRoute = require("./routes/iklanRoute.js");
 const Footer = require("./routes/footerRoute.js");
-const KontenPdf = require('./routes/kontenPdfRoute.js');
-const KontenVideo = require('./routes/kontenVideoRoute.js');
-const KontenPPT = require('./routes/kontenPPTRoute.js');
-const KontenPembahasan = require('./routes/kontenTambahPembahasan.js');
-const viewsRoute = require('./routes/viewsRoute.js');
-const transactionRoute = require("./routes/transactionRoute.js")
+const KontenPdf = require("./routes/kontenPdfRoute.js");
+const KontenVideo = require("./routes/kontenVideoRoute.js");
+const KontenPPT = require("./routes/kontenPPTRoute.js");
+const KontenPembahasan = require("./routes/kontenTambahPembahasan.js");
+const viewsRoute = require("./routes/viewsRoute.js");
+const transactionRoute = require("./routes/transactionRoute.js");
+const PelatihanSayaRoute = require("./routes/pelatihanSayaRoute.js");
 
 const app = express();
 dotenv.config();
@@ -31,7 +32,7 @@ const PORT = process.env.PORT || 8000;
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:3000", "http://192.168.100.4:3000"],
+    origin: ["http://localhost:1501", "http://192.168.100.4:1501"],
   })
 );
 
@@ -55,12 +56,13 @@ app.use(ratingRoute);
 app.use(commentarRoute);
 app.use(iklanRoute);
 app.use(Footer);
-app.use(KontenPdf)
-app.use(KontenVideo)
-app.use(KontenPPT)
-app.use(KontenPembahasan)
-app.use(viewsRoute)
-app.use(transactionRoute)
+app.use(KontenPdf);
+app.use(KontenVideo);
+app.use(KontenPPT);
+app.use(KontenPembahasan);
+app.use(viewsRoute);
+app.use(transactionRoute);
+app.use(PelatihanSayaRoute);
 
 app.get("*", (req, res) => {
   res.status(404).json({ msg: "Url not found" });
