@@ -12,10 +12,9 @@ exports.getAllModule = async (req, res) => {
 };
 
 exports.createModule = async (req, res) => {
-  const { module, id_pelatihan} = req.body;
+  const { module} = req.body;
   try {
     const newModule = await Module.create({
-      id_pelatihan,
       module,
     });
     res.status(201).json({ msg: "module created", newModule });

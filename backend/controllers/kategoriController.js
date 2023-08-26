@@ -131,7 +131,7 @@ exports.updateKategori = async (req, res) => {
       existingKategori.url_image = url;
 
       // Pindahkan file gambar baru ke direktori yang sesuai
-      file.mv(`./public/kategori/logo/${filename}`, async (err) => {
+      file.mv(`./public/assets/kategori-image/${filename}`, async (err) => {
         if (err) {
           return res
             .status(500)
