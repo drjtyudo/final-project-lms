@@ -9,6 +9,11 @@
 
 h1,h2,h3,h4,h5,h6,p {
   color: #1D1E1E;
+  line-height: 24.2px;
+}
+h5{
+  font-weight: 700;
+  font-size: 20px;
 }
 
 .ant-progress .ant-progress-text {

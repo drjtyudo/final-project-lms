@@ -6,7 +6,7 @@ function Home() {
   return (
     <div>
       <BannerIklan />
-      <div className='px-[50px]'>
+      <div className="px-[50px]">
         <Slider
           title="Kategori Pelatihan"
           deskripsi="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium perferendis numquam soluta dolor sapiente eveniet, autem ipsam modi culpa deserunt porro illo voluptates iste debitis repudiandae impedit, itaque asperiores perspiciatis?"
