@@ -24,14 +24,37 @@ module.exports = {
           type: Sequelize.STRING,
         },
         status: {
-          type: Sequelize.ENUM('free' , 'paid'),
+          type: Sequelize.ENUM("free", "paid"),
         },
         dibuat_oleh: {
           type: Sequelize.STRING,
         },
         level: {
-          type: Sequelize.ENUM('pemula' ,'menengah' ,'lanjut', 'beginner' , 'intermediate' , 'advance '),
+          type: Sequelize.ENUM(
+            "pemula",
+            "menengah",
+            "lanjut",
+            "beginner",
+            "intermediate",
+            "advance "
+          ),
         },
+        level: {
+          type: Sequelize.ENUM(
+            "pemula",
+            "menengah",
+            "lanjut",
+            "beginner",
+            "intermediate",
+            "advance "
+            ),
+          },
+          status_terbit: {
+            type: Sequelize.ENUM("draf", "terbit"),
+          },
+          tanggal_terbit: {
+            type: Sequelize.DATE,
+          },
         image: {
           type: Sequelize.STRING,
         },

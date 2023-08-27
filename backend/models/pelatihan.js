@@ -26,13 +26,26 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       status: {
-        type: DataTypes.ENUM('free' , 'paid'),
+        type: DataTypes.ENUM("free", "paid"),
       },
       dibuat_oleh: {
         type: DataTypes.STRING,
       },
       level: {
-        type: DataTypes.ENUM('pemula' ,'menengah' ,'lanjut', 'beginner' , 'intermediate' , 'advance '),
+        type: DataTypes.ENUM(
+          "pemula",
+          "menengah",
+          "lanjut",
+          "beginner",
+          "intermediate",
+          "advance "
+        ),
+      },
+      status_terbit: {
+        type: DataTypes.ENUM("draf", "terbit"),
+      },
+      tanggal_terbit: {
+        type: DataTypes.DATE,
       },
       image: {
         type: DataTypes.STRING,
