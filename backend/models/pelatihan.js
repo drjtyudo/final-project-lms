@@ -13,28 +13,34 @@ module.exports = (sequelize, DataTypes) => {
   }
   Pelatihan.init(
     {
-      image: {
-        type: DataTypes.STRING,
-      },
-      url: {
-        type: DataTypes.STRING,
-      },
       judul: {
         type: DataTypes.STRING,
-      },
-      harga: {
-        type: DataTypes.DECIMAL,
       },
       deskripsi: {
         type: DataTypes.TEXT,
       },
-      watching: {
-        type: DataTypes.INTEGER,
+      harga: {
+        type: DataTypes.DECIMAL,
       },
       dibuat_oleh: {
         type: DataTypes.STRING,
       },
-      untuk: {
+      status: {
+        type: DataTypes.ENUM('free' , 'paid'),
+      },
+      dibuat_oleh: {
+        type: DataTypes.STRING,
+      },
+      level: {
+        type: DataTypes.ENUM('pemula' ,'menengah' ,'lanjut', 'beginner' , 'intermediate' , 'advance '),
+      },
+      image: {
+        type: DataTypes.STRING,
+      },
+      image_url: {
+        type: DataTypes.STRING,
+      },
+      masa_lisensi: {
         type: DataTypes.STRING,
       },
     },

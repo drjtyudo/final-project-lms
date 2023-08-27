@@ -1,7 +1,4 @@
 import { EyeOutlined, StarOutlined, CommentOutlined } from '@ant-design/icons'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
-import Link from 'next/link'
 
 interface ICards {
   image: string
@@ -10,12 +7,12 @@ interface ICards {
   description: string
   bank: string
   iconBank: string[]
-  watching: string
-  rating: string
+  totalViews: string
+  averageRating: string
   comment: string
   harga: string
-  create: string
-  untuk: string
+  dibuat_oleh: string
+  level: string
   id: string
 }
 
@@ -37,32 +34,17 @@ const Cards = {
     )
   },
   CardPelatihan: (props: ICards) => {
-    const [kategori, setKategori] = useState([])
-
-    useEffect(() => {
-      getKategori()
-    }, [])
-
-    const getKategori = async () => {
-      try {
-        const data = await axios.get('http://localhost:8000/pelatihan')
-        setKategori(data.data.response)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    console.log(kategori)
-
+  
     const {
       image,
       titlePelatihan,
       harga,
       description,
-      watching,
-      rating,
+      totalViews,
+      averageRating,
       comment,
-      create,
-      untuk,
+      dibuat_oleh,
+      level,
     } = props
     return (
       <div className="w-[317px] rounded-[10px] shadow-[0_40px_60px_0px_rgba(32,77,132,0.1)]">
@@ -75,18 +57,18 @@ const Cards = {
           <h5 className="my-2 text-[20px] font-bold">{titlePelatihan}</h5>
           <p className="text-[#424242] text-[14px]">{description}</p>
           <div className="text-[11px]">
-            <p>Dibuat Oleh: {create} </p>
-            <p>Untuk: {untuk}</p>
+            <p>Dibuat Oleh: {dibuat_oleh} </p>
+            <p>Level: {level}</p>
           </div>
           <div className="flex">
             <div className="flex gap-4">
               <div className="flex gap-2">
                 <EyeOutlined style={{ fontSize: '16px' }} />{' '}
-                <span>{watching}</span>
+                <span>{totalViews}</span>
               </div>
               <div className="flex gap-2">
                 <StarOutlined style={{ fontSize: '16px' }} />{' '}
-                <span>{rating}</span>
+                <span>{averageRating}</span>
               </div>
               <div className="flex gap-2">
                 <CommentOutlined style={{ fontSize: '16px' }} />{' '}
@@ -94,7 +76,7 @@ const Cards = {
               </div>
             </div>
             <div className="flex-grow text-right ">
-              <p>{harga}</p>
+              <p>Rp. {harga}</p>
             </div>
           </div>
         </div>

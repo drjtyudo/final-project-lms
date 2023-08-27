@@ -5,7 +5,7 @@ exports.verifyToken = (req, res, next) => {
   const token = authHeader && authHeader.split(" ")[1];
   if (token == null) return res.sendStatus(401);
   jwt.verify(token, process.env.SECRET_ACCESS_TOKEN, (err, decode) => {
-    if (err) return res.sendStatus(403);
+    if (err) return res.status(403).json({msg : "Login first"});
     req.userId = decode.userId;
     next();
   });

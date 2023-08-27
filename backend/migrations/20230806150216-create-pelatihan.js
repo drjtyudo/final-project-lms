@@ -11,28 +11,34 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER,
         },
-        image: {
-          type: Sequelize.STRING,
-        },
-        url: {
-          type: Sequelize.STRING,
-        },
         judul: {
           type: Sequelize.STRING,
-        },
-        harga: {
-          type: Sequelize.DECIMAL,
         },
         deskripsi: {
           type: Sequelize.TEXT,
         },
-        watching: {
-          type: Sequelize.INTEGER,
+        harga: {
+          type: Sequelize.DECIMAL,
         },
         dibuat_oleh: {
           type: Sequelize.STRING,
         },
-        untuk: {
+        status: {
+          type: Sequelize.ENUM('free' , 'paid'),
+        },
+        dibuat_oleh: {
+          type: Sequelize.STRING,
+        },
+        level: {
+          type: Sequelize.ENUM('pemula' ,'menengah' ,'lanjut', 'beginner' , 'intermediate' , 'advance '),
+        },
+        image: {
+          type: Sequelize.STRING,
+        },
+        image_url: {
+          type: Sequelize.STRING,
+        },
+        masa_lisensi: {
           type: Sequelize.STRING,
         },
         createdAt: {

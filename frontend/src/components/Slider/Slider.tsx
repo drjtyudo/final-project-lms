@@ -19,13 +19,13 @@ const Slider = {
 
     const getKategori = async () => {
       try {
-        const data = await axios.get('http://localhost:8000/pelatihan')
-        setKategori(data.data.response)
+        const response = await axios.get('http://localhost:8000/kategori')
+        setKategori(response.data.response)
       } catch (error) {
         console.log(error)
       }
     }
-    console.log(kategori)
+
     return (
       <div className="mt-[100px] pb-10">
         <h1 className="text-[30px] font-bold text-[#1D1E1E] border-l-[7px] border-[#ffaf20] px-3">
@@ -40,9 +40,9 @@ const Slider = {
         <div className="flex gap-10">
           {kategori.map((data) => (
             <Cards.CardKategori
-              image={data.url}
-              title={data.judul}
-              titlePelatihan=""
+              key={data.id}
+              image={data.url_image}
+              title={data.kategori}
               description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, dolorum."
             />
           ))}
@@ -52,21 +52,22 @@ const Slider = {
   },
   SliderPelatihan: (props: ISlider) => {
     const { title, deskripsi } = props
-    const [kategori, setKategori] = useState([])
+    const [pelatihan, setPelatihan] = useState([])
 
-    useEffect(() => {
-      getKategori()
-    }, [])
-
-    const getKategori = async () => {
+    const getPelatihan = async () => {
       try {
-        const data = await axios.get('http://localhost:8000/pelatihan')
-        setKategori(data.data.response)
+        const response = await axios.get('http://localhost:8000/pelatihan')
+        setPelatihan(response.data.pelatihan)
       } catch (error) {
         console.log(error)
       }
     }
-    console.log(kategori)
+
+    useEffect(() => {
+      getPelatihan()
+    }, [])
+
+    console.log(pelatihan)
 
     return (
       <div className="mt-[100px] pb-10">
@@ -80,7 +81,7 @@ const Slider = {
           </button>
         </div>
         <div className="flex gap-10">
-          {kategori.map((data) => (
+          {pelatihan.map((data) => (
             <Link
               key={data.id}
               href={`/beliPengetahuan?id=${data.id}`}
@@ -88,16 +89,14 @@ const Slider = {
             >
               <Cards.CardPelatihan
                 key={data.id}
-                id={data.id} // Pass the ID as a prop
-                image={data.url}
-                titlePelatihan={data.judul}
-                harga={data.harga}
+                titlePelatihan={data.kategori}
+                image={data.image_url}
                 description={data.deskripsi}
-                watching={data.watching}
-                rating={data.rating}
-                comment={data.comment}
-                create={data.createdAt}
-                untuk={data.untuk}
+                harga={data.harga}
+                dibuat_oleh={data.dibuat_oleh}
+                level={data.level}
+                totalViews={data.totalViews}
+                averageRating={data.averageRating}
               />
             </Link>
           ))}

@@ -7,25 +7,13 @@ import { ModulComp } from 'components/Modul/ModulComp'
 import Komentar from 'components/Review/komentar'
 import { useRouter } from 'next/router'
 
-interface PelatihanData {
-  id: number;
-  image: string;
-  url: string;
-  judul: string;
-  harga: string;
-  deskripsi: string;
-  watching: number;
-  dibuat_oleh: string;
-  untuk: string;
-  createdAt: string;
-  updatedAt: string;
-  Kategoris: any[]; // Adjust this type as needed
-}
 
 function BeliPengetahuan() {
   const router = useRouter();
-  const [pelatihan, setPelatihan] = useState<PelatihanData | null>(null);
   const { id } = router.query;
+
+  console.log('Router Query:', router.query);
+  const [pelatihan, setPelatihan] = useState({})
 
   useEffect(() => {
     if (id) {
@@ -36,21 +24,15 @@ function BeliPengetahuan() {
   const getPelatihan = async () => {
     try {
       const response = await axios.get(`http://localhost:8000/pelatihan/${id}`);
-      setPelatihan(response.data.response);
+      console.log('Axios Response:', response);
+      setPelatihan(response.data.pelatihan);
     } catch (error) {
       console.log('Error fetching data:', error);
-      console.log('Response status:', error.response?.status);
       console.log('Response data:', error.response?.data);
-      // Set an error state or handle the error as needed
     }
   };
-  
 
   const list = ['Item 1', 'Item 2', 'Item 3'];
-
-  if (pelatihan === null) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div>
@@ -59,8 +41,10 @@ function BeliPengetahuan() {
         <div className="w-[1440px] ">
           <h1 className="text-[35px] mb-[26px]">Detail Pelatihan</h1>
           <div className="w-[965px] px-4">
-            <h1 className="text-[35px] mb-[26px]">{pelatihan.judul}</h1>
+            <h1 className="text-[23px] mb-[26px]">{pelatihan.judul}</h1>
+            <p className='text-[20px] font-bold'>Tentang Pelatihan</p>
             <p>{pelatihan.deskripsi}</p>
+            <p className='text-[20px] font-bold'>Level: {pelatihan.level}</p>
             <div className="mt-[44px] mb-[13px]">
               <h5>Konten Preview</h5>
               <div className="w-[full] flex">
@@ -75,7 +59,7 @@ function BeliPengetahuan() {
             <h5 className="mt-[43px]">Kategori</h5>
             <p>Kategori A, Kategori B</p>
             <h5 className="mt-[43px]">Masa berlaku lisensi</h5>
-            <p>Selamanya</p>
+            <p>{pelatihan.masa_lisensi}</p>
             <div className="w-[965px] mt-[53px]">
               <h5>Ulasan</h5>
               <div className="h-[1px] w-full bg-black mb-4"></div>
@@ -91,7 +75,7 @@ function BeliPengetahuan() {
               <Card
                 title={
                   <h3 style={{ fontSize: '24px', margin: '5px 0 0 0 ' }}>
-                    Pembuat
+                    Pembuat : {pelatihan.dibuat_oleh}
                   </h3>
                 }
                 style={{
@@ -132,7 +116,7 @@ function BeliPengetahuan() {
               >
                 <p className="flex items-center justify-between px-1 text-[20px]">
                   Harga
-                  <span className="ml-auto font-bold">Rp 100.000,-</span>
+                  <span className="ml-auto font-bold">Rp {pelatihan.harga},-</span>
                 </p>
                 <Button className="w-full mt-4">Beli Sekarang</Button>
               </Card>

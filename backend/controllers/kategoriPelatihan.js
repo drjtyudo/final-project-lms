@@ -17,7 +17,7 @@ exports.create = async (req,res) => {
             id_pelatihan,
             id_kategori
         })
-        res.status(201).json({msg : "success"})
+        res.status(201).json({msg : "success" ,create   })
     } catch (error) {
         res.status(500).json({msg : error.message})
     }

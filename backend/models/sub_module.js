@@ -15,13 +15,15 @@ module.exports = (sequelize, DataTypes) => {
     {
       id_module: DataTypes.INTEGER,
       judul: DataTypes.STRING,
-      materi: DataTypes.TEXT,
-      vidio_link: DataTypes.TEXT,
+      penerbit: DataTypes.TEXT,
+      status: DataTypes.ENUM('draf' , 'terbit'),
+      penerbitan : DataTypes.DATE
     },
     {
       sequelize,
-      modelName: "Materi",
+      modelName: "sub_module",
     }
   );
   return Materi;
 };
+
