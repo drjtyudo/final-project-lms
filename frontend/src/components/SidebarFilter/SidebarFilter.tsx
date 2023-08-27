@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Input from 'antd/es/input/Input'
 
 interface SidebarFilterProps {
   categories: string[]
@@ -29,8 +28,7 @@ const SidebarFilter: React.FC<SidebarFilterProps> = ({
   }
 
   return (
-    <div>
-      <div className="fix w-80 h-[1080px] bg-[#10455B] pt-[70px] px-[23px] fixed">
+      <div className="fix w-80 h-full bg-[#10455B] pt-[70px] px-[23px] fixed ">
         <h2 className="text-[#fff] text-[24px] font-bold mb-[17px]">Filter</h2>
         <ul className="mx-[50px]">
           <li
@@ -45,7 +43,7 @@ const SidebarFilter: React.FC<SidebarFilterProps> = ({
               {categories.map((category) => (
                 <li key={category} className="text-white mb-8">
                   <label className="flex items-center space-x-2">
-                    <Input
+                    <input
                       type="checkbox"
                       value={category}
                       checked={selectedCategories.includes(category)}
@@ -60,7 +58,6 @@ const SidebarFilter: React.FC<SidebarFilterProps> = ({
           )}
         </ul>
       </div>
-    </div>
   )
 }
 
