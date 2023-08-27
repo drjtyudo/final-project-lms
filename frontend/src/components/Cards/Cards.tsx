@@ -53,9 +53,9 @@ const Cards = {
           src={image}
           alt=""
         />
-        <div className="px-2 py-3">
+        <div className="px-2 py-3 h-[360px]">
           <h5 className="my-2 text-[20px] font-bold">{titlePelatihan}</h5>
-          <p className="text-[#424242] text-[14px]">{description}</p>
+          <p className="text-[#424242] text-[14px] overflow-auto h-[150px]">{description}</p>
           <div className="text-[11px]">
             <p>Dibuat Oleh: {dibuat_oleh} </p>
             <p>Level: {level}</p>

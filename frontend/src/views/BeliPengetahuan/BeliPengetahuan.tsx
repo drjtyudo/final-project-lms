@@ -7,32 +7,29 @@ import { ModulComp } from 'components/Modul/ModulComp'
 import Komentar from 'components/Review/komentar'
 import { useRouter } from 'next/router'
 
-
 function BeliPengetahuan() {
-  const router = useRouter();
-  const { id } = router.query;
+  const router = useRouter()
+  const { id } = router.query
 
-  console.log('Router Query:', router.query);
+  console.log('Router Query:', router.query)
   const [pelatihan, setPelatihan] = useState({})
 
   useEffect(() => {
     if (id) {
-      getPelatihan();
+      getPelatihan()
     }
-  }, [id]);
+  }, [id])
 
   const getPelatihan = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/pelatihan/${id}`);
-      console.log('Axios Response:', response);
-      setPelatihan(response.data.pelatihan);
+      const response = await axios.get(`http://localhost:8000/pelatihan/${id}`)
+      console.log('Axios Response:', response)
+      setPelatihan(response.data.pelatihan)
     } catch (error) {
-      console.log('Error fetching data:', error);
-      console.log('Response data:', error.response?.data);
+      console.log('Error fetching data:', error)
+      console.log('Response data:', error.response?.data)
     }
-  };
-
-  const list = ['Item 1', 'Item 2', 'Item 3'];
+  }
 
   return (
     <div>
@@ -42,9 +39,9 @@ function BeliPengetahuan() {
           <h1 className="text-[35px] mb-[26px]">Detail Pelatihan</h1>
           <div className="w-[965px] px-4">
             <h1 className="text-[23px] mb-[26px]">{pelatihan.judul}</h1>
-            <p className='text-[20px] font-bold'>Tentang Pelatihan</p>
+            <p className="text-[20px] font-bold">Tentang Pelatihan</p>
             <p>{pelatihan.deskripsi}</p>
-            <p className='text-[20px] font-bold'>Level: {pelatihan.level}</p>
+            <p className="text-[20px] font-bold">Level: {pelatihan.level}</p>
             <div className="mt-[44px] mb-[13px]">
               <h5>Konten Preview</h5>
               <div className="w-[full] flex">
@@ -82,7 +79,9 @@ function BeliPengetahuan() {
                   width: 332,
                 }}
               >
-                <p className="px-1 text-[20px]">Tanggal Dibuat : 20/20/21</p>
+                <p className="px-1 text-[20px]">
+                  Tanggal Dibuat : {pelatihan.tanggal_terbit}
+                </p>
               </Card>
             </Space>
           </div>
@@ -94,11 +93,13 @@ function BeliPengetahuan() {
               }}
             >
               <ul className="list-disc px-[25px]">
-                {list.map((item, index) => (
-                  <li className="text-[16px]" key={index}>
-                    {item}
-                  </li>
-                ))}
+                <li className="text-[16px]">
+                {pelatihan.totalDurasiString}  menit total video pembelajaran
+                </li>
+                <li className="text-[16px]">{pelatihan.bahanBacaan} bahan bacaan </li>
+                <li className="text-[16px]">{pelatihan.kontenUnduh}  konten dapat diunduh </li>
+                <li className="text-[16px]">Kuis yang dapat dikerjakan </li>
+                <li className="text-[16px]">Sertifikat dapat diunduh</li>
               </ul>
             </Card>
           </div>
@@ -116,7 +117,9 @@ function BeliPengetahuan() {
               >
                 <p className="flex items-center justify-between px-1 text-[20px]">
                   Harga
-                  <span className="ml-auto font-bold">Rp {pelatihan.harga},-</span>
+                  <span className="ml-auto font-bold">
+                    Rp {pelatihan.harga},-
+                  </span>
                 </p>
                 <Button className="w-full mt-4">Beli Sekarang</Button>
               </Card>

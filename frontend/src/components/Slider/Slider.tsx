@@ -89,7 +89,7 @@ const Slider = {
             >
               <Cards.CardPelatihan
                 key={data.id}
-                titlePelatihan={data.kategori}
+                titlePelatihan={data.judul}
                 image={data.image_url}
                 description={data.deskripsi}
                 harga={data.harga}
