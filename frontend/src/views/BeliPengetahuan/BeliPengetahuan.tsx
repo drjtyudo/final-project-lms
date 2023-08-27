@@ -1,39 +1,73 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import { Card, Space, Button } from 'antd'
 import NavigationBar from 'layouts/containers/Public/Navbar'
 import Footer from 'layouts/containers/Public/Footer'
 import { ModulComp } from 'components/Modul/ModulComp'
+import Komentar from 'components/Review/komentar'
+import { useRouter } from 'next/router'
+
+interface PelatihanData {
+  id: number;
+  image: string;
+  url: string;
+  judul: string;
+  harga: string;
+  deskripsi: string;
+  watching: number;
+  dibuat_oleh: string;
+  untuk: string;
+  createdAt: string;
+  updatedAt: string;
+  Kategoris: any[]; // Adjust this type as needed
+}
 
 function BeliPengetahuan() {
-  const list = ['Item 1', 'Item 2', 'Item 3']
+  const router = useRouter();
+  const [pelatihan, setPelatihan] = useState<PelatihanData | null>(null);
+  const { id } = router.query;
+
+  useEffect(() => {
+    if (id) {
+      getPelatihan();
+    }
+  }, [id]);
+
+  const getPelatihan = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8000/pelatihan/${id}`);
+      setPelatihan(response.data.response);
+    } catch (error) {
+      console.log('Error fetching data:', error);
+      console.log('Response status:', error.response?.status);
+      console.log('Response data:', error.response?.data);
+      // Set an error state or handle the error as needed
+    }
+  };
+  
+
+  const list = ['Item 1', 'Item 2', 'Item 3'];
+
+  if (pelatihan === null) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <NavigationBar />
       <div className="flex mt-[32px] mx-[52px]">
         <div className="w-[1440px] ">
-          <h1 className="text-[35px] mb-[26px]">Detail Pelatiahan</h1>
+          <h1 className="text-[35px] mb-[26px]">Detail Pelatihan</h1>
           <div className="w-[965px] px-4">
-            <h5>Judul Pelatihan</h5>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <h5 className="mt-[46px]">Tentang Pelatihan</h5>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse
-              fugiat qui tempora non voluptatibus earum quo minus nemo,
-              veritatis obcaecati voluptates asperiores aut temporibus nostrum
-              voluptatum minima tempore reiciendis corrupti accusantium
-              blanditiis nobis molestias adipisci! Dolore doloribus dolores
-              eligendi, voluptatem cum consequatur perferendis, earum facilis
-              similique autem voluptatum impedit provident.
-            </p>
+            <h1 className="text-[35px] mb-[26px]">{pelatihan.judul}</h1>
+            <p>{pelatihan.deskripsi}</p>
             <div className="mt-[44px] mb-[13px]">
               <h5>Konten Preview</h5>
               <div className="w-[full] flex">
                 <div>
                   <ModulComp />
                 </div>
-                <div className='w-full bg-gray-100 mr-4'>
-
-                </div>
+                <div className="w-full bg-gray-100 mr-4"></div>
               </div>
             </div>
             <h5 className="mt-[51px]">Target Audiens</h5>
@@ -45,8 +79,9 @@ function BeliPengetahuan() {
             <div className="w-[965px] mt-[53px]">
               <h5>Ulasan</h5>
               <div className="h-[1px] w-full bg-black mb-4"></div>
-              {/* Ulasan Mba sabilah */}
-              <div className="w-full h-[400px] bg-gray-100 mb-[52px]"></div>
+              <div className="w-full h-[400px] mb-[52px]">
+                <Komentar />
+              </div>
             </div>
           </div>
         </div>
