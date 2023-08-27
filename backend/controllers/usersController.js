@@ -254,6 +254,7 @@ exports.updateUser = async (req, res) => {
         negara,
         domisili
       );
+        await existingUser.save();
 
       res
         .status(200)
