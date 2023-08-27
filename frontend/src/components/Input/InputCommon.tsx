@@ -36,7 +36,7 @@ function InputCommon(props: InputCommonProps) {
         )}
       </span>
       <Form.Item
-        className="mb-7"
+        className="mb-5"
         name={name}
         rules={[{ required, message: messages }]}
       >

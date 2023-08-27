@@ -2,24 +2,30 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Materis', {
+    await queryInterface.createTable('konten_videos', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id_module: {
-        type: Sequelize.INTEGER
-      },
-      judul: {
+      judul_video: {
         type: Sequelize.STRING
       },
-      materi: {
-        type: Sequelize.TEXT
+      id_sub_module: {
+        type: Sequelize.INTEGER
       },
-      vidio_link: {
-        type: Sequelize.TEXT
+      link_youtube: {
+        type: Sequelize.STRING
+      },
+      video: {
+        type: Sequelize.STRING
+      },
+      video_url: {
+        type: Sequelize.STRING
+      },
+      durasi: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -32,6 +38,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Materis');
+    await queryInterface.dropTable('konten_videos');
   }
 };

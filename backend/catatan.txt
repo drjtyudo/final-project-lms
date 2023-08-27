@@ -1,11 +1,33 @@
+npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
+
+
+npx sequelize-cli model:generate --name konten_tambah_pembahasan --attributes judul_pembahasan:string,id_sub_module:integer,deskripsi:text,durasi:integer
+
 Query 
-Insert tabel judul_footer
+-Insert tabel judul_footer
 INSERT INTO `judul_footers` (`id`, `judul_footer`, `createdAt`, `updatedAt`) VALUES (NULL, 'NusaLearning', '2023-08-12 18:01:24.000000', '2023-08-12 18:01:24.000000'), (NULL, 'About', '2023-08-12 18:01:24.000000', '2023-08-12 18:01:24.000000'), (NULL, 'Services', '2023-08-12 18:01:24.000000', '2023-08-12 18:01:24.000000'), (NULL, 'Follow Us on', '2023-08-12 18:01:24.000000', '2023-08-12 18:01:24.000000'), (NULL, 'Download NusaLMS Mobile', '2023-08-12 18:01:24.000000', '2023-08-12 18:01:24.000000');
 
 
-insert tabel footer
+-Insert tabel footer
 
 INSERT INTO `footers` (`id`, `id_judul_footer`, `nama_footer`, `deskripsi`, `link`, `image`, `url`, `createdAt`, `updatedAt`) VALUES (NULL, '1', '2020 NusaLearning', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '1', 'All rights reserved', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '1', 'PT. Solusi Teknologi Nusantara', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '2', 'Privacy Policy', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '2', 'Help Center', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '2', 'Terms & Condition', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '3', 'Check Certificate', 'deskripsi', 'url/id', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '4', 'FB', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '4', 'IG', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '4', 'Twitter', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '4', 'YT', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '5', 'Play Store', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000'), (NULL, '5', 'App Store', 'deskripsi', 'url', NULL, NULL, '2023-08-12 18:04:51.000000', '2023-08-12 18:04:51.000000');
+
+-Insert tabel sub_module
+INSERT INTO `sub_modules` (`id`, `id_module`, `judul`, `penerbit`, `status`, `penerbitan`, `createdAt`, `updatedAt`) VALUES (NULL, '1', 'sub modul 2', 'zacki', 'draf', '2023-08-17 14:31:29', '2023-08-18 09:31:29.000000', '2023-08-18 09:31:29.000000');
+
+
+
+-Insert tabel pelatihan
+
+
+
+-Insert tabel rating
+INSERT INTO `ratings` (`id`, `rating`, `id_user`, `id_pelatihan`, `createdAt`, `updatedAt`) VALUES (NULL, '4', '1', '1', '2023-08-24 20:00:14.000000', '2023-08-24 20:00:14.000000'), (NULL, '3', '2', '1', '2023-08-24 20:00:14.000000', '2023-08-24 20:00:14.000000'), (NULL, '5', '3', '1', '2023-08-24 20:00:14.000000', '2023-08-24 20:00:14.000000'), (NULL, '4', '4', '1', '2023-08-24 20:00:14.000000', '2023-08-24 20:00:14.000000'), (NULL, '4', '5', '1', '2023-08-24 20:00:14.000000', '2023-08-24 20:00:14.000000');
+
+-Insert tabel view
+INSERT INTO `views` (`id`, `id_user`, `id_pelatihan`, `view`, `createdAt`, `updatedAt`) VALUES (NULL, '1', '1', '1', '2023-08-24 20:02:25.000000', '2023-08-24 20:02:25.000000'), (NULL, '2', '1', '1', '2023-08-24 20:02:25.000000', '2023-08-24 20:02:25.000000'), (NULL, '3', '1', '1', '2023-08-24 20:02:25.000000', '2023-08-24 20:02:25.000000'), (NULL, '4', '1', '1', '2023-08-24 20:02:25.000000', '2023-08-24 20:02:25.000000'), (NULL, '5', '1', '1', '2023-08-24 20:02:25.000000', '2023-08-24 20:02:25.000000'), (NULL, '6', '1', '1', '2023-08-24 20:02:25.000000', '2023-08-24 20:02:25.000000'), (NULL, '7', '1', '1', '2023-08-24 20:02:25.000000', '2023-08-24 20:02:25.000000');
+
+api khusus detail pelatihan
 
 
 ############# API #############

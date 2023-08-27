@@ -15,7 +15,7 @@ const { refreshToken } = require("../helper/refreshToken.js");
 const router = express.Router();
 
 router.get("/token", refreshToken);
-router.get("/users", verifyToken, getUsers);
+router.get("/users", getUsers);
 router.post("/users/regist", userRegister);
 router.post("/users/login", userLogin);
 router.get("/users/me", verifyToken, checkLogin);

@@ -10,7 +10,7 @@ exports.refreshToken = async (req, res) => {
         refresh_token: refreshToken,
       },
     });
-    if (!user) return res.sendStatus(403);
+    if (!user || user.length === 0) return res.sendStatus(403);
     jwt.verify(
       refreshToken,
       process.env.SECRET_REFRESH_TOKEN,

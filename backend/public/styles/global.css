@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500;600&display=swap");
+
+body {
+  background-color: #222;
+  color: #fff;
+  font-family: "Lexend", sans-serif;
+}
+
+.container {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container a {
+  color: #fff;
+}
+
+.docs {
+  text-align: left;
+  margin-left: 50px;
+}
+
+.docs .list-api {
+  display: flex;
+  flex-wrap: wrap;
+}
+.docs .list-api div {
+  width: 300px;
+  font-size: 10px;
+}
+.docs .list-api ul li #get {
+  font-weight: bold;
+  color: rgb(8, 155, 8);
+}
+.docs .list-api ul li #post {
+  font-weight: bold;
+  color: orange;
+}
+.docs .list-api ul li #patch {
+  font-weight: bold;
+  color: yellow;
+}
+.docs .list-api ul li #delete {
+  font-weight: bold;
+  color: red;
+}
+.docs .list-api #require {
+  font-weight: bold;
+  color: red;
+}
