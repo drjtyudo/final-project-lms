@@ -184,6 +184,8 @@ PelatihanSaya.belongsTo(Users, {
   as: "User",
 });
 
+
+
 module.exports = {
   Iklan,
   Users,

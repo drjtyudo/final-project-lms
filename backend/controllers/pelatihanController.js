@@ -401,6 +401,47 @@ exports.getPelatihanById = async (req, res) => {
   }
 };
 
+
+exports.getAllKontenBySubModule = async (req, res) => {
+  try {
+    const submodulesAndTheirContents = await SubModule.findAll({
+      attributes: [
+        "id",
+        "id_module",
+        "judul",
+        "status"
+      ],
+      include: [
+        {
+          model: KontenPdf,
+          as: "KontenPdfs",
+        },
+        {
+          model: KontenPPT,
+          as: "KontenPPTs",
+        },
+        {
+          model: KontenPembahasan,
+          as: "KontenPembahasans",
+        },
+        {
+          model: KontenVideo,
+          as: "KontenVideos",
+        },
+      ],
+      where : {
+        id : req.params.id
+      }
+    });
+
+    res.status(200).json({ msg: "suscces", submodulesAndTheirContents });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+
 exports.createPelatihan = async (req, res) => {
   try {
     const {
