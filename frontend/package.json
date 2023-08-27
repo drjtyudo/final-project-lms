@@ -28,6 +28,7 @@
     "react-hook-form": "^7.45.0",
     "react-query": "^3.39.3",
     "sass": "^1.63.6",
+    "swiper": "^10.2.0",
     "yup": "^1.2.0"
   },
   "devDependencies": {
