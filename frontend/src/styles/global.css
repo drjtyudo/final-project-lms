@@ -10,3 +10,7 @@
 h1,h2,h3,h4,h5,h6,p {
   color: #1D1E1E;
 }
+
+.ant-progress .ant-progress-text {
+  color: white;
+}
