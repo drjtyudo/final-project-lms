@@ -18,7 +18,7 @@ const Slider = {
   
     const getKategori = async () => {
       try {
-        const data = await axios.get("http://localhost:8000/pelatihan")
+        const data = await axios.get("http://localhost:8000/kategori")
         setKategori(data.data.response)
       } catch (error) {
         console.log(error)
@@ -39,10 +39,10 @@ const Slider = {
         <div className='flex gap-10'>
           {kategori.map((data) => (
             <Cards.CardKategori
-            image={data.url}
-            title={data.judul}
+            image={data.url_image}
+            title={data.kategori}
             titlePelatihan=""
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, dolorum."
+            description={data.deskripsi}
           />
           ))}
         </div>
