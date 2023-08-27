@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const path = require("path");
 const fs = require("fs");
 const crypto = require("crypto");
-const { Users } = require("../helper/relation.js");
+const { Users, PelatihanSaya } = require("../helper/relation.js");
 const { v4: uuidv4 } = require("uuid");
 
 exports.getUsers = async (req, res) => {
@@ -284,7 +284,7 @@ const updateUserFields = (
 exports.getUserById = async (req, res) => {
   try {
     const response = await Users.findAll({
-      where: { id_user: req.params.userId },
+      where: { id_user: req.params.userId }, include: {model: PelatihanSaya, as: "PelatihanSaya"},
     });
     if (response.length === 0) {
       return res.status(404).json({ msg: "user tidak ditemukan" });
