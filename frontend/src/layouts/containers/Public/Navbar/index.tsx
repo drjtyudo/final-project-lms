@@ -1,7 +1,7 @@
 import React from 'react'
-import { Layout, Menu, Button, Select, Typography, Image, Dropdown } from 'antd'
-import { Search } from 'components/Search'
+import { Layout, Menu, Select, Typography, Image, Dropdown } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
+import { Search } from 'components/Search'
 import Login from 'pages/login'
 
 const { Header } = Layout
@@ -43,7 +43,7 @@ function NavigationBar() {
             <Menu
               className="bg-transparent mr-4"
               mode="horizontal"
-              defaultSelectedKeys={['1']}
+              defaultSelectedKeys={['2']}
             >
               <Menu.Item key="1">Beranda</Menu.Item>
               <Menu.Item key="2">Pelatihan</Menu.Item>

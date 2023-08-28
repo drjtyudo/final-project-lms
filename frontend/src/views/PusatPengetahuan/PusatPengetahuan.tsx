@@ -31,7 +31,12 @@ function PusatPengetahuan() {
           <Button className="rounded-3xl px-6 mt-[22px]">sort</Button>
           <Button className="rounded-3xl px-6 mt-[22px]">Reset</Button>
         </div>
-        <Cards.CardPelatihan image='' title='' titlePelatihan='' description=''/>
+        {/* <Cards.CardPelatihan
+          image="./static/Content/kategori.png"
+          title="Frontend Developer"
+          titlePelatihan=""
+          description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, dolorum."
+        /> */}
       </div>
     </>
   )
