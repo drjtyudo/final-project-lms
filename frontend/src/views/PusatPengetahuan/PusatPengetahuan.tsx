@@ -1,4 +1,5 @@
 import { Button } from 'antd'
+import Cards from 'components/Cards/Cards'
 import SidebarFilter from 'components/SidebarFilter/SidebarFilter'
 import NavigationBar from 'layouts/containers/Public/Navbar'
 import React, { useState } from 'react'
@@ -30,6 +31,7 @@ function PusatPengetahuan() {
           <Button className="rounded-3xl px-6 mt-[22px]">sort</Button>
           <Button className="rounded-3xl px-6 mt-[22px]">Reset</Button>
         </div>
+        <Cards.CardPelatihan image='' title='' titlePelatihan='' description=''/>
       </div>
     </>
   )
