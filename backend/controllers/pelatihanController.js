@@ -1,7 +1,110 @@
-const { Pelatihan, Kategori, Rating, Views } = require("../helper/relation");
+const {
+  Pelatihan,
+  Kategori,
+  Rating,
+  Views,
+  PelatihanKategori,
+  Module,
+  SubModule,
+  KontenPdf,
+  KontenPPT,
+  KontenPembahasan,
+  KontenVideo,
+} = require("../helper/relation");
 const path = require("path");
 const crypto = require("crypto");
 const fs = require("fs");
+
+exports.getPelatihanBykategori = async (req, res) => {
+  try {
+    const response = await PelatihanKategori.findAll({
+      include: [
+        {
+          model: Pelatihan,
+          as: "Pelatihan_ids",
+          attributes: [
+            "id",
+            "judul",
+            "deskripsi",
+            "harga",
+            "dibuat_oleh",
+            "status",
+            "level",
+            "status_terbit",
+            "tanggal_terbit",
+            "image",
+            "image_url",
+            "masa_lisensi",
+            "createdAt",
+            "updatedAt",
+          ],
+          include: [
+            {
+              model: Rating,
+              as: "Ratings",
+              attributes: ["rating"],
+            },
+            {
+              model: Views,
+              as: "Views",
+              attributes: ["view"],
+            },
+          ],
+        },
+      ],
+      where: {
+        id_kategori: req.params.id,
+      },
+    });
+
+    const updatedResponse = [];
+
+    response.forEach((pelatihan) => {
+      if (pelatihan.Pelatihan_ids.status_terbit === "terbit") {
+        const ratings = pelatihan.Pelatihan_ids.Ratings || [];
+        const views = pelatihan.Pelatihan_ids.Views || [];
+
+        const ratingsCount = ratings.length;
+        let roundedAverage = 0;
+
+        if (ratingsCount !== 0) {
+          const totalRatings = ratings.reduce(
+            (sum, rating) => sum + parseFloat(rating.rating),
+            0
+          );
+          const averageRating = totalRatings / ratingsCount;
+          roundedAverage = parseFloat(averageRating.toFixed(1));
+        }
+
+        const totalViews = views.reduce((sum, view) => sum + view.view, 0);
+        updatedResponse.push({
+          id: pelatihan.Pelatihan_ids.id,
+          judul: pelatihan.Pelatihan_ids.judul,
+          deskripsi: pelatihan.Pelatihan_ids.deskripsi,
+          harga: pelatihan.Pelatihan_ids.harga,
+          dibuat_oleh: pelatihan.Pelatihan_ids.dibuat_oleh,
+          status: pelatihan.Pelatihan_ids.status,
+          level: pelatihan.Pelatihan_ids.level,
+          status_terbit: pelatihan.Pelatihan_ids.status_terbit,
+          tanggal_terbit: pelatihan.Pelatihan_ids.tanggal_terbit,
+          image: pelatihan.Pelatihan_ids.image,
+          image_url: pelatihan.Pelatihan_ids.image_url,
+          masa_lisensi: pelatihan.Pelatihan_ids.masa_lisensi,
+          createdAt: pelatihan.Pelatihan_ids.createdAt,
+          updatedAt: pelatihan.Pelatihan_ids.updatedAt,
+          averageRating: roundedAverage,
+          totalViews,
+        });
+      }
+    });
+    res.status(200).json({
+      msg: "ok",
+      pelatihan: updatedResponse,
+    });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
 
 exports.getPelatihan = async (req, res) => {
   try {
@@ -14,6 +117,8 @@ exports.getPelatihan = async (req, res) => {
         "dibuat_oleh",
         "status",
         "level",
+        "status_terbit",
+        "tanggal_terbit",
         "image",
         "image_url",
         "masa_lisensi",
@@ -34,39 +139,47 @@ exports.getPelatihan = async (req, res) => {
       ],
     });
 
-    const updatedResponse = response.map(pelatihan => {
-      const ratings = pelatihan.Ratings;
-      const views = pelatihan.Views;
+    const updatedResponse = [];
 
-      const ratingsCount = ratings.length;
-      let roundedAverage = 0;
+    response.forEach((pelatihan) => {
+      if (pelatihan.status_terbit === "terbit") {
+        const ratings = pelatihan.Ratings;
+        const views = pelatihan.Views;
 
-      if (ratingsCount !== 0) {
-        const totalRatings = ratings.reduce((sum, rating) => sum + parseFloat(rating.rating), 0);
-        const averageRating = totalRatings / ratingsCount;
-        roundedAverage = parseFloat(averageRating.toFixed(1));
+        const ratingsCount = ratings.length;
+        let roundedAverage = 0;
+
+        if (ratingsCount !== 0) {
+          const totalRatings = ratings.reduce(
+            (sum, rating) => sum + parseFloat(rating.rating),
+            0
+          );
+          const averageRating = totalRatings / ratingsCount;
+          roundedAverage = parseFloat(averageRating.toFixed(1));
+        }
+
+        const totalViews = views.reduce((sum, view) => sum + view.view, 0);
+
+        updatedResponse.push({
+          id: pelatihan.id,
+          judul: pelatihan.judul,
+          deskripsi: pelatihan.deskripsi,
+          harga: pelatihan.harga,
+          dibuat_oleh: pelatihan.dibuat_oleh,
+          status: pelatihan.status,
+          level: pelatihan.level,
+          status_terbit: pelatihan.status_terbit,
+          tanggal_terbit: pelatihan.tanggal_terbit,
+          image: pelatihan.image,
+          image_url: pelatihan.image_url,
+          masa_lisensi: pelatihan.masa_lisensi,
+          createdAt: pelatihan.createdAt,
+          updatedAt: pelatihan.updatedAt,
+          averageRating: roundedAverage,
+          totalViews: totalViews,
+        });
       }
-
-      const totalViews = views.reduce((sum, view) => sum + view.view, 0);
-
-      return {
-        id: pelatihan.id,
-        judul: pelatihan.judul,
-        deskripsi: pelatihan.deskripsi,
-        harga: pelatihan.harga,
-        dibuat_oleh: pelatihan.dibuat_oleh,
-        status: pelatihan.status,
-        level: pelatihan.level,
-        image: pelatihan.image,
-        image_url: pelatihan.image_url,
-        masa_lisensi: pelatihan.masa_lisensi,
-        createdAt: pelatihan.createdAt,
-        updatedAt: pelatihan.updatedAt,
-        averageRating: roundedAverage,
-        totalViews: totalViews
-      };
     });
-
     res.status(200).json({
       msg: "ok",
       pelatihan: updatedResponse,
@@ -76,7 +189,6 @@ exports.getPelatihan = async (req, res) => {
   }
 };
 
-
 exports.getPelatihanById = async (req, res) => {
   try {
     const pelatihan = await Pelatihan.findOne({
@@ -84,7 +196,7 @@ exports.getPelatihanById = async (req, res) => {
         {
           model: Kategori,
           as: "Kategoris",
-          attributes: ["id", "kategori", "deskripsi", "image_logo", "url_image"],
+          attributes: ["id", "kategori"],
         },
         {
           model: Rating,
@@ -96,6 +208,34 @@ exports.getPelatihanById = async (req, res) => {
           as: "Views",
           attributes: ["view"],
         },
+        {
+          model: Module,
+          as: "Modules",
+          include: [
+            {
+              model: SubModule,
+              as: "SubModules",
+              include: [
+                {
+                  model: KontenPdf,
+                  as: "KontenPdfs",
+                },
+                {
+                  model: KontenPPT,
+                  as: "KontenPPTs",
+                },
+                {
+                  model: KontenPembahasan,
+                  as: "KontenPembahasans",
+                },
+                {
+                  model: KontenVideo,
+                  as: "KontenVideos",
+                },
+              ],
+            },
+          ],
+        },
       ],
       where: {
         id: req.params.id,
@@ -106,37 +246,197 @@ exports.getPelatihanById = async (req, res) => {
       return res.status(404).json({ msg: "Pelatihan not found" });
     }
 
-    const ratings = pelatihan.Ratings;
-    const views = pelatihan.Views;
+    const updatedResponse = (pelatihan) => {
+      if (pelatihan.status_terbit === "terbit") {
+        const ratings = pelatihan.Ratings || [];
 
-    const ratingsCount = ratings.length;
-    const totalRatings = ratings.reduce((sum, rating) => sum + parseFloat(rating.rating), 0);
-    const roundedAverage = ratingsCount !== 0 ? parseFloat((totalRatings / ratingsCount).toFixed(1)) : 0;
-    const totalViews = views.reduce((sum, view) => sum + view.view, 0);
+        const views = pelatihan.Views || [];
 
-    const updatedResponse = {
-      id: pelatihan.id,
-      judul: pelatihan.judul,
-      deskripsi: pelatihan.deskripsi,
-      harga: pelatihan.harga,
-      dibuat_oleh: pelatihan.dibuat_oleh,
-      status: pelatihan.status,
-      level: pelatihan.level,
-      image: pelatihan.image,
-      image_url: pelatihan.image_url,
-      masa_lisensi: pelatihan.masa_lisensi,
-      createdAt: pelatihan.createdAt,
-      updatedAt: pelatihan.updatedAt,
-      averageRating: roundedAverage,
-      totalViews: totalViews,
+        const ratingsCount = ratings.length;
+
+        const totalRatings = ratings.reduce(
+          (sum, rating) => sum + parseFloat(rating.rating),
+          0
+        );
+
+        const roundedAverage =
+          ratingsCount !== 0
+            ? parseFloat((totalRatings / ratingsCount).toFixed(1))
+            : 0;
+        const totalViews = views.reduce((sum, view) => sum + view.view, 0);
+
+        //  Yang kamu dapatkan
+
+        const modules = pelatihan.Modules;
+
+        const kontenPDFStats = modules.reduce(
+          (kontenStats, modul) => {
+            modul.SubModules.forEach((subModul) => {
+              const pdfsWithFile = subModul.KontenPdfs.filter(
+                (pdf) => pdf.pdf || pdf.pdf_url
+              );
+              const pdfsWithLink = subModul.KontenPdfs.filter(
+                (pdf) => pdf.linkGdrive
+              );
+              kontenStats.withFile += pdfsWithFile.length;
+              kontenStats.withLink += pdfsWithLink.length;
+            });
+            return kontenStats;
+          },
+          { withFile: 0, withLink: 0 }
+        );
+
+        const totalKontenPembahasan = modules.reduce((total, modul) => {
+          return (
+            total +
+            modul.SubModules.reduce(
+              (subTotal, subModul) =>
+                subTotal + subModul.KontenPembahasans.length,
+              0
+            )
+          );
+        }, 0);
+
+        const kontenPPTStats = modules.reduce(
+          (kontenStats, modul) => {
+            modul.SubModules.forEach((subModul) => {
+              const pptsWithFile = subModul.KontenPPTs.filter(
+                (ppt) => ppt.ppt || ppt.ppt_url
+              );
+              const pptsWithLink = subModul.KontenPPTs.filter(
+                (ppt) => ppt.linkGdrive
+              );
+              kontenStats.withFile += pptsWithFile.length;
+              kontenStats.withLink += pptsWithLink.length;
+            });
+            return kontenStats;
+          },
+          { withFile: 0, withLink: 0 }
+        );
+
+        const bahanBacaan =
+          kontenPDFStats.withFile +
+          kontenPDFStats.withLink +
+          totalKontenPembahasan +
+          kontenPPTStats.withFile +
+          kontenPPTStats.withLink;
+
+        const kontenVideoStats = modules.reduce(
+          (kontenStats, modul) => {
+            modul.SubModules.forEach((subModul) => {
+              subModul.KontenVideos.forEach((video) => {
+                if (video.video || video.video_url) {
+                  kontenStats.withFile += 1;
+                  kontenStats.totalDurationWithFile += video.durasi || 0;
+                }
+                if (video.link_youtube) {
+                  kontenStats.withLink += 1;
+                  kontenStats.totalDurationWithLink += video.durasi || 0;
+                }
+              });
+            });
+            return kontenStats;
+          },
+          {
+            withFile: 0,
+            withLink: 0,
+            totalDurationWithFile: 0,
+            totalDurationWithLink: 0,
+          }
+        );
+        const kontenUnduh =
+          kontenPDFStats.withFile +
+          kontenPPTStats.withFile +
+          kontenVideoStats.withFile;
+
+        // hitung total durasi dalam menit
+        const totalDurasiMenit =
+          kontenVideoStats.totalDurationWithFile +
+          kontenVideoStats.totalDurationWithLink;
+
+        // hitung total jam dan total menit
+        const totalJam = Math.floor(totalDurasiMenit / 60);
+        const totalMenit = totalDurasiMenit % 60;
+        // rangkai total durasi
+        const totalDurasiString =
+          totalJam > 0 && totalMenit > 0
+            ? `${totalJam} jam ${totalMenit} menit`
+            : totalJam > 0
+            ? `${totalJam} jam`
+            : `${totalMenit} menit`;
+
+        return {
+          id: pelatihan.id,
+          judul: pelatihan.judul,
+          kategori: pelatihan.Kategoris,
+          deskripsi: pelatihan.deskripsi,
+          harga: pelatihan.harga,
+          dibuat_oleh: pelatihan.dibuat_oleh,
+          status: pelatihan.status,
+          level: pelatihan.level,
+          status_terbit: pelatihan.status_terbit,
+          tanggal_terbit: pelatihan.tanggal_terbit,
+          image: pelatihan.image,
+          image_url: pelatihan.image_url,
+          masa_lisensi: pelatihan.masa_lisensi,
+          createdAt: pelatihan.createdAt,
+          updatedAt: pelatihan.updatedAt,
+          averageRating: roundedAverage,
+          bahanBacaan,
+          totalDurasiMenit,
+          totalDurasiString,
+          totalViews,
+          kontenUnduh,
+        };
+      }
+      return null;
     };
 
     res.status(200).json({
       msg: "ok",
-      pelatihan: updatedResponse,
+      pelatihan: updatedResponse(pelatihan),
+    });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+
+exports.getAllKontenBySubModule = async (req, res) => {
+  try {
+    const submodulesAndTheirContents = await SubModule.findAll({
+      attributes: [
+        "id",
+        "id_module",
+        "judul",
+        "status"
+      ],
+      include: [
+        {
+          model: KontenPdf,
+          as: "KontenPdfs",
+        },
+        {
+          model: KontenPPT,
+          as: "KontenPPTs",
+        },
+        {
+          model: KontenPembahasan,
+          as: "KontenPembahasans",
+        },
+        {
+          model: KontenVideo,
+          as: "KontenVideos",
+        },
+      ],
+      where : {
+        id : req.params.id
+      }
     });
 
+    res.status(200).json({ msg: "suscces", submodulesAndTheirContents });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ msg: error.message });
   }
 };
@@ -153,6 +453,8 @@ exports.createPelatihan = async (req, res) => {
       diterbitkan,
       level,
       masaLisensi,
+      statusTerbit,
+      tanggalTerbit,
     } = req.body;
 
     const imageFile = req.files.image;
@@ -190,6 +492,8 @@ exports.createPelatihan = async (req, res) => {
         status,
         diterbitkan,
         level,
+        status_terbit: statusTerbit,
+        tanggal_terbit: tanggalTerbit,
         image: imageFileName,
         image_url: imageUrl,
         masa_lisensi: masaLisensi,
@@ -214,6 +518,8 @@ exports.updatePelatihan = async (req, res) => {
     diterbitkan,
     level,
     masaLisensi,
+    statusTerbit,
+    tanggalTerbit,
   } = req.body;
 
   const pelatihan = await Pelatihan.findOne({
@@ -280,6 +586,9 @@ exports.updatePelatihan = async (req, res) => {
       status,
       diterbitkan,
       level,
+      image: imageFileName,
+      status_terbit: statusTerbit,
+      tanggal_terbit: tanggalTerbit,
       image: imageFileName,
       image_url: imageUrl,
       masa_lisensi: masaLisensi,
