@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {  useState } from 'react'
 import { Modal, Button, Form } from 'antd'
 import InputCommon from 'components/Input/InputCommon'
 import InputPassword from 'components/Input/InputPassword'
@@ -6,9 +6,13 @@ import InputSubmit from 'components/Input/InputSubmit'
 import ButtonImg from 'components/Button/Button'
 import Link from 'next/link'
 import axios from 'axios'
+// import { useRouter } from 'next/router'
 
 function Login() {
   const [visible, setVisible] = useState(false)
+
+  // const router = useRouter()
+
   const showModal = () => {
     setVisible(true)
   }
@@ -22,6 +26,8 @@ function Login() {
         email: formValues.email,
         password: formValues.password,
       })
+      // router.push("/")
+      // window.location.reload()
     } catch (error) {
       console.log(error)
     }
@@ -37,6 +43,9 @@ function Login() {
       [name]: value,
     }))
   }
+
+  
+
   const Icon = {
     backgroundImage: "url('./static/Icons/Icon-face.png')",
   }
