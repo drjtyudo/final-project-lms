@@ -28,9 +28,6 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.ENUM("free", "paid"),
       },
-      dibuat_oleh: {
-        type: DataTypes.STRING,
-      },
       level: {
         type: DataTypes.ENUM(
           "pemula",

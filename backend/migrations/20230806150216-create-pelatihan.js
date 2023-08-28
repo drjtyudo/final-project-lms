@@ -26,9 +26,6 @@ module.exports = {
         status: {
           type: Sequelize.ENUM("free", "paid"),
         },
-        dibuat_oleh: {
-          type: Sequelize.STRING,
-        },
         level: {
           type: Sequelize.ENUM(
             "pemula",

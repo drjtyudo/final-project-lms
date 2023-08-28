@@ -82,7 +82,7 @@ exports.userLogin = async (req, res) => {
 
     const userId = user[0].id_user;
     const email = user[0].email;
-    //   const username = user[0].username;
+    const fullname = user[0].fullname;
     const accessToken = jwt.sign(
       { userId, email },
       process.env.SECRET_ACCESS_TOKEN,
@@ -111,7 +111,7 @@ exports.userLogin = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    req.user = { userId, email };
+    req.user = { userId, fullname, email };
 
     res.json({ accessToken });
   } catch (error) {
@@ -211,7 +211,7 @@ exports.updateUser = async (req, res) => {
       const filename = `${timeStamp}-${randomString}${ext}`;
       const url = `${req.protocol}://${req.get(
         "host"
-      )}/assets/profile-user/${filename}`
+      )}/assets/profile-user/${filename}`;
 
       if (existingProfileImage) {
         const filePath = `./public/assets/profile-user/${existingProfileImage}`;
@@ -254,7 +254,7 @@ exports.updateUser = async (req, res) => {
         negara,
         domisili
       );
-        await existingUser.save();
+      await existingUser.save();
 
       res
         .status(200)
@@ -285,7 +285,8 @@ const updateUserFields = (
 exports.getUserById = async (req, res) => {
   try {
     const response = await Users.findAll({
-      where: { id_user: req.params.userId }, include: {model: PelatihanSaya, as: "PelatihanSaya"},
+      where: { id_user: req.params.userId },
+      include: { model: PelatihanSaya, as: "PelatihanSaya" },
     });
     if (response.length === 0) {
       return res.status(404).json({ msg: "user tidak ditemukan" });
