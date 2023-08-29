@@ -5,13 +5,15 @@ const {
     deletePelatihan,
     updatePelatihan
     ,getPelatihanById,
-    getPelatihanBykategori   
+    getPelatihanBykategori,
+    getAllKontenBySubModule   
 } = require("../controllers/pelatihanController");
 
 const router = express.Router();
 router.get('/pelatihan' , getPelatihan)
 router.get('/pelatihan/:id' , getPelatihanById)
 router.get('/pelatihan/kategori/:id' , getPelatihanBykategori)
+router.get('/konten/sub-module/:id' , getAllKontenBySubModule) // ambil semua konten yang berdasarkan id submodule 
 router.post('/pelatihan' , createPelatihan)
 router.patch('/pelatihan/:id' , updatePelatihan)
 router.delete('/pelatihan/:id' , deletePelatihan)

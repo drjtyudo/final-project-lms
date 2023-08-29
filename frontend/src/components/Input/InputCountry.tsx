@@ -5,18 +5,25 @@ import {
   CountryRegionData,
 } from 'react-country-region-selector'
 
-function InputCountry() {
+interface InputCountryProps {
+  valueCountry?: string
+  valueRegion?: string
+  onChangeCountry?: any
+  onChangeRegion?: any
+}
+
+function InputCountry(props: InputCountryProps) {
   const [selectedCountry, setSelectedCountry] = useState('')
   const [selectedRegion, setSelectedRegion] = useState('')
 
   const handleCountryChange = (val) => {
     setSelectedCountry(val)
-    setSelectedRegion('')
   }
-
   const handleRegionChange = (val) => {
     setSelectedRegion(val)
   }
+
+  const { onChangeCountry, onChangeRegion, valueCountry, valueRegion } = props
 
   return (
     <div className="container mx-auto">
@@ -30,22 +37,31 @@ function InputCountry() {
         <CountryDropdown
           id="country"
           className="border border-gray-300 rounded p-2 w-full"
-          value={selectedCountry}
-          onChange={handleCountryChange}
+          value={valueCountry}
+          onChange={(val) => {
+            handleCountryChange(val)
+            onChangeCountry(val)
+          }}
           valueType="short"
         />
       </div>
       {selectedCountry && (
         <div className="mb-4">
-          <label htmlFor="region" className="block mb-4 text-[#404258] text-[17px]">
+          <label
+            htmlFor="region"
+            className="block mb-4 text-[#404258] text-[17px]"
+          >
             Domisili
           </label>
           <RegionDropdown
             id="region"
             country={selectedCountry}
             className="border border-gray-300 rounded p-2 w-full"
-            value={selectedRegion}
-            onChange={handleRegionChange}
+            value={valueRegion}
+            onChange={(val) => {
+              handleRegionChange(val)
+              onChangeRegion(val)
+            }}
             disableWhenEmpty
             countryValueType="short"
             blankOptionLabel="Pilih Wilayah"
