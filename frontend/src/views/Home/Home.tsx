@@ -1,9 +1,11 @@
+// import axios from 'axios'
 import BannerIklan from 'components/BannerIklan/BannerIklan'
 import Slider from 'components/Slider/Slider'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+// import jwt_decode from 'jwt-decode'
 
 function Home() {
-
+  
   return (
     <div>
       <BannerIklan />
