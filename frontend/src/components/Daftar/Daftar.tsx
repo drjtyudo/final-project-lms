@@ -6,9 +6,12 @@ import InputSubmit from 'components/Input/InputSubmit'
 import InputCountry from 'components/Input/InputCountry'
 import Link from 'next/link'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 function Daftar() {
-  const register = async () => {
+  const router = useRouter()
+  const register = async (e) => {
+    e.preventDefault()
     try {
       const newUser = await axios.post('http://localhost:8000/users/regist', {
         fullname: formValues.fullname,
@@ -20,8 +23,8 @@ function Daftar() {
         negara: formValues.negara,
         domisili: formValues.domisili,
       })
-
       console.log('Registration successful:', newUser)
+      router.push('/')
     } catch (error) {
       console.log('Registration failed:', error)
     }
