@@ -1,4 +1,4 @@
-const { Module, Materi } = require("../helper/relation.js");
+const { Module, SubModule } = require("../helper/relation.js");
 
 exports.getAllModule = async (req, res) => {
   try {
@@ -11,11 +11,32 @@ exports.getAllModule = async (req, res) => {
   }
 };
 
+exports.getAllModuleAndSubmoduleByIdPelatihan = async (req, res) => {
+  try {
+    const moduleAndSubMoudule = await Module.findAll({
+      include: [
+        {
+          model: SubModule,
+          as: "SubModules",
+        },
+      ],
+      where : {
+        id_pelatihan : req.params.id
+      }
+    });
+
+    res.status(200).json({ msg: "suscces", moduleAndSubMoudule });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+
 exports.createModule = async (req, res) => {
-  const { module, id_pelatihan} = req.body;
+  const { module} = req.body;
   try {
     const newModule = await Module.create({
-      id_pelatihan,
       module,
     });
     res.status(201).json({ msg: "module created", newModule });

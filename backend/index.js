@@ -3,42 +3,77 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
-// Route 
+const path = require("path");
+
+const indexRoute = require("./routes/indexRoute.js");
+const usersRoute = require("./routes/usersRoute.js");
 const kategoriRoute = require("./routes/kategoriRoute.js");
 const moduleRoute = require("./routes/moduleRoute.js");
-const materiRoute = require("./routes/materiRoute.js");
-const Pelatihan = require('./routes/pelatihanRoute')
-const PelatihanKategori = require('./routes/kategoriPelatihan.js')
+const subMateriRoute = require("./routes/subModuleRoute.js");
+const Pelatihan = require("./routes/pelatihanRoute");
+const PelatihanKategori = require("./routes/kategoriPelatihan.js");
+const ratingRoute = require("./routes/ratingRoute.js");
+const commentarRoute = require("./routes/commentarRoute.js");
+const iklanRoute = require("./routes/iklanRoute.js");
 const Footer = require("./routes/footerRoute.js");
+const KontenPdf = require("./routes/kontenPdfRoute.js");
+const KontenVideo = require("./routes/kontenVideoRoute.js");
+const KontenPPT = require("./routes/kontenPPTRoute.js");
+const KontenPembahasan = require("./routes/kontenTambahPembahasan.js");
+const viewsRoute = require("./routes/viewsRoute.js");
+const transactionRoute = require("./routes/transactionRoute.js");
+const PelatihanSayaRoute = require("./routes/pelatihanSayaRoute.js");
 
-  const app = express();
-  dotenv.config();
+const app = express();
+dotenv.config();
 
-  const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8000;
+const generateDocs = require("./helper/generateDocs.js");
 
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:3000", "http://192.168.100.4:3000"],
+    origin: ["http://localhost:1501", "http://192.168.100.4:1501"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
-  
-  app.use(cookieParser());
-  app.use(express.json());
-  app.use(fileUpload());
-  app.use(express.static("public"));
-  // Use router
-  app.use(kategoriRoute);
-  app.use(moduleRoute);
-  app.use(materiRoute);
-  app.use(Pelatihan);
-  app.use(PelatihanKategori)
-  app.use(Footer);
 
-  app.get("/", (req, res) => {
-    res.send("Hello Bang");
-  });
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(fileUpload());
+app.use(express.static(path.join(__dirname, "./public")));
+app.set("views", path.join(`${__dirname}/./public/views`));
+app.set("view engine", "ejs");
 
-  app.listen(PORT, () => {
-    console.log(`Server ready on port ${PORT}`);
-  });
+
+// Use router
+app.use(indexRoute);
+app.use(usersRoute);
+app.use(kategoriRoute);
+app.use(moduleRoute);
+app.use(subMateriRoute);
+app.use(Pelatihan);
+app.use(PelatihanKategori);
+app.use(ratingRoute);
+app.use(commentarRoute);
+app.use(iklanRoute);
+app.use(Footer);
+app.use(KontenPdf);
+app.use(KontenVideo);
+app.use(KontenPPT);
+app.use(KontenPembahasan);
+app.use(viewsRoute);
+app.use(transactionRoute);
+app.use(PelatihanSayaRoute);
+
+// use swagger
+generateDocs(app);
+
+app.get("*", (req, res) => {
+  res.status(404).json({ msg: "Url not found" });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server ready on port ${PORT}`);
+});
