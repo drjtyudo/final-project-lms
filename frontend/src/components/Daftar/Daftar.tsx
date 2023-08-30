@@ -1,26 +1,44 @@
 import React, { useState } from 'react'
-import { Button, Modal, Form } from 'antd'
+import { Button, Modal, Form, Image } from 'antd'
 import InputCommon from 'components/Input/InputCommon'
 import InputPassword from 'components/Input/InputPassword'
 import InputSubmit from 'components/Input/InputSubmit'
 import InputCountry from 'components/Input/InputCountry'
 import Link from 'next/link'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 
 function Daftar() {
-  const [visible, setVisible] = useState(false)
-  const showModal = () => {
-    setVisible(true)
+  const router = useRouter()
+  const register = async (e) => {
+    e.preventDefault()
+    try {
+      const newUser = await axios.post('http://localhost:8000/users/regist', {
+        fullname: formValues.fullname,
+        email: formValues.email,
+        password: formValues.password,
+        confirmPassword: formValues.confirmPassword,
+        nomor_telp: formValues.nomor_telp,
+        tggl_lahir: formValues.tggl_lahir,
+        negara: formValues.negara,
+        domisili: formValues.domisili,
+      })
+      console.log('Registration successful:', newUser)
+      router.push('/')
+    } catch (error) {
+      console.log('Registration failed:', error)
+    }
   }
-  const handleCancel = () => {
-    setVisible(false)
-  }
+
   const [formValues, setFormValues] = useState({
+    fullname: '',
     email: '',
     password: '',
-    nama_lengkap: '',
-    no_telp: '',
-    re_password: '',
-    ttl: '',
+    confirmPassword: '',
+    nomor_telp: '',
+    tggl_lahir: '',
+    negara: '',
+    domisili: '',
   })
   const handleInputChange = (name, value) => {
     setFormValues((prevValues) => ({
@@ -29,113 +47,100 @@ function Daftar() {
     }))
   }
 
-  const Icon = {
-    backgroundImage: "url('./static/Icons/Icon-face.png')",
-  }
   return (
-    <div>
-      <button onClick={showModal}>Daftar</button>
-      <Modal
-        className="w-[707px] h-[707px] mt-[-5px]"
-        visible={visible}
-        onCancel={handleCancel}
-        footer={null}
-      >
-        <div className="container px-4 flex flex-col justify-center items-center">
-          <div className="flex items-center mt-2">
-            <p className="mr-auto text-4xl">Daftar</p>
-          </div>
-          <div
-            className="rounded-full w-[190px] h-[190px] bg-no-repeat bg-contain"
-            style={Icon}
+    <div className="mt-10">
+      <div className="container  border-2 rounded-md w-[500px] p-2 mx-auto flex flex-col flex-wrap justify-center items-center">
+        <div className="flex flex-col my-3">
+          <p className="mx-auto text-[30px]">Daftar</p>
+          <Image
+            src="./static/icons/icon-face.png"
+            width={150}
+            preview={false}
           />
-          <div>
-            <Form>
-              <InputCommon
-                type="text"
-                name="nama_lengkap"
-                required
-                label="Nama Lengkap"
-                placeholder="Masukkan Nama Lengkap Anda"
-                className="w-full h-[40px] rounded-[8px]"
-                messages="Nama Lengkap belum diisi"
-                value={formValues.nama_lengkap}
-                onChange={(e) =>
-                  handleInputChange('nama_lengkap', e.target.value)
-                }
-              />
-              <InputCommon
-                type="email"
-                name="email"
-                required
-                label="Email"
-                placeholder="Masukkan Email Anda"
-                className="w-full h-[40px] rounded-[8px]"
-                messages="Email belum diisi"
-                value={formValues.email}
-                onChange={(e) => handleInputChange('email', e.target.value)}
-              />
-              <InputCommon
-                type="number"
-                name="telp"
-                required
-                label="No Telephone"
-                placeholder="Masukkan No Telephon Anda"
-                className="w-full h-[40px] rounded-[8px]"
-                messages="No Telephon belum diisi"
-                value={formValues.no_telp}
-                onChange={(e) => handleInputChange('telp', e.target.value)}
-              />
-              <InputCommon
-                type="date"
-                name="ttl"
-                required
-                label="Tanggal Lahir"
-                placeholder=""
-                className="w-full h-[40px] rounded-[8px]"
-                messages="Tanggal Lahir belum diisi"
-                value={formValues.ttl}
-                onChange={(e) => handleInputChange('ttl', e.target.value)}
-              />
-              <InputCountry />
-              <InputPassword
-                name="password"
-                required
-                label="Password"
-                placeholder="Masukkan Password Anda"
-                className="w-full h-[40px] rounded-[8px]"
-                messages="Password belum diisi"
-                value={formValues.password}
-                onChange={(e) => handleInputChange('password', e.target.value)}
-              />
-              <InputPassword
-                name="re-password"
-                required
-                label="Konfirmasi Password"
-                placeholder="Masukkan KOnfirmasi Password Anda"
-                className="w-full h-[40px] rounded-[8px]"
-                messages="Konfirmasi Password belum diisi"
-                value={formValues.re_password}
-                onChange={(e) =>
-                  handleInputChange('re_password', e.target.value)
-                }
-              />
-              <InputSubmit
-                className="mx-[138px] w-[353px] text-[#fff] bg-[#204D84] font-[600] h-[44px] mt-[35px] rounded-lg cursor-pointer hover:outline-blue-400"
-                value="Daftar"
-              />
-            </Form>
-          </div>
-          <div className="createAcc text-center mt-[48px] md:mt-[41px]">
-            <h2 className="text-[#484C57] font-[400px] text-[12px] leading-[18px] ">
-              Sudah punya akun? Silahkan <span />
-              <Link href="./login" className="text-[#204D84] font-[600px]">
-                login di sini
-              </Link>
-            </h2>
-          </div>
         </div>
-      </Modal>
+
+        <Form className="w-[350px]" onSubmitCapture={register}>
+          <InputCommon
+            type="text"
+            required
+            name="fullname"
+            messages="Nama lengkap belum diisi"
+            label="Nama Lengkap"
+            placeholder="Nama Lengkap"
+            className="w-full p-2"
+            onChange={(e) => handleInputChange('fullname', e.target.value)}
+          />
+          <InputCommon
+            type="text"
+            required
+            name="email"
+            messages="Email belum diisi"
+            label="Email"
+            placeholder="Email"
+            className="w-full p-2"
+            onChange={(e) => handleInputChange('email', e.target.value)}
+          />
+          <InputCommon
+            type="tel"
+            required
+            name="nomor_telp"
+            messages="Nomor telepon belum diisi"
+            label="Nomor Telepon"
+            placeholder="Nomor telepon"
+            className="w-full p-2"
+            onChange={(e) => handleInputChange('nomor_telp', e.target.value)}
+          />
+          <InputCommon
+            type="date"
+            required
+            name="tggl_lahir"
+            messages="Tanggal lahir belum diisi"
+            label="Tanggal Lahir"
+            placeholder="Tanggal lahir"
+            className="w-full p-2"
+            onChange={(e) => handleInputChange('tggl_lahir', e.target.value)}
+          />
+          <InputCountry
+            valueCountry={formValues.negara}
+            valueRegion={formValues.domisili}
+            onChangeCountry={(value) => handleInputChange('negara', value)}
+            onChangeRegion={(value) => handleInputChange('domisili', value)}
+          />
+          <InputPassword
+            required
+            name="password"
+            messages="Password belum diisi"
+            label="Password"
+            placeholder="Password"
+            className="w-full p-2"
+            onChange={(e) => handleInputChange('password', e.target.value)}
+          />
+          <InputPassword
+            required
+            name="confirmPassword"
+            messages="Confirm Password belum diisi"
+            label="Confirm Password"
+            placeholder="Confirm password"
+            className="w-full p-2"
+            onChange={(e) =>
+              handleInputChange('confirmPassword', e.target.value)
+            }
+          />
+          <InputSubmit
+            className="w-[353px] h-[44px] mt-[35px] rounded-lg bg-[#204D84] text-white font-semibold cursor-pointer"
+            value="Daftar"
+          />
+        </Form>
+
+        <div className="createAcc text-center mt-[48px] md:mt-[41px]">
+          <h2 className="text-[#484C57] font-[400px] text-[12px] leading-[18px] ">
+            Sudah punya akun? Silahkan <span />
+            <Link href="/" className="text-[#204D84] font-[600px]">
+              login di sini
+            </Link>
+          </h2>
+        </div>
+      </div>
     </div>
   )
 }

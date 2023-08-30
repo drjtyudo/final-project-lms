@@ -1,19 +1,38 @@
-import React, { useState } from 'react'
+import React, {  useState } from 'react'
 import { Modal, Button, Form } from 'antd'
 import InputCommon from 'components/Input/InputCommon'
 import InputPassword from 'components/Input/InputPassword'
 import InputSubmit from 'components/Input/InputSubmit'
 import ButtonImg from 'components/Button/Button'
 import Link from 'next/link'
+import axios from 'axios'
+// import { useRouter } from 'next/router'
 
 function Login() {
   const [visible, setVisible] = useState(false)
+
+  // const router = useRouter()
+
   const showModal = () => {
     setVisible(true)
   }
   const handleCancel = () => {
     setVisible(false)
   }
+
+  const login = async () => {
+    try {
+      await axios.post('http://localhost:8000/users/login', {
+        email: formValues.email,
+        password: formValues.password,
+      })
+      // router.push("/")
+      // window.location.reload()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const [formValues, setFormValues] = useState({
     email: '',
     password: '',
@@ -24,6 +43,9 @@ function Login() {
       [name]: value,
     }))
   }
+
+  
+
   const Icon = {
     backgroundImage: "url('./static/Icons/Icon-face.png')",
   }
@@ -53,13 +75,13 @@ function Login() {
             style={Icon}
           />
           <div>
-            <Form>
+            <Form onSubmitCapture={login}>
               <InputCommon
                 type="text"
-                name="username"
+                name="Email"
                 required
-                label="Username"
-                placeholder="Masukkan Username Anda"
+                label="Email"
+                placeholder="Masukkan Email Anda"
                 className="w-full h-[40px] rounded-[8px]"
                 messages="Email belum diisi"
                 value={formValues.email}

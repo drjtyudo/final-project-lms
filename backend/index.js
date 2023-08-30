@@ -28,11 +28,13 @@ const app = express();
 dotenv.config();
 
 const PORT = process.env.PORT || 8000;
+const generateDocs = require("./helper/generateDocs.js");
 
 app.use(
   cors({
     credentials: true,
     origin: ["http://localhost:1501", "http://192.168.100.4:1501"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 
@@ -43,6 +45,7 @@ app.use(fileUpload());
 app.use(express.static(path.join(__dirname, "./public")));
 app.set("views", path.join(`${__dirname}/./public/views`));
 app.set("view engine", "ejs");
+
 
 // Use router
 app.use(indexRoute);
@@ -63,6 +66,9 @@ app.use(KontenPembahasan);
 app.use(viewsRoute);
 app.use(transactionRoute);
 app.use(PelatihanSayaRoute);
+
+// use swagger
+generateDocs(app);
 
 app.get("*", (req, res) => {
   res.status(404).json({ msg: "Url not found" });
