@@ -15,9 +15,6 @@ module.exports = {
       id_pelatihan: {
         type: Sequelize.INTEGER,
       },
-      progress: {
-        type: Sequelize.INTEGER,
-      },
       diakses: {
         type: Sequelize.DATE,
       },

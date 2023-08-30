@@ -1,8 +1,8 @@
-const { subModule } = require("../helper/relation.js");
+const { SubModule } = require("../helper/relation.js");
 
 exports.getAllSubModule = async (req, res) => {
   try {
-    const response = await subModule.findAll();
+    const response = await SubModule.findAll();
     res.status(200).json({ msg: "success", response });
   } catch (error) {
     res.status(500).json({ msg: error.message });
@@ -12,7 +12,7 @@ exports.getAllSubModule = async (req, res) => {
 exports.createSubModule = async (req, res) => {
   const { id_module, judul, penerbit, status ,penerbitan } = req.body;
   try {
-    const newsubModule = await subModule.create({
+    const newsubModule = await SubModule.create({
       id_module,
       judul,
       penerbit,
@@ -29,7 +29,7 @@ exports.createSubModule = async (req, res) => {
 
 exports.getSubModuleById = async (req, res) => {
   try {
-    const response = await subModule.findOne({ where: { id: req.params.id } });
+    const response = await SubModule.findOne({ where: { id: req.params.id } });
     res.status(200).json({ msg: "success", response });
   } catch (error) {
     res.status(500).json({ msg: error.message });
@@ -40,7 +40,7 @@ exports.updateSubModule = async (req, res) => {
   const { id_module, judul, penerbit, status ,penerbitan } = req.body;
 
   try {
-    const subModuleToUpdate = await subModule.findOne({
+    const subModuleToUpdate = await SubModule.findOne({
       where: { id: req.params.id },
     });
 

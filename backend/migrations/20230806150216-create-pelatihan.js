@@ -44,14 +44,14 @@ module.exports = {
             "beginner",
             "intermediate",
             "advance "
-            ),
-          },
-          status_terbit: {
-            type: Sequelize.ENUM("draf", "terbit"),
-          },
-          tanggal_terbit: {
-            type: Sequelize.DATE,
-          },
+          ),
+        },
+        status_terbit: {
+          type: Sequelize.ENUM("draf", "terbit"),
+        },
+        tanggal_terbit: {
+          type: Sequelize.DATE,
+        },
         image: {
           type: Sequelize.STRING,
         },

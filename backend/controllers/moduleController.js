@@ -3,7 +3,7 @@ const { Module, SubModule } = require("../helper/relation.js");
 exports.getAllModule = async (req, res) => {
   try {
     const response = await Module.findAll({
-      include: [{ model: Materi, as: "Materis" }],
+      include: [{ model: SubModule, as: "SubModules" }],
     });
     res.status(200).json({ msg: "success", response });
   } catch (error) {
@@ -34,9 +34,10 @@ exports.getAllModuleAndSubmoduleByIdPelatihan = async (req, res) => {
 
 
 exports.createModule = async (req, res) => {
-  const { module} = req.body;
+  const { module, id_pelatihan} = req.body;
   try {
     const newModule = await Module.create({
+      id_pelatihan,
       module,
     });
     res.status(201).json({ msg: "module created", newModule });
