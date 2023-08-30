@@ -37,7 +37,7 @@ const Slider = {
             Tampilkan semua
           </button>
         </div>
-        <div className="flex gap-10">
+        {/* <div className="flex gap-10">
           {kategori.map((data) => (
             <Cards.CardKategori
             image={data.url_image}
@@ -46,7 +46,7 @@ const Slider = {
             description={data.deskripsi}
           />
           ))}
-        </div>
+        </div> */}
       </div>
     )
   },
@@ -87,7 +87,7 @@ const Slider = {
               href={`/beliPengetahuan?id=${data.id}`}
               passHref
             >
-              <Cards.CardPelatihan
+              {/* <Cards.CardPelatihan
                 key={data.id}
                 titlePelatihan={data.judul}
                 image={data.image_url}
@@ -97,7 +97,7 @@ const Slider = {
                 level={data.level}
                 totalViews={data.totalViews}
                 averageRating={data.averageRating}
-              />
+              /> */}
             </Link>
           ))}
         </div>
