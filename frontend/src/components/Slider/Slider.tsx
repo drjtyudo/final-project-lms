@@ -81,6 +81,7 @@ const Slider = {
           </button>
         </div>
         <div className="flex gap-10">
+          {/* new */}
           {pelatihan.map((data) => (
             <Link
               key={data.id}
