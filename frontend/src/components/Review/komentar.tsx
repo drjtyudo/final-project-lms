@@ -36,31 +36,31 @@ const commentsData = [
       { author: 'John Doe', text: 'Balasan kedua.' },
     ],
   },
-    {
-        author: 'Alice Johnson',
-        text: 'Ini adalah komentar ketiga.',
-        replies: [
-        { author: 'Jane Smith', text: 'Balasan pertama.' },
-        { author: 'John Doe', text: 'Balasan kedua.' },
-        ],
-    },
+  {
+    author: 'Alice Johnson',
+    text: 'Ini adalah komentar ketiga.',
+    replies: [
+      { author: 'Jane Smith', text: 'Balasan pertama.' },
+      { author: 'John Doe', text: 'Balasan kedua.' },
+    ],
+  },
 ]
 
 const Komentar = () => {
-  const [visibleComments, setVisibleComments] = useState(2);
-  const [showThirdComment, setShowThirdComment] = useState(false);
+  const [visibleComments, setVisibleComments] = useState(2)
+  const [showThirdComment, setShowThirdComment] = useState(false)
 
   const showMoreComments = () => {
     if (!showThirdComment) {
-      setVisibleComments(visibleComments + 3);
+      setVisibleComments(visibleComments + 3)
     } else {
-      setVisibleComments(visibleComments - 3);
+      setVisibleComments(visibleComments - 3)
     }
-    setShowThirdComment(!showThirdComment);
-  };
+    setShowThirdComment(!showThirdComment)
+  }
 
   return (
-    <div className="px-4 h-[500px] overflow-auto">
+    <div className="px-4 h-[400px] overflow-auto">
       {commentsData.slice(0, visibleComments).map((comment, index) => (
         <Comment key={index} {...comment} />
       ))}
@@ -74,7 +74,7 @@ const Komentar = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Komentar;
+export default Komentar
