@@ -1,100 +1,100 @@
-import React, { useEffect, useState } from 'react'
-import { Layout, Menu, Select, Image, Dropdown } from 'antd'
-import { DownOutlined } from '@ant-design/icons'
-import { Search } from 'components/Search'
-import Login from 'pages/login'
-import axios from 'axios'
-import Link from 'next/link'
-import jwt_decode from 'jwt-decode'
+// import React, { useEffect, useState } from 'react'
+// import { Layout, Menu, Select, Image, Dropdown } from 'antd'
+// import { DownOutlined } from '@ant-design/icons'
+// import { Search } from 'components/Search'
+// import Login from 'pages/login'
+// import axios from 'axios'
+// import Link from 'next/link'
+// import jwt_decode from 'jwt-decode'
 
-const { Header } = Layout
+// const { Header } = Layout
 
-const handleChange = (value: string) => {
-  console.log(`selected ${value}`)
-}
+// const handleChange = (value: string) => {
+//   console.log(`selected ${value}`)
+// }
 
-const handleSearch = (value: string) => {
-  console.log('Search keyword:', value)
-}
+// const handleSearch = (value: string) => {
+//   console.log('Search keyword:', value)
+// }
 
 
 function NavigationBar() {
-  const [token, setToken] = useState()
-  const [expire, setExpire] = useState()
+//   const [token, setToken] = useState()
+//   const [expire, setExpire] = useState()
 
-  useEffect(() => {
-    refreshToken()
-  }, [])
+//   useEffect(() => {
+//     refreshToken()
+//   }, [])
 
-  const refreshToken = async () => {
-    try {
-      const response = await axios.get('http://localhost:8000/token', {
-        withCredentials: true,
-      })
-      setToken(response.data.accessToken)
-      const decoded = jwt_decode(response.data.accessToken)
-      console.log(decoded)
-      setExpire(decoded.exp)
-    } catch (error) {
-      if (error.response) {
-        setToken(null)
-      }
-    }
-  }
+//   const refreshToken = async () => {
+//     try {
+//       const response = await axios.get('http://localhost:8000/token', {
+//         withCredentials: true,
+//       })
+//       setToken(response.data.accessToken)
+//       const decoded = jwt_decode(response.data.accessToken)
+//       console.log(decoded)
+//       setExpire(decoded.exp)
+//     } catch (error) {
+//       if (error.response) {
+//         setToken(null)
+//       }
+//     }
+//   }
 
-  axios.interceptors.request.use(async (config) => {
-    const currentDate = new Date()
-    if (expire * 1000 < currentDate.getTime()) {
-      try {
-        const response = await axios.get('http://localhost:8000/token', {
-          withCredentials: true,
-        })
+//   axios.interceptors.request.use(async (config) => {
+//     const currentDate = new Date()
+//     if (expire * 1000 < currentDate.getTime()) {
+//       try {
+//         const response = await axios.get('http://localhost:8000/token', {
+//           withCredentials: true,
+//         })
 
-        const newConfig = { ...config }
-        newConfig.headers.Authorization = `Bearer ${response.data.accessToken}`
-        return newConfig
-      } catch (error) {
-        console.error('Error fetching new token:', error)
-      }
-    }
-    return config
-  })
+//         const newConfig = { ...config }
+//         newConfig.headers.Authorization = `Bearer ${response.data.accessToken}`
+//         return newConfig
+//       } catch (error) {
+//         console.error('Error fetching new token:', error)
+//       }
+//     }
+//     return config
+//   })
 
-  const Logout = async () => {
-    try {
-      await axios.get('http://localhost:8000/users/logout', {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      setToken(null)
-      window.location.href = '/'
-    } catch (error) {
-      console.log('Logout failed:', error)
-    }
-  }
+//   const Logout = async () => {
+//     try {
+//       await axios.get('http://localhost:8000/users/logout', {
+//         withCredentials: true,
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       })
+//       setToken(null) 
+//       window.location.href = '/'
+//     } catch (error) {
+//       console.log('Logout failed:', error)
+//     }
+//   }
 
-  const profileMenu = (
-    <Menu>
-      <Menu.Item key="dashboard">
-        <Link href="/dashboard">Dashboard</Link>
-      </Menu.Item>
-      <Menu.Item key="pelatihanSaya">
-        <Link href="/pelatihanSaya">Pelatihan Saya</Link>
-      </Menu.Item>
-      <Menu.Item key="sertifikat">
-        <Link href="/sertifikat">Sertifikat</Link>
-      </Menu.Item>
-      <Menu.Item key="logout">
-        <a onClick={Logout}>Logout</a>
-      </Menu.Item>
-    </Menu>
-  );
+//   const profileMenu = (
+//     <Menu>
+//       <Menu.Item key="dashboard">
+//         <Link href="/dashboard">Dashboard</Link>
+//       </Menu.Item>
+//       <Menu.Item key="pelatihanSaya">
+//         <Link href="/pelatihanSaya">Pelatihan Saya</Link>
+//       </Menu.Item>
+//       <Menu.Item key="sertifikat">
+//         <Link href="/sertifikat">Sertifikat</Link>
+//       </Menu.Item>
+//       <Menu.Item key="logout">
+//         <a onClick={Logout}>Logout</a>
+//       </Menu.Item>
+//     </Menu>
+//   );
 
   return (
     <>
-      <Layout className="layout py-2 border-b-2">
+      {/* <Layout className="layout py-2 border-b-2">
         <Header className="flex bg-transparent items-center justify-between">
           <Image src="./static/lms-logo.svg" width={200} preview={false} />
           <Search
@@ -155,7 +155,7 @@ function NavigationBar() {
             </div>
           </div>
         </Header>
-      </Layout>
+      </Layout> */}
     </>
   )
 }

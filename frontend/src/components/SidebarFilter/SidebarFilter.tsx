@@ -28,7 +28,7 @@ const SidebarFilter: React.FC<SidebarFilterProps> = ({
   }
 
   return (
-      <div className="fix w-80 h-full bg-[#10455B] pt-[70px] px-[23px] fixed ">
+      <div className="fix w-80 h-full bg-[#10455B] pt-[70px] px-[23px] fixed -z-10">
         <h2 className="text-[#fff] text-[24px] font-bold mb-[17px]">Filter</h2>
         <ul className="mx-[50px]">
           <li

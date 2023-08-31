@@ -14,7 +14,7 @@ function Footer() {
   }
 
   return (
-    <footer className="text-left pt-[25px] pb-[1px] bg-[#10455B]">
+    <footer className="bottom-0 w-full bg-[#10455B] p-[25px] text-white z-20">
       <ul className="flex mx-[63px] justify-between text-white">
         <li>
           <h1 className="font-bold text-xl mb-4 text-white">NusaKMS</h1>
