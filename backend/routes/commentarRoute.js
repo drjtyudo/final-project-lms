@@ -2,6 +2,7 @@ const express = require("express");
 
 const {
   getCommentar,
+  getAllCommentarById ,
   getReplyCommentar,
   createCommentar,
   createReply,
@@ -12,6 +13,7 @@ const router = express.Router();
 
 // commentar
 router.get("/commentar", getCommentar);
+router.get("/commentar/pelatihan/:id", getAllCommentarById);
 router.post("/commentar/post", verifyToken, createCommentar);
 
 // reply
