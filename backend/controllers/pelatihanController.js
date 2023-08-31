@@ -77,6 +77,7 @@ exports.getPelatihanBykategori = async (req, res) => {
         }
 
         const totalViews = views.reduce((sum, view) => sum + view.view, 0);
+
         updatedResponse.push({
           id: pelatihan.Pelatihan_ids.id,
           judul: pelatihan.Pelatihan_ids.judul,
@@ -180,6 +181,7 @@ exports.getPelatihan = async (req, res) => {
         });
       }
     });
+    // console.log(updatedResponse);
     res.status(200).json({
       msg: "ok",
       pelatihan: updatedResponse,
@@ -387,6 +389,7 @@ exports.getPelatihanById = async (req, res) => {
           totalDurasiString,
           totalViews,
           kontenUnduh,
+          Modules: pelatihan.Modules
         };
       }
       return null;
@@ -401,16 +404,10 @@ exports.getPelatihanById = async (req, res) => {
   }
 };
 
-
-exports.getAllKontenBySubModule = async (req, res) => {
+exports.getAllKontenByIdSubModule = async (req, res) => {
   try {
     const submodulesAndTheirContents = await SubModule.findAll({
-      attributes: [
-        "id",
-        "id_module",
-        "judul",
-        "status"
-      ],
+      attributes: ["id", "id_module", "judul", "status"],
       include: [
         {
           model: KontenPdf,
@@ -429,9 +426,9 @@ exports.getAllKontenBySubModule = async (req, res) => {
           as: "KontenVideos",
         },
       ],
-      where : {
-        id : req.params.id
-      }
+      where: {
+        id: req.params.id,
+      },
     });
 
     res.status(200).json({ msg: "suscces", submodulesAndTheirContents });
@@ -441,7 +438,6 @@ exports.getAllKontenBySubModule = async (req, res) => {
   }
 };
 
-
 exports.createPelatihan = async (req, res) => {
   try {
     const {
@@ -450,7 +446,6 @@ exports.createPelatihan = async (req, res) => {
       harga,
       dibuatOleh,
       status,
-      diterbitkan,
       level,
       masaLisensi,
       statusTerbit,
@@ -490,7 +485,6 @@ exports.createPelatihan = async (req, res) => {
         harga,
         dibuat_oleh: dibuatOleh,
         status,
-        diterbitkan,
         level,
         status_terbit: statusTerbit,
         tanggal_terbit: tanggalTerbit,

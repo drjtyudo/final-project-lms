@@ -151,6 +151,26 @@ INSERT INTO `konten_videos` (`id`, `judul_video`, `id_sub_module`, `link_youtube
 (NULL, 'judul video', '15', 'link youtube', NULL, NULL, '13', '2023-08-26 18:42:28.000000', '2023-08-26 18:42:28.000000');
 
 
+-- Insert tabel komentar
+INSERT INTO `commentars` (`id`, `komentar`, `id_pelatihan`, `id_user`, `createdAt`, `updatedAt`) VALUES (NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin condimentum aliquet arcu, sit amet eleifend tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '1', '1', '2023-08-27 14:44:37.000000', '2023-08-27 14:44:37.000000'), (NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin condimentum aliquet arcu, sit amet eleifend tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '1', '2', '2023-08-27 14:44:37.000000', '2023-08-27 14:44:37.000000'), (NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin condimentum aliquet arcu, sit amet eleifend tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '1', '3', '2023-08-27 14:44:37.000000', '2023-08-27 14:44:37.000000');
+
+-- Insert tabel balas komentar
+
+INSERT INTO `commentar_replies` (`id`, `komentar`, `id_commentar`, `id_user`, `createdAt`, `updatedAt`) VALUES (NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin condimentum aliquet arcu, sit amet eleifend tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '1', '4', '2023-08-27 14:48:52.000000', '2023-08-27 14:48:52.000000'), (NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '1', '5', '2023-08-27 14:48:52.000000', '2023-08-27 14:48:52.000000'), (NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin condimentum aliquet arcu, sit amet eleifend tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '2', '6', '2023-08-27 14:48:52.000000', '2023-08-27 14:48:52.000000');
+
+// 
+
+INSERT INTO `commentars` (`id`, `komentar`, `id_pelatihan`, `id_user`, `createdAt`, `updatedAt`) VALUES
+(NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin condimentum aliquet arcu, sit amet eleifend tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '2', '1', '2023-08-27 14:44:37.000000', '2023-08-27 14:44:37.000000'),
+(NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin condimentum aliquet arcu, sit amet eleifend tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '2', '2', '2023-08-27 14:44:37.000000', '2023-08-27 14:44:37.000000'),
+(NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin condimentum aliquet arcu, sit amet eleifend tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '2', '3', '2023-08-27 14:44:37.000000', '2023-08-27 14:44:37.000000');
+
+
+-- Insert tabel pelatihan saya
+INSERT INTO `pelatihan_sayas` (`id`, `id_user`, `id_pelatihan`, `progress`, `diakses`, `status`, `selesai`, `createdAt`, `updatedAt`) VALUES (NULL, '1', 1, NULL, '2023-08-27 19:57:00', 'Uncomplated', NULL, '2023-08-27 17:18:27.000000', '2023-08-27 17:18:27.000000');
+
+INSERT INTO `pelatihan_sayas` (`id`, `id_user`, `id_pelatihan`, `progress`, `diakses`, `status`, `selesai`, `createdAt`, `updatedAt`) VALUES (NULL, '1', 1, NULL, '2023-08-27 19:57:00', 'Uncomplated', NULL, '2023-08-27 17:18:27.000000', '2023-08-27 17:18:27.000000');
+
 ############# API #############
 * this api require bearer token / accessToken
   GET http://localhost/users
