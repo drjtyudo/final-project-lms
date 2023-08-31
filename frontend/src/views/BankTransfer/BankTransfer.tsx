@@ -8,7 +8,7 @@ function BankTransfer() {
     <div className="h-[767px]">
       <div className="w-[532px] mx-auto">
         <BankComp />
-        <div className="mb-10">
+        <div className="mb-10">                         
           <MyCollapse />
         </div>
         <div className="rounded-lg text-center">
