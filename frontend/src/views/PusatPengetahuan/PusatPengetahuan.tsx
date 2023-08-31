@@ -1,5 +1,6 @@
 import { Button } from 'antd'
 import Cards from 'components/Cards/Cards'
+import PaginationComp from 'components/Pagination/PaginationComp'
 import SidebarFilter from 'components/SidebarFilter/SidebarFilter'
 import Footer from 'layouts/containers/Public/Footer'
 import NavigationBar from 'layouts/containers/Public/Navbar'
@@ -114,12 +115,13 @@ function PusatPengetahuan() {
                 titlePelatihan={item.titlePelatihan}
                 description={item.description}
                 harga={item.harga}
-                styleCard="w-[317px] h-[350px]"
-                styleImage="rounded-tl-[10px] bg-cover w-full rounded-tr-[10px] h-[135px]"
+                styleCard="w-[317px] h-[450px]"
+                styleImage="rounded-tl-[10px] bg-cover w-full rounded-tr-[10px] h-[235px]"
               />
             </div>
           ))}
         </div>
+      <PaginationComp />
       </div>
       <Footer />
     </>
