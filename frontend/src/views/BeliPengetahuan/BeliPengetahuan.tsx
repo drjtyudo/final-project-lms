@@ -96,14 +96,16 @@ function BeliPengetahuan() {
                   width: 332,
                 }}
               >
-                <p className="px-1 text-[20px]">
-                  Tanggal Dibuat : {pelatihan && pelatihan.tanggal_terbit.split("T")[0]}
-                </p>
+                {pelatihan && pelatihan.tanggal_terbit && (
+                  <p className="px-1 text-[20px]">
+                    Tanggal Dibuat : {pelatihan.tanggal_terbit.split('T')[0]}
+                  </p>
+                )}
               </Card>
             </Space>
           </div>
           <div className="mt-[21px]">
-            <h5 className='ml-6'>Yang Kamu dapatkan</h5>
+            <h5 className="ml-6">Yang Kamu dapatkan</h5>
             <Card
               style={{
                 width: 332,
