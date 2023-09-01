@@ -96,9 +96,9 @@ function BeliPengetahuan() {
                   width: 332,
                 }}
               >
-                <p className="px-1 text-[20px]">
+                {/* <p className="px-1 text-[20px]">
                   Tanggal Dibuat : {pelatihan && pelatihan.tanggal_terbit.split("T")[0]}
-                </p>
+                </p> */}
               </Card>
             </Space>
           </div>
