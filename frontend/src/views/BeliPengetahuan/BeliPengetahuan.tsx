@@ -96,17 +96,11 @@ function BeliPengetahuan() {
                   width: 332,
                 }}
               >
-<<<<<<< HEAD
-                {/* <p className="px-1 text-[20px]">
-                  Tanggal Dibuat : {pelatihan && pelatihan.tanggal_terbit.split("T")[0]}
-                </p> */}
-=======
                 {pelatihan && pelatihan.tanggal_terbit && (
                   <p className="px-1 text-[20px]">
                     Tanggal Dibuat : {pelatihan.tanggal_terbit.split('T')[0]}
                   </p>
                 )}
->>>>>>> c5d7a686e2890eba37e5014fd883d37055572f45
               </Card>
             </Space>
           </div>
