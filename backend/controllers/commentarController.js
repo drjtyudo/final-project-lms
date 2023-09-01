@@ -1,10 +1,25 @@
 const { Commentar, Commentar_reply } = require("../helper/relation.js");
 
-// commentar
+// get all commentar
 exports.getCommentar = async (req, res) => {
   try {
     const commentar = await Commentar.findAll({
       include: { model: Commentar_reply, as: "Replies" },
+    });
+    res.status(200).json({ msg: "success", commentar });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+// get all commentar by id pelatihan
+exports.getAllCommentarById = async (req, res) => {
+  try {
+    const commentar = await Commentar.findAll({
+      include: { model: Commentar_reply, as: "Replies" },
+      where : {
+        id_pelatihan : req.params.id
+      }
     });
     res.status(200).json({ msg: "success", commentar });
   } catch (error) {

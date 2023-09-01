@@ -77,6 +77,7 @@ exports.getPelatihanBykategori = async (req, res) => {
         }
 
         const totalViews = views.reduce((sum, view) => sum + view.view, 0);
+        
         updatedResponse.push({
           id: pelatihan.Pelatihan_ids.id,
           judul: pelatihan.Pelatihan_ids.judul,
@@ -402,7 +403,7 @@ exports.getPelatihanById = async (req, res) => {
 };
 
 
-exports.getAllKontenBySubModule = async (req, res) => {
+exports.getAllKontenByIdSubModule = async (req, res) => {
   try {
     const submodulesAndTheirContents = await SubModule.findAll({
       attributes: [
@@ -450,7 +451,6 @@ exports.createPelatihan = async (req, res) => {
       harga,
       dibuatOleh,
       status,
-      diterbitkan,
       level,
       masaLisensi,
       statusTerbit,
@@ -490,7 +490,6 @@ exports.createPelatihan = async (req, res) => {
         harga,
         dibuat_oleh: dibuatOleh,
         status,
-        diterbitkan,
         level,
         status_terbit: statusTerbit,
         tanggal_terbit: tanggalTerbit,
