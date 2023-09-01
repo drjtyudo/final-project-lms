@@ -1,24 +1,24 @@
 import Cards from 'components/Cards/Cards'
 import Footer from 'layouts/containers/Public/Footer'
 import NavigationBar from 'layouts/containers/Public/Navbar'
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 export default function TampikanKategori() {
-    const [kategori, setKategori] = useState([])
+  const [kategori, setKategori] = useState([])
 
-    useEffect(() => {
-      getKategori()
-    }, [])
+  useEffect(() => {
+    getKategori()
+  }, [])
 
-    const getKategori = async () => {
-      try {
-        const data = await axios.get("http://localhost:8000/kategori")
-        setKategori(data.data.response)
-      } catch (error) {
-        console.log(error)
-      }
+  const getKategori = async () => {
+    try {
+      const data = await axios.get('http://localhost:8000/kategori')
+      setKategori(data.data.response)
+    } catch (error) {
+      console.log(error)
     }
+  }
 
   return (
     <div>
@@ -31,19 +31,17 @@ export default function TampikanKategori() {
           enim quis ligula laoreet convallis.{' '}
         </p>
         <div>
-        <div className="flex gap-10 flex-wrap  justify-center items-center">
-  {kategori.map((data) => (
-    <Cards.CardKategori
-      image={data.url_image}
-      title={data.kategori}
-      titlePelatihan=""
-      description={data.deskripsi}
-    />
-  ))}
-</div>
-
-
-      </div>
+          <div className="flex gap-10 flex-wrap  justify-center items-center">
+            {kategori.map((data) => (
+              <Cards.CardKategori
+                image={data.url_image}
+                title={data.kategori}
+                titlePelatihan=""
+                description={data.deskripsi}
+              />
+            ))}
+          </div>
+        </div>
       </div>
       <Footer />
     </div>

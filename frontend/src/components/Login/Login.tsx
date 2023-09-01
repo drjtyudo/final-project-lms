@@ -1,4 +1,4 @@
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import { Modal, Button, Form } from 'antd'
 import InputCommon from 'components/Input/InputCommon'
 import InputPassword from 'components/Input/InputPassword'
@@ -22,12 +22,18 @@ function Login() {
 
   const login = async () => {
     try {
-      await axios.post('http://localhost:8000/users/login', {
-        email: formValues.email,
-        password: formValues.password,
-      })
+      await axios.post(
+        'http://localhost:8000/users/login',
+        {
+          email: formValues.email,
+          password: formValues.password,
+        },
+        {
+          withCredentials: true,
+        },
+      )
       // router.push("/")
-      // window.location.reload()
+      window.location.reload()
     } catch (error) {
       console.log(error)
     }
@@ -43,8 +49,6 @@ function Login() {
       [name]: value,
     }))
   }
-
-  
 
   const Icon = {
     backgroundImage: "url('./static/Icons/Icon-face.png')",

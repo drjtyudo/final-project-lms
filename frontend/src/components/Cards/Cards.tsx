@@ -14,6 +14,9 @@ interface ICards {
   dibuat_oleh: string
   level: string
   id: string
+  styleCard?: string
+  styleParagraft?: string
+  styleImage?: string
 }
 
 const Cards = {
@@ -45,17 +48,20 @@ const Cards = {
       comment,
       dibuat_oleh,
       level,
+      styleCard,
+      styleParagraft,
+      styleImage
     } = props
     return (
-      <div className="w-[317px] rounded-[10px] shadow-[0_40px_60px_0px_rgba(32,77,132,0.1)]">
+      <div className={styleCard}>
         <img
-          className="rounded-tl-[10px] bg-cover w-full rounded-tr-[10px] h-[135px]"
+          className={styleImage}
           src={image}
           alt=""
         />
         <div className="px-2 py-3 h-[360px]">
           <h5 className="my-2 text-[20px] font-bold">{titlePelatihan}</h5>
-          <p className="text-[#424242] text-[14px] overflow-auto h-[150px]">{description}</p>
+          <p className={styleParagraft}>{description}</p>
           <div className="text-[11px]">
             <p>Dibuat Oleh: {dibuat_oleh} </p>
             <p>Level: {level}</p>

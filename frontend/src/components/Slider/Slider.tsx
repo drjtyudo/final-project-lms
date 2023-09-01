@@ -27,8 +27,8 @@ const Slider = {
 
     const getKategori = async () => {
       try {
-        const data = await axios.get('http://localhost:8000/kategori');
-        setKategori(data.data.response);
+        const data = await axios.get('http://localhost:8000/kategori')
+        setKategori(data.data.response)
       } catch (error) {
         console.log(error);
       }

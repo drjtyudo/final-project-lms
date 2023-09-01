@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
   pelatihan_saya.init({
     id_user: DataTypes.STRING,
     id_pelatihan: DataTypes.INTEGER,
-    progress: DataTypes.INTEGER,
     diakses: DataTypes.DATE,
     status: DataTypes.ENUM("Uncomplated", "Complated"),
     selesai: DataTypes.DATE

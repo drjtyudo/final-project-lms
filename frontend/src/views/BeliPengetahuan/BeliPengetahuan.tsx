@@ -6,6 +6,7 @@ import Footer from 'layouts/containers/Public/Footer'
 import { ModulComp } from 'components/Modul/ModulComp'
 import Komentar from 'components/Review/komentar'
 import { useRouter } from 'next/router'
+import Content from 'components/contentPreview/content'
 import Link from 'next/link'
 
 function BeliPengetahuan() {
@@ -14,6 +15,7 @@ function BeliPengetahuan() {
 
   console.log('Router Query:', router.query)
   const [pelatihan, setPelatihan] = useState({})
+  const [selectedSubmodule, setSelectedSubmodule] = useState(0)
 
   useEffect(() => {
     if (id) {
@@ -32,30 +34,45 @@ function BeliPengetahuan() {
     }
   }
 
+  const handleSubmoduleClick = (submoduleIndex) => {
+    setSelectedSubmodule(submoduleIndex)
+  }
+
   return (
     <div>
       <NavigationBar />
-      <div className="flex mt-[32px] mx-[52px]">
+      <div className="flex mt-[100px] mx-[52px]">
         <div className="w-[1440px] ">
           <h1 className="text-[35px] mb-[26px]">Detail Pelatihan</h1>
           <div className="w-[965px] px-4">
             <h1 className="text-[23px] mb-[26px]">{pelatihan.judul}</h1>
             <p className="text-[20px] font-bold">Tentang Pelatihan</p>
-            <p>{pelatihan.deskripsi}</p>
+            <p className="text-justify">{pelatihan.deskripsi}</p>
             <p className="text-[20px] font-bold">Level: {pelatihan.level}</p>
-            <div className="mt-[44px] mb-[13px]">
+            <div className="mt-[44px] mb-[13px] border-4 p-7 rounded-md">
               <h5>Konten Preview</h5>
               <div className="w-[full] flex">
                 <div>
-                  <ModulComp />
+                  <ModulComp onSubmoduleClick={handleSubmoduleClick} />
                 </div>
-                <div className="w-full bg-gray-100 mr-4"></div>
+                {selectedSubmodule === 0 && <Content.contentSub1 />}
+                {selectedSubmodule === 1 && <Content.contentSub2 />}
               </div>
             </div>
             <h5 className="mt-[51px]">Target Audiens</h5>
             <p>Internal NusaLMS</p>
             <h5 className="mt-[43px]">Kategori</h5>
-            <p>Kategori A, Kategori B</p>
+            <p>
+              {pelatihan && pelatihan.kategori
+                ? pelatihan.kategori.map((kategori, index) => (
+                    <span key={index}>
+                      {kategori.kategori}
+                      {index !== pelatihan.kategori.length - 1 ? ', ' : ''}
+                    </span>
+                  ))
+                : 'Tidak ada kategori'}
+            </p>
+
             <h5 className="mt-[43px]">Masa berlaku lisensi</h5>
             <p>{pelatihan.masa_lisensi}</p>
             <div className="w-[965px] mt-[53px]">
@@ -80,14 +97,16 @@ function BeliPengetahuan() {
                   width: 332,
                 }}
               >
-                <p className="px-1 text-[20px]">
-                  Tanggal Dibuat : {pelatihan.tanggal_terbit}
-                </p>
+                {pelatihan && pelatihan.tanggal_terbit && (
+                  <p className="px-1 text-[20px]">
+                    Tanggal Dibuat : {pelatihan.tanggal_terbit.split('T')[0]}
+                  </p>
+                )}
               </Card>
             </Space>
           </div>
           <div className="mt-[21px]">
-            <h5>Yang Kamu dapatkan</h5>
+            <h5 className="ml-6">Yang Kamu dapatkan</h5>
             <Card
               style={{
                 width: 332,

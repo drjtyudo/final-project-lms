@@ -1,3 +1,3 @@
-import BankTransfer from "views/Pembayaran/BankTransfer/BankTransfer";
+import BankTransfer from "views/BankTransfer/BankTransfer";
 
 export default BankTransfer
