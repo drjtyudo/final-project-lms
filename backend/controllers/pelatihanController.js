@@ -181,6 +181,7 @@ exports.getPelatihan = async (req, res) => {
         });
       }
     });
+    // console.log(updatedResponse);
     res.status(200).json({
       msg: "ok",
       pelatihan: updatedResponse,
@@ -388,6 +389,7 @@ exports.getPelatihanById = async (req, res) => {
           totalDurasiString,
           totalViews,
           kontenUnduh,
+          Modules: pelatihan.Modules
         };
       }
       return null;
@@ -406,12 +408,7 @@ exports.getPelatihanById = async (req, res) => {
 exports.getAllKontenByIdSubModule = async (req, res) => {
   try {
     const submodulesAndTheirContents = await SubModule.findAll({
-      attributes: [
-        "id",
-        "id_module",
-        "judul",
-        "status"
-      ],
+      attributes: ["id", "id_module", "judul", "status"],
       include: [
         {
           model: KontenPdf,
@@ -430,9 +427,9 @@ exports.getAllKontenByIdSubModule = async (req, res) => {
           as: "KontenVideos",
         },
       ],
-      where : {
-        id : req.params.id
-      }
+      where: {
+        id: req.params.id,
+      },
     });
 
     res.status(200).json({ msg: "suscces", submodulesAndTheirContents });
@@ -441,7 +438,6 @@ exports.getAllKontenByIdSubModule = async (req, res) => {
     res.status(500).json({ msg: error.message });
   }
 };
-
 
 exports.createPelatihan = async (req, res) => {
   try {

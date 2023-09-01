@@ -292,7 +292,7 @@ exports.getPelatihanByIdPelatihanSaya = async (req, res) => {
           // tabel progress 
           // id
           // id_user
-          // id_sub_module                                                                                                                        
+          // id_sub_module
           // status (sudah)
           
         

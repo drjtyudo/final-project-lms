@@ -26,7 +26,7 @@ exports.postIklan = async (req, res) => {
     const banner_image = `${imageTimestamp}-${imageRandomString}${imageExt}`;
     const url_image = `${req.protocol}://${req.get(
       "host"
-    )}/assets/pelatihan-image/${banner_image}`;
+    )}/assets/banner-iklan/${banner_image}`;
     const imagePath = `./public/assets/banner-iklan/${banner_image}`;
 
     const allowedType = [".png", ".jpg", ".jpeg"];
