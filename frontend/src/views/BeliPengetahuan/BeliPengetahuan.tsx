@@ -40,7 +40,7 @@ function BeliPengetahuan() {
   return (
     <div>
       <NavigationBar />
-      <div className="flex mt-[32px] mx-[52px]">
+      <div className="flex mt-[100px] mx-[52px]">
         <div className="w-[1440px] ">
           <h1 className="text-[35px] mb-[26px]">Detail Pelatihan</h1>
           <div className="w-[965px] px-4">
@@ -96,14 +96,16 @@ function BeliPengetahuan() {
                   width: 332,
                 }}
               >
-                <p className="px-1 text-[20px]">
-                  Tanggal Dibuat : {pelatihan && pelatihan.tanggal_terbit.split("T")[0]}
-                </p>
+                {pelatihan && pelatihan.tanggal_terbit && (
+                  <p className="px-1 text-[20px]">
+                    Tanggal Dibuat : {pelatihan.tanggal_terbit.split('T')[0]}
+                  </p>
+                )}
               </Card>
             </Space>
           </div>
           <div className="mt-[21px]">
-            <h5 className='ml-6'>Yang Kamu dapatkan</h5>
+            <h5 className="ml-6">Yang Kamu dapatkan</h5>
             <Card
               style={{
                 width: 332,
