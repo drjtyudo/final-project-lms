@@ -19,7 +19,7 @@ const Slider = {
 
     const getKategori = async () => {
       try {
-        const data = await axios.get("http://localhost:8000/kategori")
+        const data = await axios.get('http://localhost:8000/kategori')
         setKategori(data.data.response)
       } catch (error) {
         console.log(error)
@@ -37,16 +37,16 @@ const Slider = {
             Tampilkan semua
           </button>
         </div>
-        {/* <div className="flex gap-10">
+        <div className="flex gap-10">
           {kategori.map((data) => (
             <Cards.CardKategori
-            image={data.url_image}
-            title={data.kategori}
-            titlePelatihan=""
-            description={data.deskripsi}
-          />
+              image={data.url_image}
+              title={data.kategori}
+              titlePelatihan=""
+              description={data.deskripsi}
+            />
           ))}
-        </div> */}
+        </div>
       </div>
     )
   },
@@ -76,9 +76,11 @@ const Slider = {
         </h1>
         <div className="flex justify-between">
           <p className="w-[80%] py-5 font-normal text-[#424242]">{deskripsi}</p>
-          <button className="bg-[#10455B] text-white font-bold h-[50px] w-[180px] rounded-[50px] mt-4">
-            Tampilkan semua
-          </button>
+          <Link href="/pusatpengetahuan">
+            <button className="bg-[#10455B] text-white font-bold h-[50px] w-[180px] rounded-[50px] mt-4">
+              Tampilkan semua
+            </button>
+          </Link>
         </div>
         <div className="flex gap-10">
           {pelatihan.map((data) => (
@@ -99,7 +101,7 @@ const Slider = {
                 averageRating={data.averageRating}
                 styleCard="w-[317px] rounded-[10px] shadow-[0_40px_60px_0px_rgba(32,77,132,0.1)]"
                 styleParagraft="text-[#424242] text-[14px] overflow-auto h-[150px]"
-                styleImage="rounded-tl-[10px] bg-cover w-full rounded-tr-[10px] h-[135px]"
+                styleImage="rounded-tl-[10px] bg-cover w-full rounded-tr-[10px] h-[235px]"
               />
             </Link>
           ))}
