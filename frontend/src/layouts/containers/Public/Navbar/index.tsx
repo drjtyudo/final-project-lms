@@ -17,7 +17,6 @@ const handleSearch = (value: string) => {
   console.log('Search keyword:', value)
 }
 
-
 function NavigationBar() {
   const [token, setToken] = useState()
   const [expire, setExpire] = useState()
@@ -69,7 +68,7 @@ function NavigationBar() {
         },
       })
       setToken(null)
-      window.location.href = '/'
+      window.location.reload()
     } catch (error) {
       console.log('Logout failed:', error)
     }
@@ -87,14 +86,14 @@ function NavigationBar() {
         <Link href="/sertifikat">Sertifikat</Link>
       </Menu.Item>
       <Menu.Item key="logout">
-        <a onClick={Logout}>Logout</a>
+        <button onClick={Logout}>Logout</button>
       </Menu.Item>
     </Menu>
-  );
+  )
 
   return (
     <>
-      <Layout className="layout py-2 border-b-2">
+      <Layout className="layout py-2 border-b-2 fixed w-full top-0 z-50">
         <Header className="flex bg-transparent items-center justify-between">
           <Image src="./static/lms-logo.svg" width={200} preview={false} />
           <Search

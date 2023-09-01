@@ -40,7 +40,7 @@ function BeliPengetahuan() {
   return (
     <div>
       <NavigationBar />
-      <div className="flex mt-[32px] mx-[52px]">
+      <div className="flex mt-[100px] mx-[52px]">
         <div className="w-[1440px] ">
           <h1 className="text-[35px] mb-[26px]">Detail Pelatihan</h1>
           <div className="w-[965px] px-4">

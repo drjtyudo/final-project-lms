@@ -2,7 +2,7 @@ import React from 'react'
 
 function BannerIklan() {
   return (
-    <div className="w-full bg-[#10455B] flex justify-center items-center">
+    <div className="w-full bg-[#10455B] flex justify-center items-center mt-[80px]">
       <img className="w-[650px]" src="./static/Content/Banner.png" alt="" />
       <div className="px-4">
         <h1 className="text-[40px] font-semibold text-yellow-200">
