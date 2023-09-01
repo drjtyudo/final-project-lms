@@ -74,7 +74,7 @@ const Slider = {
         <h1 className="text-[30px] font-bold text-[#1D1E1E] border-l-[7px] border-[#ffaf20] px-3">
           {title}
         </h1>
-        <div className="flex justify-between">
+        <div className="flex justify-between flex-wrap">
           <p className="w-[80%] py-5 font-normal text-[#424242]">{deskripsi}</p>
           <Link href="/pusatpengetahuan">
             <button className="bg-[#10455B] text-white font-bold h-[50px] w-[180px] rounded-[50px] mt-4">
