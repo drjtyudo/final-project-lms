@@ -30,48 +30,48 @@ function Footer() {
 
   return (
     <footer className="text-left pt-[25px] pb-[40px] bg-[#10455B]">
-  <ul className="flex mx-[63px] justify-between text-white">
-    {footer.map((data, index) => (
-      <li key={index} className="flex flex-col">
-        <h1 className="font-bold text-xl mb-4 text-white">
-          {data.judul_footer}
-        </h1>
-        {data.Footers.map((dataSub, indexSub) => (
-          <div key={indexSub}>
-            <p className="mb-2 text-[14px] text-white">
-              {dataSub.nama_footer}
-            </p>
-          </div>
-        ))}
-        <div className="flex mt-[-40px]">
-          {data.Footers.map((dataSub, indexSub) => (
-            <div key={indexSub}>
-              {dataSub.image != null && (
-                <Link href={dataSub.link}>
-                  <Image preview={false} src={dataSub.url} />
-                </Link>
-              )}
+      <ul className="flex mx-[63px] justify-between text-white">
+        {footer.map((data, index) => (
+          <li key={index} className="flex flex-col">
+            <h1 className="font-bold text-xl mb-4 text-white">
+              {data.judul_footer}
+            </h1>
+            {data.Footers.map((dataSub, indexSub) => (
+              <div key={indexSub}>
+                <p className="mb-2 text-[14px] text-white">
+                  {dataSub.nama_footer}
+                </p>
+              </div>
+            ))}
+            <div className="flex mt-[-40px]">
+              {data.Footers.map((dataSub, indexSub) => (
+                <div key={indexSub}>
+                  {dataSub.image != null && (
+                    <Link href={dataSub.link}>
+                      <Image preview={false} src={dataSub.url} />
+                    </Link>
+                  )}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        {index === footer.length - 1 && (
-          <div className='mt-[20px]'>
-            <ul className="flex justify-between">
-              <Link href={data.Footers[0].link}>
-                <Button className="text-white text-[14px] text-center w-[120px] h-[30px] flex items-center justify-center">
-                  Play store
-                </Button>
-              </Link>
-              <Link href={data.Footers[1].link}>
-                <Button className="text-white text-[14px] text-center w-[120px] h-[30px] flex items-center justify-center">
-                  App store
-                </Button>
-              </Link>
-            </ul>
-          </div>
-        )}
-      </li>
-    ))}
+            {index === footer.length - 1 && (
+              <div className="mt-[20px]">
+                <ul className="flex justify-between">
+                  <Link href={data.Footers[0].link}>
+                    <Button className="text-white text-[14px] text-center w-[120px] h-[30px] flex items-center justify-center">
+                      Play store
+                    </Button>
+                  </Link>
+                  <Link href={data.Footers[1].link}>
+                    <Button className="text-white text-[14px] text-center w-[120px] h-[30px] flex items-center justify-center">
+                      App store
+                    </Button>
+                  </Link>
+                </ul>
+              </div>
+            )}
+          </li>
+        ))}
       </ul>
     </footer>
   )

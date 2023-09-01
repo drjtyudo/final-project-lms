@@ -37,7 +37,7 @@ const Slider = {
             Tampilkan semua
           </button>
         </div>
-        <div className="flex gap-10">
+        {/* <div className="flex gap-10">
           {kategori.map((data) => (
             <Cards.CardKategori
               image={data.url_image}
@@ -46,7 +46,7 @@ const Slider = {
               description={data.deskripsi}
             />
           ))}
-        </div>
+        </div> */}
       </div>
     )
   },
@@ -97,6 +97,9 @@ const Slider = {
                 level={data.level}
                 totalViews={data.totalViews}
                 averageRating={data.averageRating}
+                styleCard="w-[317px] rounded-[10px] shadow-[0_40px_60px_0px_rgba(32,77,132,0.1)]"
+                styleParagraft="text-[#424242] text-[14px] overflow-auto h-[150px]"
+                styleImage="rounded-tl-[10px] bg-cover w-full rounded-tr-[10px] h-[135px]"
               />
             </Link>
           ))}

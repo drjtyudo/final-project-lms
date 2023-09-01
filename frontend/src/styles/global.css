@@ -22,7 +22,6 @@ h5 {
   font-size: 20px;
 }
 
-
 .overflow-y-scroll::-webkit-scrollbar {
   width: 8px; /* Lebar scrollbar */
 }
