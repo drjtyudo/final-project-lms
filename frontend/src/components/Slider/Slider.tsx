@@ -19,7 +19,7 @@ const Slider = {
 
     const getKategori = async () => {
       try {
-        const data = await axios.get("http://localhost:8000/kategori")
+        const data = await axios.get('http://localhost:8000/kategori')
         setKategori(data.data.response)
       } catch (error) {
         console.log(error)
@@ -40,11 +40,11 @@ const Slider = {
         <div className="flex gap-10">
           {kategori.map((data) => (
             <Cards.CardKategori
-            image={data.url_image}
-            title={data.kategori}
-            titlePelatihan=""
-            description={data.deskripsi}
-          />
+              image={data.url_image}
+              title={data.kategori}
+              titlePelatihan=""
+              description={data.deskripsi}
+            />
           ))}
         </div>
       </div>
@@ -74,7 +74,7 @@ const Slider = {
         <h1 className="text-[30px] font-bold text-[#1D1E1E] border-l-[7px] border-[#ffaf20] px-3">
           {title}
         </h1>
-        <div className="flex justify-between">
+        <div className="flex justify-between flex-wrap">
           <p className="w-[80%] py-5 font-normal text-[#424242]">{deskripsi}</p>
           <button className="bg-[#10455B] text-white font-bold h-[50px] w-[180px] rounded-[50px] mt-4">
             Tampilkan semua
