@@ -12,7 +12,7 @@ export default function Ewallet() {
           <div className="h-[177px] bg-slate-300 p-14">
             <h1 className="text-[24px]">NusaKMS</h1>
           </div>
-          <div className="h-[546px] mx-[18px] px-6 mt-[70px] overflow-auto">
+          <div className="h-[546px] mx-[38px] px-6 mt-[70px] overflow-auto">
             <EwalletComp />
           </div>
         </div>

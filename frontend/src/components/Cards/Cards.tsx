@@ -20,7 +20,7 @@ const Cards = {
   CardKategori: (props: ICards) => {
     const { image, title, description } = props
     return (
-      <div className="w-[250px] rounded-[10px] shadow-[0_40px_60px_0px_rgba(32,77,132,0.1)]">
+      <div className="w-[250px] rounded-[10px]">
         <img
           className="rounded-tl-[10px] h-[255px] rounded-tr-[10px]"
           src={image}

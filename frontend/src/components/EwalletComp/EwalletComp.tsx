@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import { Collapse } from 'antd'
 
 const options = [
@@ -36,7 +37,9 @@ export default function EwalletComp() {
       </div>
       <hr />
       <div className="w-full py-[10px] mt-[18px] bg-white">
+        <Link href='/pembayaran'>
         <h1 className="text-center">Back to Merchant</h1>
+        </Link>
       </div>
     </div>
   )

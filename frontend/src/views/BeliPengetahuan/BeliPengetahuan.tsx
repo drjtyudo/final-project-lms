@@ -6,6 +6,7 @@ import Footer from 'layouts/containers/Public/Footer'
 import { ModulComp } from 'components/Modul/ModulComp'
 import Komentar from 'components/Review/komentar'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 function BeliPengetahuan() {
   const router = useRouter()
@@ -94,10 +95,14 @@ function BeliPengetahuan() {
             >
               <ul className="list-disc px-[25px]">
                 <li className="text-[16px]">
-                {pelatihan.totalDurasiString}  menit total video pembelajaran
+                  {pelatihan.totalDurasiString} menit total video pembelajaran
                 </li>
-                <li className="text-[16px]">{pelatihan.bahanBacaan} bahan bacaan </li>
-                <li className="text-[16px]">{pelatihan.kontenUnduh}  konten dapat diunduh </li>
+                <li className="text-[16px]">
+                  {pelatihan.bahanBacaan} bahan bacaan{' '}
+                </li>
+                <li className="text-[16px]">
+                  {pelatihan.kontenUnduh} konten dapat diunduh{' '}
+                </li>
                 <li className="text-[16px]">Kuis yang dapat dikerjakan </li>
                 <li className="text-[16px]">Sertifikat dapat diunduh</li>
               </ul>
@@ -115,13 +120,15 @@ function BeliPengetahuan() {
                   width: 332,
                 }}
               >
-                <p className="flex items-center justify-between px-1 text-[20px]">
-                  Harga
-                  <span className="ml-auto font-bold">
-                    Rp {pelatihan.harga},-
-                  </span>
-                </p>
+                  <p className="flex items-center justify-between px-1 text-[20px]">
+                    Harga
+                    <span className="ml-auto font-bold">
+                      Rp {pelatihan.harga},-
+                    </span>
+                  </p>
+                <Link href='/pembayaran'>
                 <Button className="w-full mt-4">Beli Sekarang</Button>
+                </Link>
               </Card>
             </Space>
           </div>

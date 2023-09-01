@@ -1,6 +1,7 @@
 import React from 'react'
 import { Collapse } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
+import Link from 'next/link'
 
 const options = [
   '1. Lorem ipsum dolor sit amet',
@@ -28,18 +29,18 @@ export default function CreditComp() {
         <div>
           <div className="flex gap-x-[277px]">
             <p>NoKartu</p>
-            <div className="w-full h-5 bg-no-repeat" style={card}></div>
+            <div className="w-full h-5 bg-no-repeat ml-3" style={card}></div>
           </div>
-          <input type="text" placeholder='1234 5678 90' className="w-full h-[36px]" />
+          <input type="text" placeholder='1234 5678 90' className="bg-slate-100 pl-[2px] w-full h-[36px]" />
         </div>
-        <div className="flex gap-[53px] mt-6">
+        <div className="flex gap-[33px] mt-6">
           <div>
             <p>Masa Berlaku</p>
-            <input type="text" className='h-[36px]' placeholder='Masa Berlaku'/>
+            <input type="text" className='h-[36px] bg-slate-100 pl-[2px]' placeholder='Masa Berlaku'/>
           </div>
           <div>
             <p>CVV</p>
-            <input type="text" className='h-[36px]' placeholder='CVV'/>
+            <input type="text"  className='h-[36px] bg-slate-100 pl-[2px]' placeholder='CVV'/>
           </div>
         </div>
       </div>
@@ -56,7 +57,9 @@ export default function CreditComp() {
       </div>
       <hr />
       <div className="w-full py-[10px] mt-[18px] bg-white">
+      <Link href='/pembayaran'>
         <h1 className="text-center">Back to Merchant</h1>
+        </Link>
       </div>
     </div>
   )
